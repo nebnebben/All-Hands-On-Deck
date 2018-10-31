@@ -4,6 +4,8 @@ You can use the [editor on GitHub](https://github.com/7SeasOfSomething/UnnamedGa
 
 Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
 
+<a href="testing.md">Page 2</a>
+
 ### Markdown
 
 Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
