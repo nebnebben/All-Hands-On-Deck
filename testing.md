@@ -1,3 +1,12 @@
+---
+title: This will be used as the title-tag of the page head
+---
+
+hello
+=====
+
+**You are here!**
+
 Still not entirely sure what I'm doing
 
 # Header 1
