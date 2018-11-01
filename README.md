@@ -1,8 +1,3 @@
-<a href="">Home</a>
-<a href="assessments">Assessments</a>
-<a href="about">About Us</a>
-<a href="">GitHub (Fix me)</a>
-
 ## Welcome to the site!
 
 TEST
@@ -48,3 +43,8 @@ Having trouble with Pages? Check out our [documentation](https://help.github.com
 
 ### Testing Testing 123
 #Test 1
+
+<a href="">Home</a>
+<a href="assessments">Assessments</a>
+<a href="about">About Us</a>
+<a href="">GitHub (Fix me)</a>
