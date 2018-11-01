@@ -1,8 +1,8 @@
 ## Welcome to GitHub Pages
-<a href="README">Home</a>
+<a href="">Home</a>
 <a href="assessments">Assessments</a>
 <a href="about">About Us</a>
-<a href="README">GitHub (Fix me)</a>
+<a href="">GitHub (Fix me)</a>
 
 TEST
 
