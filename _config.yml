@@ -1,2 +1,10 @@
 theme: jekyll-theme-minimal
-title: 7 Seas Of Something SEPR
+title: 7 Seas Of Something 
+description: SEPR Project
+avatar: https://jabrah29.people.uic.edu/processing/data/clock.png
+
+navbar-links:
+  Testing testing: "123456"
+  
+navbar-col: "#F5F5F5"
+navbar-text-col: "#404040"
