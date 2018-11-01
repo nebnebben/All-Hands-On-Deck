@@ -2,3 +2,5 @@ theme: jekyll-theme-minimal
 title: Seven Seas Of Something
 description: SEPR is hell
 baseurl: /UnnamedGame
+logo: https://upload.wikimedia.org/wikipedia/commons/4/42/Temp_plate.svg
+show_downloads: true
