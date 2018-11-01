@@ -1,11 +1,14 @@
 ## Welcome to GitHub Pages
+<a href="testing">Page 2</a>
+<a href="testing">Assessments</a>
+<a href="about">About Us</a>
+<a href="testing">GitHub</a>
 TEST
+
+
 You can use the [editor on GitHub](https://github.com/7SeasOfSomething/UnnamedGame/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
 
 Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
-
-<a href="testing">Page 2</a>
-<a href="about">Page 3</a>
 
 ### Markdown
 
