@@ -48,3 +48,4 @@ Having trouble with Pages? Check out our [documentation](https://help.github.com
 <a href="assessments">Assessments</a>
 <a href="about">About Us</a>
 <a href="">GitHub (Fix me)</a>
+Used: http://dh.obdurodon.org/jekyll.xhtml and https://github.com/pages-themes/minimal
