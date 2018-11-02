@@ -1,5 +1,6 @@
 ---
 title: Assessments
+background: "https://melbournechapter.net/images/clipart-ocean-clipart-8.png"
 ---
 
 Assessment stuff
