@@ -1,4 +1,4 @@
-## Welcome to the site!
+## If you're seeing this, something went wrong.
 
 TEST
 
