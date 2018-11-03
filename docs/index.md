@@ -1,12 +1,18 @@
-## Welcome to the site! Another test!
-
-TEST
+### Welcome to the site! 
 
 
-You can use the [editor on GitHub](https://github.com/7SeasOfSomething/UnnamedGame/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+Welcome to the Seven Seas Of Something website! This is all still under construction, so please bear with us in the meantime.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+
+Currently, only Assessment One is available to download on the Assessments Tab.
+
+
+
+
+Everything below here is kept here just so that we can use the markdown when needs be. Please ignore it.
 ___
+___
+
 
 ### Markdown
 ___
