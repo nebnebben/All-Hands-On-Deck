@@ -10,28 +10,28 @@ About Us Page
 
 # Title 1
 <figure>
-  <img src="https://raw.githubusercontent.com/7SeasOfSomething/UnnamedGame/master/docs/images/test_temp.png" alt="Image of Someone"/>
+  <img src="https://raw.githubusercontent.com/7SeasOfSomething/UnnamedGame/master/docs/images/test_temp.png" alt="Image of Someone" width="175" height="250">
   <figcaption>Seeing if it's possible to put down a bit of info about the picture right next to it, or maybe not.</figcaption>
 </figure>
 
 # Title 2
 
 <figure>
-  <img src="https://raw.githubusercontent.com/7SeasOfSomething/UnnamedGame/master/docs/images/test_temp.png" alt="Image of Someone"/>
+  <img src="https://raw.githubusercontent.com/7SeasOfSomething/UnnamedGame/master/docs/images/test_temp.png" alt="Image of Someone" width="175" height="250">
   <figcaption>Seeing if it's possible to put down a bit of info about the picture right next to it, or maybe not.</figcaption>
 </figure>
 
 # Title 3
 
 <figure>
-  <img src="https://raw.githubusercontent.com/7SeasOfSomething/UnnamedGame/master/docs/images/test_temp.png" alt="Image of Someone"/>
+  <img src="https://raw.githubusercontent.com/7SeasOfSomething/UnnamedGame/master/docs/images/test_temp.png" alt="Image of Someone" width="175" height="250">
   <figcaption>Seeing if it's possible to put down a bit of info about the picture right next to it, or maybe not.</figcaption>
 </figure>
 
 # Title 4
 
 <figure>
-  <img src="https://raw.githubusercontent.com/7SeasOfSomething/UnnamedGame/master/docs/images/test_temp.png" alt="Image of Someone"/>
+  <img src="https://raw.githubusercontent.com/7SeasOfSomething/UnnamedGame/master/docs/images/test_temp.png" alt="Image of Someone" width="175" height="250">
   <figcaption>Seeing if it's possible to put down a bit of info about the picture right next to it, or maybe not.</figcaption>
 </figure>
 
