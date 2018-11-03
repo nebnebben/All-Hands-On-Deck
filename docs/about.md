@@ -9,9 +9,10 @@ About Us Page
 
 
 # Title 1
-<img src="https://raw.githubusercontent.com/7SeasOfSomething/UnnamedGame/master/docs/images/test_temp.png" alt="Image of Someone" width="175" height="250">
-
-Seeing if it's possible to put down a bit of info about the picture right next to it, or maybe not.
+<figure>
+  <img src="https://raw.githubusercontent.com/7SeasOfSomething/UnnamedGame/master/docs/images/test_temp.png" alt="Image of Someone"/>
+  <figcaption>Seeing if it's possible to put down a bit of info about the picture right next to it, or maybe not.</figcaption>
+</figure>
 
 # Title 2
 
@@ -21,8 +22,17 @@ Seeing if it's possible to put down a bit of info about the picture right next t
 </figure>
 
 # Title 3
-**Coming Eventually!**
+
+<figure>
+  <img src="https://raw.githubusercontent.com/7SeasOfSomething/UnnamedGame/master/docs/images/test_temp.png" alt="Image of Someone"/>
+  <figcaption>Seeing if it's possible to put down a bit of info about the picture right next to it, or maybe not.</figcaption>
+</figure>
+
 # Title 4
-**Coming Eventually!**
+
+<figure>
+  <img src="https://raw.githubusercontent.com/7SeasOfSomething/UnnamedGame/master/docs/images/test_temp.png" alt="Image of Someone"/>
+  <figcaption>Seeing if it's possible to put down a bit of info about the picture right next to it, or maybe not.</figcaption>
+</figure>
 
 ![Octocat](https://assets-cdn.github.com/images/icons/emoji/octocat.png)
