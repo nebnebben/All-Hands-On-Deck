@@ -44,7 +44,7 @@ About Us Page
   <figcaption>Report editor.</figcaption>
 </figure>
 
-# Adrian Reyes
+# Adrian Reyes Frias
 
 <figure>
   <img src="https://raw.githubusercontent.com/7SeasOfSomething/UnnamedGame/master/docs/images/test_temp.png" alt="Image of Someone" width="175" height="250">
