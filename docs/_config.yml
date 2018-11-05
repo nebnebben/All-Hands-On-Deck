@@ -2,5 +2,5 @@ theme: jekyll-theme-minimal
 title: Seven Seas Of Something
 description: SEPR Project W.I.P!
 #baseurl: /UnnamedGame/
-logo: https://upload.wikimedia.org/wikipedia/commons/4/42/Temp_plate.svg
+logo: https://raw.githubusercontent.com/7SeasOfSomething/UnnamedGame/master/docs/images/Logo.png
 #show_downloads: true #This lets you download the entire current repo, maybe it's not exactly what we're looking for right now.
