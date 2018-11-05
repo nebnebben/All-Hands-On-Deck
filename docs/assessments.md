@@ -5,8 +5,7 @@ title: Assessments
 Assessment stuff
 =====
 
-**You are here!**
-**Download our stuff!**
+**Download our assessment files!**
 
 
 
