@@ -5,9 +5,6 @@ title: Assessments
 Assessment stuff
 =====
 
-**Download our assessment files!**
-
-
 
 ## Assessment One
 <p> + <a href="https://github.com/7SeasOfSomething/UnnamedGame/raw/master/docs/assessment1/risk1%20TEMP.pdf">Requirements</a></p>
