@@ -7,7 +7,7 @@ Assessment stuff
 
 
 ## Assessment One
-<p> + <a href="https://github.com/7SeasOfSomething/UnnamedGame/raw/master/docs/assessment1/risk1%20TEMP.pdf">Requirements</a></p>
+<p> + <a href="https://github.com/7SeasOfSomething/All-Hands-On-Deck/blob/master/docs/assessment1/risk1%20TEMP.pdf">Requirements</a></p>
 <p> + <a href="https://github.com/7SeasOfSomething/UnnamedGame/raw/master/docs/assessment1/risk1%20TEMP.pdf">Architecture</a></p>
 
 <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - <a href="https://raw.githubusercontent.com/7SeasOfSomething/All-Hands-On-Deck/master/docs/assessment1/architecture/ArchitectureMain.jpg">Main Diagram</a></p>
