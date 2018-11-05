@@ -4,35 +4,50 @@ title: About Us
 About Us Page
 =====
 
-**Maybe put pictures here**
+**No pictures here just yet**
 
 
 
-# Title 1
-<figure>
-  <img src="https://raw.githubusercontent.com/7SeasOfSomething/UnnamedGame/master/docs/images/test_temp.png" alt="Image of Someone" width="175" height="250">
-  <figcaption>Seeing if it's possible to put down a bit of info about the picture right next to it, or maybe not.</figcaption>
-</figure>
-
-# Title 2
+# Jordan Layton
 
 <figure>
   <img src="https://raw.githubusercontent.com/7SeasOfSomething/UnnamedGame/master/docs/images/test_temp.png" alt="Image of Someone" width="175" height="250">
-  <figcaption>Seeing if it's possible to put down a bit of info about the picture right next to it, or maybe not.</figcaption>
+  <figcaption>Scrum Manager (Meeting Chair).</figcaption>
 </figure>
 
-# Title 3
+# Ben Chandler De Waal
 
 <figure>
   <img src="https://raw.githubusercontent.com/7SeasOfSomething/UnnamedGame/master/docs/images/test_temp.png" alt="Image of Someone" width="175" height="250">
-  <figcaption>Seeing if it's possible to put down a bit of info about the picture right next to it, or maybe not.</figcaption>
+  <figcaption>Secretary.</figcaption>
 </figure>
 
-# Title 4
+# Grisha Hushchyn
 
 <figure>
   <img src="https://raw.githubusercontent.com/7SeasOfSomething/UnnamedGame/master/docs/images/test_temp.png" alt="Image of Someone" width="175" height="250">
-  <figcaption>Seeing if it's possible to put down a bit of info about the picture right next to it, or maybe not.</figcaption>
+  <figcaption>Librarian.</figcaption>
 </figure>
 
-![Octocat](https://assets-cdn.github.com/images/icons/emoji/octocat.png)
+# Patrick Maloney
+
+<figure>
+  <img src="https://raw.githubusercontent.com/7SeasOfSomething/UnnamedGame/master/docs/images/test_temp.png" alt="Image of Someone" width="175" height="250">
+  <figcaption>Risk Manager.</figcaption>
+</figure>
+
+
+# James Prenter
+
+<figure>
+  <img src="https://raw.githubusercontent.com/7SeasOfSomething/UnnamedGame/master/docs/images/test_temp.png" alt="Image of Someone" width="175" height="250">
+  <figcaption>Report editor.</figcaption>
+</figure>
+
+# Adrian Reyes
+
+<figure>
+  <img src="https://raw.githubusercontent.com/7SeasOfSomething/UnnamedGame/master/docs/images/test_temp.png" alt="Image of Someone" width="175" height="250">
+  <figcaption>Report editor.</figcaption>
+</figure>
+
