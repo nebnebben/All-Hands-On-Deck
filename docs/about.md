@@ -4,7 +4,7 @@ title: About Us
 About Us Page
 =====
 
-**No pictures here just yet**
+**No pictures here just yet.**
 
 
 
