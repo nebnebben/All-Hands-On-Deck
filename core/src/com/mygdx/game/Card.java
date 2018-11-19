@@ -17,6 +17,10 @@ public class Card {
         return Arrays.asList(shopCost, goldCost, manaCost);
     }
 
+    public Card(){
+        numberOfCards++;
+    }
+
 
 
 }
