@@ -136,4 +136,19 @@ public class BattleMode {
         }
     }
 
+    /**
+     * Update clock and increment mana if specific ship's regen amount has been reached.
+     * This most likely isn't needed and will be in the actual section that does the graphics
+     * and actually runs it in the render class. However, this might as well be here as a temporary thing.
+     */
+    public void updateClock(){
+        clock += 1;
+        if (clock % playerShip.getManaRegenRate() == 0){
+            updateMana("player", 1);
+        }
+        if (clock % enemyShip.getManaRegenRate() == 0){
+            updateMana("enemy", 1);
+        }
+    }
+
 }
