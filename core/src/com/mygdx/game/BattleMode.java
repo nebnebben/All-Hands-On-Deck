@@ -8,8 +8,9 @@ import java.util.*;
  */
 public class BattleMode {
     //Calling instances of the ship class for the enemy and the player.
-    private Ship enemyShip;
-    private Ship playerShip;
+    //Made public for now, may not be correct.
+    public Ship enemyShip;
+    public Ship playerShip;
     //The mana count and max for both the player and the enemy.
     private Integer playerMana;
     private Integer enemyMana;
@@ -35,7 +36,7 @@ public class BattleMode {
 
 
     public BattleMode() {
-        playerManaMax = 20;
+        playerManaMax = 99;
         enemyManaMax = 20;
         playerMana = 0;
         enemyMana = 0;
@@ -57,11 +58,6 @@ public class BattleMode {
 
 
 
-    /**
-     * Increases the value of "clock" by 1.
-     */
-    public void UpdateClock(){
-        clock++;}
 
     /**
      * Takes in the user's card choice and begins to put it into play.
@@ -151,4 +147,19 @@ public class BattleMode {
         }
     }
 
+    public String showManaBar(String target) {
+        if (target == "player") {
+            return "(" + playerShipHealth + "/" + playerShipHealthMax + ")";
+        } else if (target == "enemy") {
+            return "(" + enemyShipHealth + "/" + enemyShipHealthMax + ")";
+        } else{ return null; }
+    }
+
+    public String showHealthBar(String target) {
+        if (target == "player") {
+            return "(" + playerMana + "/" + playerManaMax + ")";
+        } else if (target == "enemy") {
+            return "(" + enemyMana + "/" + enemyManaMax + ")";
+        } else{ return null; }
+    }
 }
