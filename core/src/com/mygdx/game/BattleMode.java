@@ -23,7 +23,7 @@ public class BattleMode {
     private List<Card> playerHand;
     private List<Card> enemyHand;
     //Keeps track of the progression of time, giving both players mana and playing their moves.
-    private Integer clock;
+    private double clock;
     //The deck that both the enemy and the player brings into the current battle.
     private List<Card> playerTempDeck;
     private ArrayList<Card> enemyTempDeck;
@@ -46,12 +46,12 @@ public class BattleMode {
         Ship playerShip = new Ship();
         Ship enemyShip = new Ship();
         playerShip.setManaRegenRate(60);
-        enemyShip.setManaRegenRate(60);
+        enemyShip.setManaRegenRate(120);
 
         //These aren't included anywhere, so they probably should be added somewhere, temp here maybe.
-        playerShipHealthMax = 10;
+        playerShipHealthMax = 20;
         enemyShipHealthMax = 10;
-        playerShipHealth = 10;
+        playerShipHealth = 20;
         enemyShipHealth = 10;
 
     }

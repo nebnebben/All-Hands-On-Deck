@@ -15,7 +15,8 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 public class BattleModeGraphics extends ApplicationAdapter {
     private Texture background;
     SpriteBatch batch;
-    BitmapFont font;
+    BitmapFont playerFont;
+    BitmapFont enemyFont;
     Stage stage;
     Sprite sprite;
     BattleMode battleMode = new BattleMode();
@@ -70,8 +71,10 @@ public class BattleModeGraphics extends ApplicationAdapter {
     public void create() {
         stage = new Stage();
         batch = new SpriteBatch();
-        font = new BitmapFont();
-        font.setColor(Color.RED);
+        playerFont = new BitmapFont();
+        playerFont.setColor(Color.GREEN);
+        enemyFont = new BitmapFont();
+        enemyFont.setColor(Color.RED);
 
         background = new Texture( Gdx.files.internal("ocean.png") );
         Gdx.input.setInputProcessor(stage);
@@ -93,14 +96,19 @@ public class BattleModeGraphics extends ApplicationAdapter {
 
 
 
-        String manaBar = battleMode.showHealthBar("player");
-        String healthBar = battleMode.showManaBar("player");
+        String playerManaBar = battleMode.showHealthBar("player");
+        String playerHealthBar = battleMode.showManaBar("player");
+        String enemyManaBar = battleMode.showHealthBar("enemy");
+        String enemyHealthBar = battleMode.showManaBar("enemy");
 
         battleMode.updateMana("player", 1);
+        battleMode.updateMana("enemy", 1);
+        //battleMode.updateClock();  //---Doesn't work for some reason.
 
         batch.begin();
         batch.draw(background,0,0);
-        font.draw(batch, manaBar + healthBar, 100, 100);
+        playerFont.draw(batch, playerManaBar + playerHealthBar, 100, 100);
+        enemyFont.draw(batch, enemyManaBar + enemyHealthBar, 100, 50);
         batch.end();
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
@@ -112,7 +120,9 @@ public class BattleModeGraphics extends ApplicationAdapter {
         @Override
     public void dispose() {
         batch.dispose();
-        font.dispose();
+        playerFont.dispose();
+        enemyFont.dispose();
         stage.dispose();
+
     }
 }
