@@ -1,5 +1,6 @@
 package com.mygdx.game;
-import java.util.*
+import java.util.*;
+import java.lang.Integer;
 
 public class GameController {
     private Boolean gameComplete; //boolean for whether or not the game is complete
@@ -8,12 +9,11 @@ public class GameController {
     private Integer currentSupplies; //supplies used to traverse node map
     public Integer currentGold; //gold used to buy things - functionality elsewhere
     private Integer currentTurn; //tracker of current turn
-    private List<String> objectives; //list of objectives to complete game
-    /* temporary until proper classes implemented.
+    private String[] objectives; //list of objectives to complete game
     private Player player; //containing information relating to the player
-    private List<Quests> activeQuests; //list of quests issued to the player
+    //private List<Quests> activeQuests; //list of quests issued to the player
     private List<Node> nodeList; //full node map - node connections stored in nodes.
-     */
+
 
     //GameController constructor - includes building node map
     public GameController () {
@@ -22,14 +22,14 @@ public class GameController {
 
     //iterates through objectives, if all complete returns true and changes gameComplete
     public Boolean checkWin(){
-        Boolean outcome = True;
-        for (int i=0; i <size(objectives);i++){
+        Boolean outcome = Boolean.TRUE;
+        for (int i=0; i<=objectives.length();i++){
             if (!checkObjective(objectives[i])) {
-                outcome = False;
+                outcome = Boolean.FALSE;
             }
         }
         if (outcome) {
-            gameComplete = True;
+            gameComplete = Boolean.TRUE;
         }
         return outcome;
     }
@@ -38,22 +38,22 @@ public class GameController {
     public Boolean checkLoss(){
         /*
         if (player.playerShip.health <= 0 || currentSupplies < 0){
-            gameComplete = True;
-            return True;
+            gameComplete = Boolean.TRUE;
+            return Boolean.TRUE;
         } else {
-            return False;
+            return Boolean.FALSE;
         }
          */
-        return True; //placeholder
+        return Boolean.TRUE; //placeholder
     }
 
     //takes in quest, goes through its objectives and checks if it has been complete
     /*
     public Boolean checkQuestCompletion(quest: Quest) {
-        Boolean outcome = True;
+        Boolean outcome = Boolean.TRUE;
         for (int i=0;i<size(quest.Objectives);i++){
             if (!checkObjective(quest.Objectives[i]){
-                outcome = False;
+                outcome = Boolean.FALSE;
             }
         }
         return outcome;
@@ -64,25 +64,25 @@ public class GameController {
     //objective format "ObjectiveTypeCharacter-RelatedDetail1-..."
     public Boolean checkObjective (String objective) {
         //splits objective into component parts - first part indicates what kind of objective. Rest objective specific
-        Char[] details = objective.split("-");
-        switch (details[0]) {
+        String[] details = objective.split("-");
+        switch (details[0].charAt(0)) {
             //Checks for the specified amount of gold
             case "G":
-                if (currentGold > parseInt(details[1])){
-                return True;
+                if (currentGold > Integer.parseInt(details[1])){
+                return Boolean.TRUE;
                 } else {
-                    return False;
+                    return Boolean.FALSE;
                 }
             case "T":
-                if (currentTurn > PraseInt(details[1])){
-                    return True;
+                if (currentTurn > Integer.parseInt(details[1])){
+                    return Boolean.TRUE;
                 } else {
-                    return False;
+                    return Boolean.FALSE;
                 }
             default: throw new IllelgalArgumentException("Invalid objective");
         }
 
-        return True;
+        return Boolean.TRUE;
     }
 
     //completes quest activeQuests(questID): removes it from activeQuests and gives rewards
