@@ -23,7 +23,7 @@ public class GameController {
     //iterates through objectives, if all complete returns true and changes gameComplete
     public Boolean checkWin(){
         Boolean outcome = Boolean.TRUE;
-        for (int i=0; i<=objectives.length();i++){
+        for (int i=0; i<=objectives.length;i++){
             if (!checkObjective(objectives[i])) {
                 outcome = Boolean.FALSE;
             }
@@ -67,22 +67,20 @@ public class GameController {
         String[] details = objective.split("-");
         switch (details[0].charAt(0)) {
             //Checks for the specified amount of gold
-            case "G":
+            case 'G':
                 if (currentGold > Integer.parseInt(details[1])){
                 return Boolean.TRUE;
                 } else {
                     return Boolean.FALSE;
                 }
-            case "T":
+            case 'T':
                 if (currentTurn > Integer.parseInt(details[1])){
                     return Boolean.TRUE;
                 } else {
                     return Boolean.FALSE;
                 }
-            default: throw new IllelgalArgumentException("Invalid objective");
+            default: throw new IllegalArgumentException("Invalid objective");
         }
-
-        return Boolean.TRUE;
     }
 
     //completes quest activeQuests(questID): removes it from activeQuests and gives rewards
@@ -134,6 +132,14 @@ public class GameController {
             ;
         }
 
+    }
+
+    public int getCurrentTurn(){
+        return currentTurn;
+    }
+
+    public int getScore() {
+        return currentScore;
     }
 
 }
