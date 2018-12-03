@@ -33,6 +33,8 @@ public class BattleMode {
     private Integer enemyShipHealthMax;
     private Integer playerShipHealth;
     private Integer enemyShipHealth;
+    private Integer playerShipManaRate;
+    private Integer enemyShipManaRate;
 
 
     public BattleMode() {
@@ -53,7 +55,8 @@ public class BattleMode {
         enemyShipHealthMax = 10;
         playerShipHealth = 20;
         enemyShipHealth = 10;
-
+        playerShipManaRate = playerShip.getManaRegenRate();
+        enemyShipManaRate = enemyShip.getManaRegenRate();
     }
 
 
@@ -139,10 +142,11 @@ public class BattleMode {
      */
     public void updateClock(){
         clock += 1;
-        if (clock % playerShip.getManaRegenRate() == 0){
+
+        if (clock % playerShipManaRate == 0){
             updateMana("player", 1);
         }
-        if (clock % enemyShip.getManaRegenRate() == 0){
+        if (clock % enemyShipManaRate == 0){
             updateMana("enemy", 1);
         }
     }

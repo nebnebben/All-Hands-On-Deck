@@ -39,7 +39,7 @@ public class Ship {
     }
 
     public Integer getManaRegenRate() {
-        return manaRegenRate;
+        return this.manaRegenRate;
     }
 
     //public void addCard(Card card){

@@ -101,9 +101,9 @@ public class BattleModeGraphics extends ApplicationAdapter {
         String enemyManaBar = battleMode.showHealthBar("enemy");
         String enemyHealthBar = battleMode.showManaBar("enemy");
 
-        battleMode.updateMana("player", 1);
-        battleMode.updateMana("enemy", 1);
-        //battleMode.updateClock();  //---Doesn't work for some reason.
+        //battleMode.updateMana("player", 1);
+        //battleMode.updateMana("enemy", 1);
+        battleMode.updateClock();  //---Doesn't work for some reason.
 
         batch.begin();
         batch.draw(background,0,0);
