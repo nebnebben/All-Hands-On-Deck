@@ -21,6 +21,21 @@ public class Card {
         numberOfCards++;
     }
 
+    public Integer getManaCost(){
+        return manaCost;
+    }
 
+    public String getEffect(){
+        return effect;
+    }
 
+    //----------------------------These are here while there are no cards, just so that there is something to test with.
+    public void setManaCost(Integer manaCost) {
+        this.manaCost = manaCost;
+    }
+
+    public void setEffect(String effect) {
+        this.effect = effect;
+    }
+    //----------------------------Remove the stuff above once the card database is in action.
 }

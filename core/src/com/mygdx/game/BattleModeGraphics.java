@@ -30,6 +30,8 @@ public class BattleModeGraphics extends ApplicationAdapter {
     private Integer enemyTotalMana;
     private Integer enemyCurrentHealth;
     private Integer enemyTotalHealth;
+
+    private Boolean gameOver; //If playerShip or enemyShip are dead.
     //temp?
 
 
@@ -40,10 +42,7 @@ public class BattleModeGraphics extends ApplicationAdapter {
 
 
         public PlayerShip() {
-            setBounds(getX(), getY(), texture.getWidth(), texture.getHeight());
-
-
-        }
+            setBounds(getX(), getY(), texture.getWidth(), texture.getHeight());}
 
         @Override
         public void draw(Batch batch, float alpha) {
@@ -54,7 +53,6 @@ public class BattleModeGraphics extends ApplicationAdapter {
     public class EnemyShip extends Actor {
         Texture texture = new Texture(Gdx.files.internal("EnemyShip.png"));
         public boolean started = false;
-        Ship enemyShip = new Ship();
 
         public EnemyShip() {
             setBounds(getX(), getY(), texture.getWidth(), texture.getHeight());
@@ -66,6 +64,36 @@ public class BattleModeGraphics extends ApplicationAdapter {
         }
     }
 
+    public class AttackCard extends Actor {
+        Texture texture = new Texture(Gdx.files.internal("CardAttack.png"));
+        public boolean started = false;
+
+        public AttackCard() {
+            setBounds(getX(), getY(), texture.getWidth(), texture.getHeight());
+        }
+
+        @Override
+        public void draw(Batch batch, float alpha) {
+            batch.draw(texture, this.getX(), getY());
+        }
+    }
+
+    public class DefendCard extends Actor {
+        Texture texture = new Texture(Gdx.files.internal("CardDefend.png"));
+        public boolean started = false;
+
+        public DefendCard() {
+            setBounds(getX(), getY(), texture.getWidth(), texture.getHeight());
+        }
+
+        @Override
+        public void draw(Batch batch, float alpha) {
+            batch.draw(texture, this.getX(), getY());
+        }
+    }
+
+
+
 
     @Override
     public void create() {
@@ -76,17 +104,25 @@ public class BattleModeGraphics extends ApplicationAdapter {
         enemyFont = new BitmapFont();
         enemyFont.setColor(Color.RED);
 
+        gameOver = false;
+
         background = new Texture( Gdx.files.internal("ocean.png") );
         Gdx.input.setInputProcessor(stage);
 
         PlayerShip playerShipActor = new PlayerShip();
         EnemyShip enemyShipActor = new EnemyShip();
+        AttackCard attackCardActor = new AttackCard();
+        DefendCard defendCardActor = new DefendCard();
 
         playerShipActor.setPosition(0,250);
         enemyShipActor.setPosition(470,250);
+        attackCardActor.setPosition(150, 0);
+        defendCardActor.setPosition(350, 0);
 
         stage.addActor(playerShipActor);
         stage.addActor(enemyShipActor);
+        stage.addActor(attackCardActor);
+        stage.addActor(defendCardActor);
     }
 
     @Override
@@ -103,12 +139,21 @@ public class BattleModeGraphics extends ApplicationAdapter {
 
         //battleMode.updateMana("player", 1);
         //battleMode.updateMana("enemy", 1);
-        battleMode.updateClock();  //---Doesn't work for some reason.
+
+
+        battleMode.updateClock();
+        battleMode.basicEnemyAI();
+        //if(!(gameOver)){
+        //    battleMode.updateClock();
+        //    battleMode.basicEnemyAI();
+        //}
+
+
 
         batch.begin();
         batch.draw(background,0,0);
-        playerFont.draw(batch, playerManaBar + playerHealthBar, 100, 100);
-        enemyFont.draw(batch, enemyManaBar + enemyHealthBar, 100, 50);
+        playerFont.draw(batch, playerManaBar + playerHealthBar, 75, 450);
+        enemyFont.draw(batch, enemyManaBar + enemyHealthBar, 475, 450);
         batch.end();
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();

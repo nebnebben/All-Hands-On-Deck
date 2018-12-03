@@ -20,15 +20,17 @@ public class BattleMode {
     private String playerShipEffects;
     private String enemyShipEffects;
     //The currently held cards for the enemy and the player.
-    private List<Card> playerHand;
-    private List<Card> enemyHand;
+    private List<Card> playerHand = new ArrayList<Card>();
+    private List<Card> enemyHand = new ArrayList<Card>();
+    ////private Card playerCurrentCard;
+    ////private Card enemyCurrentCard;
     //Keeps track of the progression of time, giving both players mana and playing their moves.
     private double clock;
     //The deck that both the enemy and the player brings into the current battle.
     private List<Card> playerTempDeck;
-    private ArrayList<Card> enemyTempDeck;
+    private List<Card> enemyTempDeck;
 
-    //Temp, not present in the documents but will be here most likely
+    //Temp for ships, not present in the documents but will be here most likely
     private Integer playerShipHealthMax;
     private Integer enemyShipHealthMax;
     private Integer playerShipHealth;
@@ -37,9 +39,13 @@ public class BattleMode {
     private Integer enemyShipManaRate;
 
 
+
+
+
+
     public BattleMode() {
-        playerManaMax = 99;
-        enemyManaMax = 20;
+        playerManaMax = 25;
+        enemyManaMax = 15;
         playerMana = 0;
         enemyMana = 0;
         clock = 0;
@@ -48,7 +54,19 @@ public class BattleMode {
         Ship playerShip = new Ship();
         Ship enemyShip = new Ship();
         playerShip.setManaRegenRate(60);
-        enemyShip.setManaRegenRate(120);
+        enemyShip.setManaRegenRate(60);
+
+
+        //Adding an enemy attack.
+        Card basicEnemyAttack = new Card();
+        basicEnemyAttack.setEffect("A5");
+        basicEnemyAttack.setManaCost(enemyManaMax);
+        enemyHand.add(basicEnemyAttack);
+
+        Card basicPlayerAttack = new Card();
+        Card basicPlayerDefend = new Card();
+        playerHand.add(basicPlayerAttack);
+        playerHand.add(basicPlayerDefend);
 
         //These aren't included anywhere, so they probably should be added somewhere, temp here maybe.
         playerShipHealthMax = 20;
@@ -73,7 +91,13 @@ public class BattleMode {
      * Takes in the enemy's card choice and begins to put it into play.
      * @return The card that the enemy plays.
      */
-    public Card enemyPlayCard(){return null;}
+    public Card enemyPlayCard(){ //Is it really worth the effort to give the enemy a full deck/temp hand? Having 2-4 basic abilities that vary should be enough.
+        if(!(enemyHand.isEmpty())){
+            return enemyHand.get(0);
+        } else {
+            return null;
+        }
+    }
 
     /**
      * Draws a card from the TempDeck and gives it into the selected person's hand.
@@ -86,7 +110,21 @@ public class BattleMode {
      * @param card - a given card and its information.
      * @param target - whom the effects of the card apply to.
      */
-    public void applyCard(Card card, String target){}
+    public void applyCard(Card card, String target){
+
+        if(card.getEffect().contains("A")){ //attack
+            updateHealth(target, -Character.getNumericValue(card.getEffect().charAt(1)));
+            //updateHealth(target, 5);
+
+            if(target == "player"){
+                if(enemyShipHealth == 0) {enemyShip.setIsDead(true);}
+                updateMana("enemy", -card.getManaCost());
+            } else if (target == "enemy"){
+                if(playerShipHealth == 0) {playerShip.setIsDead(true);}
+                updateMana("player", -card.getManaCost());
+            }
+        }
+    }
 
     /**
      * Increases the value of someone's mana by 1. (May need to make it so larger than 1 mana increases are possible.
@@ -151,7 +189,12 @@ public class BattleMode {
         }
     }
 
-    public String showManaBar(String target) {
+    /**
+     * Show the health current and max for a given target
+     * @param target
+     * @return a string consisting of (currentHp / maxHp )
+     */
+    public String showHealthBar(String target) {
         if (target == "player") {
             return "(" + playerShipHealth + "/" + playerShipHealthMax + ")";
         } else if (target == "enemy") {
@@ -159,11 +202,26 @@ public class BattleMode {
         } else{ return null; }
     }
 
-    public String showHealthBar(String target) {
+    /**
+     * Shows the mana current and max for a given target
+     * @param target
+     * @return a string consisting of (currentMana / maxMana )
+     */
+    public String showManaBar(String target) {
         if (target == "player") {
             return "(" + playerMana + "/" + playerManaMax + ")";
         } else if (target == "enemy") {
             return "(" + enemyMana + "/" + enemyManaMax + ")";
         } else{ return null; }
+    }
+
+    /**
+     * Trying to make an enemy attack the player once its mana is full.
+     * God have mercy on my soul.
+     */
+    public void basicEnemyAI(){
+        if(enemyMana == enemyManaMax){
+            applyCard(enemyPlayCard(), "player");
+        }
     }
 }
