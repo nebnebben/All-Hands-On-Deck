@@ -10,6 +10,8 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
 public class BattleModeGraphics extends ApplicationAdapter {
@@ -70,11 +72,25 @@ public class BattleModeGraphics extends ApplicationAdapter {
 
         public AttackCard() {
             setBounds(getX(), getY(), texture.getWidth(), texture.getHeight());
+            addListener(new InputListener(){
+                public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+                    ((AttackCard)event.getTarget()).started = true;
+                    return true;
+                }
+            });
         }
 
         @Override
         public void draw(Batch batch, float alpha) {
             batch.draw(texture, this.getX(), getY());
+        }
+
+        @Override
+        public void act(float delta){
+            if(started){
+                battleMode.applyCard(battleMode.playerPlayCard(0), "enemy");
+                started = false;
+            }
         }
     }
 
@@ -84,11 +100,25 @@ public class BattleModeGraphics extends ApplicationAdapter {
 
         public DefendCard() {
             setBounds(getX(), getY(), texture.getWidth(), texture.getHeight());
+            addListener(new InputListener(){
+                public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+                    ((DefendCard)event.getTarget()).started = true;
+                    return true;
+                }
+            });
         }
 
         @Override
         public void draw(Batch batch, float alpha) {
             batch.draw(texture, this.getX(), getY());
+        }
+
+        @Override
+        public void act(float delta){
+            if(started){
+                battleMode.applyCard(battleMode.playerPlayCard(1), "player");
+                started = false;
+            }
         }
     }
 
@@ -141,12 +171,15 @@ public class BattleModeGraphics extends ApplicationAdapter {
         //battleMode.updateMana("enemy", 1);
 
 
-        battleMode.updateClock();
-        battleMode.basicEnemyAI();
-        //if(!(gameOver)){
-        //    battleMode.updateClock();
-        //    battleMode.basicEnemyAI();
-        //}
+        //battleMode.updateClock();
+        //battleMode.basicEnemyAI();
+        if(battleMode.gameIsOver()){
+            gameOver = true;
+        }
+        if(!(gameOver)){
+            battleMode.updateClock();
+            battleMode.basicEnemyAI();
+        }
 
 
 

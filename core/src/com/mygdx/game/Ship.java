@@ -2,12 +2,13 @@ package com.mygdx.game;
 
 public class Ship {
     private String name;
-    private Boolean isDead;
+    //private Boolean isDead;
     private Integer totalMana;
     private Integer manaRegenRate;
 
 
     public Ship() {
+        //this.isDead = false;
         // constructor.
     }
     public void setName(String name) {
@@ -18,13 +19,13 @@ public class Ship {
         return name;
     }
 
-    public void setIsDead(Boolean isDead) {
-        this.isDead = isDead;
-    }
+    //public void setIsDead() {
+    //    isDead = true;
+    //}
 
-    public Boolean getIsDead()
-    {  return isDead;
-    }
+    //public Boolean getIsDead()
+    //{  return isDead;
+    //}
 
     public void setTotalMana(Integer totalMana) {
         this.totalMana = totalMana;

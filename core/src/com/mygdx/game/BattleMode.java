@@ -37,6 +37,11 @@ public class BattleMode {
     private Integer enemyShipHealth;
     private Integer playerShipManaRate;
     private Integer enemyShipManaRate;
+    private boolean playerShipDead;
+    private boolean enemyShipDead;
+
+    private double playerShipDefence; //Goes from 0 to 10 (100%).
+    private double enemyShipDefence;
 
 
 
@@ -45,7 +50,7 @@ public class BattleMode {
 
     public BattleMode() {
         playerManaMax = 25;
-        enemyManaMax = 15;
+        enemyManaMax = 5;
         playerMana = 0;
         enemyMana = 0;
         clock = 0;
@@ -53,18 +58,25 @@ public class BattleMode {
 
         Ship playerShip = new Ship();
         Ship enemyShip = new Ship();
-        playerShip.setManaRegenRate(60);
+        playerShipDead = false;
+        enemyShipDead = false;
+        playerShip.setManaRegenRate(30); //60 for 1 second, 120 for 2 seconds, etc.
         enemyShip.setManaRegenRate(60);
-
+        playerShipDefence = 0;
+        enemyShipDefence = 0;
 
         //Adding an enemy attack.
         Card basicEnemyAttack = new Card();
         basicEnemyAttack.setEffect("A5");
-        basicEnemyAttack.setManaCost(enemyManaMax);
+        basicEnemyAttack.setManaCost(5);
         enemyHand.add(basicEnemyAttack);
 
         Card basicPlayerAttack = new Card();
         Card basicPlayerDefend = new Card();
+        basicPlayerAttack.setEffect("A4");
+        basicPlayerAttack.setManaCost(5);
+        basicPlayerDefend.setEffect("D5");
+        basicPlayerDefend.setManaCost(5);
         playerHand.add(basicPlayerAttack);
         playerHand.add(basicPlayerDefend);
 
@@ -85,7 +97,13 @@ public class BattleMode {
      * @param choice - the user's card choice as an Integer.
      * @return The card that the user plays.
      */
-    public Card playerPlayCard(Integer choice){return null;}
+    public Card playerPlayCard(Integer choice){
+        if(!(playerHand.isEmpty())){
+            return playerHand.get(choice);
+        } else {
+            return null;
+        }
+    }
 
     /**
      * Takes in the enemy's card choice and begins to put it into play.
@@ -113,15 +131,32 @@ public class BattleMode {
     public void applyCard(Card card, String target){
 
         if(card.getEffect().contains("A")){ //attack
-            updateHealth(target, -Character.getNumericValue(card.getEffect().charAt(1)));
-            //updateHealth(target, 5);
-
             if(target == "player"){
-                if(enemyShipHealth == 0) {enemyShip.setIsDead(true);}
-                updateMana("enemy", -card.getManaCost());
+                if(enemyMana >= card.getManaCost()){
+                    updateMana("enemy", -card.getManaCost());
+                    updateHealth(target, -Character.getNumericValue(card.getEffect().charAt(1)), true);
+                }
             } else if (target == "enemy"){
-                if(playerShipHealth == 0) {playerShip.setIsDead(true);}
-                updateMana("player", -card.getManaCost());
+                if(playerMana >= card.getManaCost()){
+                    updateMana("player", -card.getManaCost());
+                    updateHealth(target, -Character.getNumericValue(card.getEffect().charAt(1)), true);
+                }
+            }
+
+        }
+        if(card.getEffect().contains("D")) { //attack
+            if(target == "player"){
+                if(playerMana >= card.getManaCost()){
+                    updateMana("player", -card.getManaCost());
+                    updateDefence("player", Character.getNumericValue(card.getEffect().charAt(1)));
+                }
+
+
+            } else if (target == "enemy"){
+                if(enemyMana >= card.getManaCost()){
+                    updateMana("enemy", -card.getManaCost());
+                    updateDefence("enemy", Character.getNumericValue(card.getEffect().charAt(1)));
+                }
             }
         }
     }
@@ -151,24 +186,37 @@ public class BattleMode {
      * Updates the health of a target by a given amount, positive or negative.
      * @param target - The ship that will be receiving the health change.
      * @param amount - The amount of said change, positive or negative.
+     * @param isAttack - If the reason why the health is being changed is due to an attack.
+     *                   This tells us if we need to ignore the defence or not.
      */
-    public void updateHealth(String target, Integer amount){
+    public void updateHealth(String target, Integer amount, boolean isAttack){
+
         if(target == "player"){
-            playerShipHealth+=amount;
+            if(isAttack){
+                //To make defence/armour a bit weaker, round up on the damage.
+                playerShipHealth+= (int) Math.ceil((amount - amount*playerShipDefence));
+                //playerShipHealth+= (int) (amount - Math.ceil(amount*playerShipDefence));
+            } else{
+                playerShipHealth+=amount;
+            }
             if (playerShipHealth > playerShipHealthMax){
                 playerShipHealth = playerShipHealthMax;}
             else if (playerShipHealth <= 0){
                 //PlayerDied
-                playerShip.setIsDead(true);
+                playerShipDead = true;
             }
 
         } else if (target == "enemy"){
-            enemyMana+=amount;
+            if(isAttack){
+                enemyShipHealth+= (int) (amount - Math.ceil(amount*enemyShipDefence));
+            } else{
+                enemyShipHealth+=amount;
+            }
             if (enemyShipHealth > enemyShipHealthMax){
                 enemyShipHealth = enemyShipHealthMax;}
             else if (enemyShipHealth <= 0){
                 //Enemy Died
-                enemyShip.setIsDead(true);
+                enemyShipDead = true;
             }
         }
     }
@@ -222,6 +270,29 @@ public class BattleMode {
     public void basicEnemyAI(){
         if(enemyMana == enemyManaMax){
             applyCard(enemyPlayCard(), "player");
+        }
+    }
+
+
+    public Boolean gameIsOver(){
+        if(playerShipDead || enemyShipDead){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public void updateDefence(String target, Integer amount){
+        if(target == "player"){
+            playerShipDefence += (amount / 10);
+            if(playerShipDefence > 1){
+                playerShipDefence = 1; //Still indestructible. Maybe patch that out?
+            }
+        } else if(target == "enemy"){
+            enemyShipDefence += (amount / 10);
+            if(enemyShipDefence > 1){
+                enemyShipDefence = 1;
+            }
         }
     }
 }
