@@ -134,6 +134,8 @@ public class BattleModeGraphics extends ApplicationAdapter {
         enemyFont = new BitmapFont();
         enemyFont.setColor(Color.RED);
 
+
+
         gameOver = false;
 
         background = new Texture( Gdx.files.internal("ocean.png") );
@@ -166,6 +168,8 @@ public class BattleModeGraphics extends ApplicationAdapter {
         String playerHealthBar = battleMode.showManaBar("player");
         String enemyManaBar = battleMode.showHealthBar("enemy");
         String enemyHealthBar = battleMode.showManaBar("enemy");
+
+
 
         //battleMode.updateMana("player", 1);
         //battleMode.updateMana("enemy", 1);

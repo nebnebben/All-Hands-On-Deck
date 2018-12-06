@@ -149,6 +149,7 @@ public class BattleMode {
                 if(playerMana >= card.getManaCost()){
                     updateMana("player", -card.getManaCost());
                     updateDefence("player", Character.getNumericValue(card.getEffect().charAt(1)));
+
                 }
 
 
@@ -194,8 +195,7 @@ public class BattleMode {
         if(target == "player"){
             if(isAttack){
                 //To make defence/armour a bit weaker, round up on the damage.
-                playerShipHealth+= (int) Math.ceil((amount - amount*playerShipDefence));
-                //playerShipHealth+= (int) (amount - Math.ceil(amount*playerShipDefence));
+                playerShipHealth+= (int) (amount - Math.ceil(amount*playerShipDefence));
             } else{
                 playerShipHealth+=amount;
             }
@@ -283,16 +283,19 @@ public class BattleMode {
     }
 
     public void updateDefence(String target, Integer amount){
+
         if(target == "player"){
-            playerShipDefence += (amount / 10);
+            playerShipDefence += (double)amount / 10;
             if(playerShipDefence > 1){
                 playerShipDefence = 1; //Still indestructible. Maybe patch that out?
             }
         } else if(target == "enemy"){
-            enemyShipDefence += (amount / 10);
+            enemyShipDefence += (double)amount / 10;
             if(enemyShipDefence > 1){
                 enemyShipDefence = 1;
             }
         }
     }
+
+
 }
