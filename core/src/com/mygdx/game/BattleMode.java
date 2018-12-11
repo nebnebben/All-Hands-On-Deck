@@ -40,7 +40,7 @@ public class BattleMode {
     private boolean playerShipDead;
     private boolean enemyShipDead;
 
-    private double playerShipDefence; //Goes from 0 to 10 (100%).
+    private double playerShipDefence; //Goes from 0 to 1 (100%).
     private double enemyShipDefence;
 
 
@@ -67,16 +67,16 @@ public class BattleMode {
 
         //Adding an enemy attack.
         Card basicEnemyAttack = new Card();
-        basicEnemyAttack.setEffect("A5");
+        basicEnemyAttack.setEffect("A5"); //A = attack.  D = Defend.
         basicEnemyAttack.setManaCost(5);
         enemyHand.add(basicEnemyAttack);
 
         Card basicPlayerAttack = new Card();
         Card basicPlayerDefend = new Card();
-        basicPlayerAttack.setEffect("A4");
+        basicPlayerAttack.setEffect("A4"); // The number for A is the attack value.
         basicPlayerAttack.setManaCost(5);
-        basicPlayerDefend.setEffect("D5");
-        basicPlayerDefend.setManaCost(5);
+        basicPlayerDefend.setEffect("D5"); //For D, that'll be the % block applied. 5 will be divided by 10 and applied to the defence value.
+        basicPlayerDefend.setManaCost(5);  //...Hence, 5 = 0.5 = 50% armour block.
         playerHand.add(basicPlayerAttack);
         playerHand.add(basicPlayerDefend);
 
@@ -198,6 +198,7 @@ public class BattleMode {
                 playerShipHealth+= (int) (amount - Math.ceil(amount*playerShipDefence));
             } else{
                 playerShipHealth+=amount;
+
             }
             if (playerShipHealth > playerShipHealthMax){
                 playerShipHealth = playerShipHealthMax;}
@@ -264,8 +265,10 @@ public class BattleMode {
     }
 
     /**
-     * Trying to make an enemy attack the player once its mana is full.
+     * Trying to give the enemy ship an AI.
      * God have mercy on my soul.
+     * As of 11/12/18, all it does is attack when its mana is full.
+     * Future ideas: - % chances if it blocks or attacks, several attacks, create a set of attacks that'll be applied to specific enemies, etc.
      */
     public void basicEnemyAI(){
         if(enemyMana == enemyManaMax){
@@ -273,7 +276,10 @@ public class BattleMode {
         }
     }
 
-
+    /**
+     * Checks if any of the ships in battle are dead.
+     * @return True if a ship is dead, False if not.
+     */
     public Boolean gameIsOver(){
         if(playerShipDead || enemyShipDead){
             return true;
@@ -282,17 +288,22 @@ public class BattleMode {
         }
     }
 
+    /**
+     *
+     * @param target - The ship that'll be receiving the armour change.
+     * @param amount - The amount of armour the ship will be receiving. Between 0 and 10, as it gets divided down between 0 to 1 (for 100%)
+     */
     public void updateDefence(String target, Integer amount){
 
         if(target == "player"){
             playerShipDefence += (double)amount / 10;
-            if(playerShipDefence > 1){
-                playerShipDefence = 1; //Still indestructible. Maybe patch that out?
+            if(playerShipDefence > 0.7){ //Having the player be able to be fully resistant wouldn't make for an engaging game.
+                playerShipDefence = 0.7;
             }
         } else if(target == "enemy"){
             enemyShipDefence += (double)amount / 10;
-            if(enemyShipDefence > 1){
-                enemyShipDefence = 1;
+            if(enemyShipDefence > 0.7){
+                enemyShipDefence = 0.7;
             }
         }
     }

@@ -11,6 +11,7 @@ public class Ship {
         //this.isDead = false;
         // constructor.
     }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -19,13 +20,6 @@ public class Ship {
         return name;
     }
 
-    //public void setIsDead() {
-    //    isDead = true;
-    //}
-
-    //public Boolean getIsDead()
-    //{  return isDead;
-    //}
 
     public void setTotalMana(Integer totalMana) {
         this.totalMana = totalMana;
@@ -46,6 +40,7 @@ public class Ship {
     //public void addCard(Card card){
         //adds card var to ship from type Card
     //}
+
     public void removeCard(Integer cardIndex){
         //removes card var to ship from type Card
     }

@@ -14,6 +14,18 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
+
+
+//Json attempts. Delete when done. -----------------
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
+//Json attemps. Delete when done.---------------------
+
 public class BattleModeGraphics extends ApplicationAdapter {
     private Texture background;
     SpriteBatch batch;
