@@ -5,6 +5,7 @@ public class Ship {
     //private Boolean isDead;
     private Integer totalMana;
     private Integer manaRegenRate;
+    private Integer pointsWorth;
 
 
     public Ship() {
@@ -43,6 +44,14 @@ public class Ship {
 
     public void removeCard(Integer cardIndex){
         //removes card var to ship from type Card
+    }
+
+    public void setPointsWorth(Integer pointsWorth){
+        this.pointsWorth = pointsWorth;
+    }
+
+    public Integer getPointsWorth(){
+        return this.pointsWorth;
     }
 
 

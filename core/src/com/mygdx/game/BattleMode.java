@@ -43,12 +43,18 @@ public class BattleMode {
     private double playerShipDefence; //Goes from 0 to 1 (100%).
     private double enemyShipDefence;
 
+    //The player earns points depending on the fight and how it goes. Load the # of points gained from fighting a given ship.
+    //Maybe also give bonuses on speed, how much damage was taken, etc?
+    private Integer playerScore;
+    private Integer scoreToGain;
+    private Boolean deathTriggered = false;
 
 
 
 
 
     public BattleMode() {
+        //Some of these depend on the actual ship stats.
         playerManaMax = 25;
         enemyManaMax = 5;
         playerMana = 0;
@@ -87,6 +93,11 @@ public class BattleMode {
         enemyShipHealth = 10;
         playerShipManaRate = playerShip.getManaRegenRate();
         enemyShipManaRate = enemyShip.getManaRegenRate();
+
+        playerScore = 0;
+        enemyShip.setPointsWorth(500); //Instead of a solid value being passed through, we may have to take a value from the ship class/encounter database to see how much each enemy is worth.
+        scoreToGain = enemyShip.getPointsWorth();
+
     }
 
 
@@ -281,7 +292,12 @@ public class BattleMode {
      * @return True if a ship is dead, False if not.
      */
     public Boolean gameIsOver(){
+
         if(playerShipDead || enemyShipDead){
+            if(enemyShipDead && !(deathTriggered)){
+                deathTriggered = true;
+                playerScore+= scoreToGain; //This will depend on the enemyShip's score amount.
+            }
             return true;
         } else {
             return false;
@@ -306,6 +322,10 @@ public class BattleMode {
                 enemyShipDefence = 0.7;
             }
         }
+    }
+
+    public String showPoints(){
+        return playerScore.toString();
     }
 
 
