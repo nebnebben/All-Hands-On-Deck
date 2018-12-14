@@ -3,9 +3,11 @@ package com.mygdx.game;
 public class Ship {
     private String name;
     //private Boolean isDead;
+    private Integer totalHealth;
     private Integer totalMana;
     private Integer manaRegenRate;
     private Integer pointsWorth;
+    private Integer goldAmount;
 
 
     public Ship() {
@@ -55,5 +57,12 @@ public class Ship {
     }
 
 
+    public void setGoldAmount(Integer goldAmount){
+        this.goldAmount = goldAmount;
+    }
+
+    public Integer getGoldAmount(){
+        return this.goldAmount;
+    }
 
 }

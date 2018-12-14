@@ -47,6 +47,8 @@ public class BattleMode {
     //Maybe also give bonuses on speed, how much damage was taken, etc?
     private Integer playerScore;
     private Integer scoreToGain;
+    private Integer playerGoldAmount;
+    private Integer goldToGain;
     private Boolean deathTriggered = false;
 
 
@@ -54,22 +56,35 @@ public class BattleMode {
 
 
     public BattleMode() {
-        //Some of these depend on the actual ship stats.
+        //Some of these depend on the actual ship stats. Pull all of this from existing data when battle starts.
         playerManaMax = 25;
         enemyManaMax = 5;
         playerMana = 0;
         enemyMana = 0;
+        playerShipHealthMax = 20;
+        enemyShipHealthMax = 10;
+        playerShipHealth = 20;
+        enemyShipHealth = 10;
+       //
+
         clock = 0;
-        //need to define cards and both hands
+
 
         Ship playerShip = new Ship();
         Ship enemyShip = new Ship();
         playerShipDead = false;
         enemyShipDead = false;
+
+        // Get this from the ship classes too
+        playerShip.setPointsWorth(0); //Import the total score that the player gained to here.
+        playerScore = playerShip.getPointsWorth();
+        playerShip.setGoldAmount(20);
+        playerGoldAmount = playerShip.getGoldAmount();
         playerShip.setManaRegenRate(30); //60 for 1 second, 120 for 2 seconds, etc.
         enemyShip.setManaRegenRate(60);
         playerShipDefence = 0;
         enemyShipDefence = 0;
+        //
 
         //Adding an enemy attack.
         Card basicEnemyAttack = new Card();
@@ -87,16 +102,18 @@ public class BattleMode {
         playerHand.add(basicPlayerDefend);
 
         //These aren't included anywhere, so they probably should be added somewhere, temp here maybe.
-        playerShipHealthMax = 20;
-        enemyShipHealthMax = 10;
-        playerShipHealth = 20;
-        enemyShipHealth = 10;
         playerShipManaRate = playerShip.getManaRegenRate();
         enemyShipManaRate = enemyShip.getManaRegenRate();
 
-        playerScore = 0;
+
         enemyShip.setPointsWorth(500); //Instead of a solid value being passed through, we may have to take a value from the ship class/encounter database to see how much each enemy is worth.
         scoreToGain = enemyShip.getPointsWorth();
+        enemyShip.setGoldAmount(10);
+        goldToGain = enemyShip.getGoldAmount();
+
+        //Can't figure out a way to add points or gold AFTER the battle is finish, so add them prematurely instead.
+        playerShip.setPointsWorth(playerScore + scoreToGain);
+        playerShip.setGoldAmount(playerGoldAmount + goldToGain);
 
     }
 
@@ -296,7 +313,9 @@ public class BattleMode {
         if(playerShipDead || enemyShipDead){
             if(enemyShipDead && !(deathTriggered)){
                 deathTriggered = true;
-                playerScore+= scoreToGain; //This will depend on the enemyShip's score amount.
+                playerScore += scoreToGain; //This will depend on the enemyShip's score amount. Only affects the display.
+                playerGoldAmount += goldToGain;
+                //playerShip.setPointsWorth(playerScore); // Doesn't work.
             }
             return true;
         } else {
@@ -326,6 +345,10 @@ public class BattleMode {
 
     public String showPoints(){
         return playerScore.toString();
+    }
+
+    public String showGold() {
+        return playerGoldAmount.toString();
     }
 
 

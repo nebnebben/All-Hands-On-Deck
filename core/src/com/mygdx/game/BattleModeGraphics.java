@@ -32,6 +32,7 @@ public class BattleModeGraphics extends ApplicationAdapter {
     BitmapFont playerFont;
     BitmapFont enemyFont;
     BitmapFont pointsFont;
+    BitmapFont goldFont;
     Stage stage;
     Sprite sprite;
     BattleMode battleMode = new BattleMode();
@@ -148,6 +149,8 @@ public class BattleModeGraphics extends ApplicationAdapter {
         enemyFont.setColor(Color.RED);
         pointsFont = new BitmapFont();
         pointsFont.setColor(Color.YELLOW);
+        goldFont = new BitmapFont();
+        goldFont.setColor(Color.YELLOW);
 
 
 
@@ -184,6 +187,7 @@ public class BattleModeGraphics extends ApplicationAdapter {
         String enemyManaBar = battleMode.showHealthBar("enemy");
         String enemyHealthBar = battleMode.showManaBar("enemy");
         String pointsAmount = "Points: " + battleMode.showPoints();
+        String goldAmount = "Gold: " + battleMode.showGold();
 
 
 
@@ -208,6 +212,7 @@ public class BattleModeGraphics extends ApplicationAdapter {
         playerFont.draw(batch, playerManaBar + playerHealthBar, 75, 450);
         enemyFont.draw(batch, enemyManaBar + enemyHealthBar, 475, 450);
         pointsFont.draw(batch, pointsAmount, 300, 450);
+        goldFont.draw(batch, goldAmount, 300, 390);
         batch.end();
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
@@ -222,7 +227,7 @@ public class BattleModeGraphics extends ApplicationAdapter {
         playerFont.dispose();
         enemyFont.dispose();
         pointsFont.dispose();
+        goldFont.dispose();
         stage.dispose();
-
     }
 }
