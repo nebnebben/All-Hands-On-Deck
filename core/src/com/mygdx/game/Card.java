@@ -40,6 +40,10 @@ public class Card {
         return effect;
     }
 
+    public Integer getGoldCost(){
+        return goldCost;
+    }
+
 
     //----------------------------These are here while there are no cards, just so that there is something to test with.
     public void setManaCost(Integer manaCost) {
@@ -49,7 +53,11 @@ public class Card {
     public void setEffect(String effect) {
         this.effect = effect;
     }
-    //----------------------------Remove the stuff above once the card database is in action.
+
+    public void setGoldCost(Integer goldCost) {
+        this.goldCost = goldCost;
+    }
+    //----------------------------Remove the stuff above once the card database is in action, maybe.
 
     public void JSONTest(){ //Testing to see how to parse JSON files into variables.
         String content = null;

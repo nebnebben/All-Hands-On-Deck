@@ -1,6 +1,6 @@
 package com.mygdx.game;
 
-//import javax.smartcardio.Card;
+
 import java.util.*;
 
 /**
@@ -27,8 +27,10 @@ public class BattleMode {
     //Keeps track of the progression of time, giving both players mana and playing their moves.
     private double clock;
     //The deck that both the enemy and the player brings into the current battle.
-    private List<Card> playerTempDeck;
-    private List<Card> enemyTempDeck;
+    private List<Card> playerTempDeck = new ArrayList<Card>(); //the definition of =new arraylist will not be needed when the deck is inputted from the other mode, as needs be.
+    private List<Card> enemyTempDeck; //Maybe remove - May not be too much of a pain to fully implement.
+    private List<Card> discardedCards = new ArrayList<Card>();
+
 
     //Temp for ships, not present in the documents but will be here most likely
     private Integer playerShipHealthMax;
@@ -62,9 +64,9 @@ public class BattleMode {
         playerMana = 0;
         enemyMana = 0;
         playerShipHealthMax = 20;
-        enemyShipHealthMax = 10;
+        enemyShipHealthMax = 50;
         playerShipHealth = 20;
-        enemyShipHealth = 10;
+        enemyShipHealth = 50;
        //
 
         clock = 0;
@@ -88,18 +90,55 @@ public class BattleMode {
 
         //Adding an enemy attack.
         Card basicEnemyAttack = new Card();
-        basicEnemyAttack.setEffect("A5"); //A = attack.  D = Defend.
+        basicEnemyAttack.setEffect("A3"); //A = attack.  D = Defend.
         basicEnemyAttack.setManaCost(5);
         enemyHand.add(basicEnemyAttack);
 
+
+
         Card basicPlayerAttack = new Card();
         Card basicPlayerDefend = new Card();
-        basicPlayerAttack.setEffect("A4"); // The number for A is the attack value.
-        basicPlayerAttack.setManaCost(5);
-        basicPlayerDefend.setEffect("D5"); //For D, that'll be the % block applied. 5 will be divided by 10 and applied to the defence value.
-        basicPlayerDefend.setManaCost(5);  //...Hence, 5 = 0.5 = 50% armour block.
-        playerHand.add(basicPlayerAttack);
-        playerHand.add(basicPlayerDefend);
+        Card basicPlayerAttack2 = new Card();
+        Card basicPlayerDefend2 = new Card();
+        Card basicPlayerAttackDefendCombo = new Card();
+        Card specialPlayerAttack = new Card();
+
+        basicPlayerAttack.setEffect("A2"); // The number for A is the attack value.
+        basicPlayerAttack.setManaCost(2);
+        basicPlayerDefend.setEffect("D3"); //For D, that'll be the % block applied. 5 will be divided by 10 and applied to the defence value.
+        basicPlayerDefend.setManaCost(2);  //...Hence, 5 = 0.5 = 50% armour block.
+        basicPlayerAttack2.setEffect("A4");
+        basicPlayerAttack2.setManaCost(4);
+        basicPlayerDefend2.setEffect("D5");
+        basicPlayerDefend2.setManaCost(5);
+        basicPlayerAttackDefendCombo.setEffect("A3D3");
+        basicPlayerAttackDefendCombo.setManaCost(6);
+        specialPlayerAttack.setEffect("A7");
+        specialPlayerAttack.setManaCost(3);
+        specialPlayerAttack.setGoldCost(5);
+
+        playerTempDeck.add(basicPlayerAttack); //These will be replaced in the future, import deck from the collection given from the other class
+        playerTempDeck.add(basicPlayerDefend);
+        playerTempDeck.add(basicPlayerAttack2);
+        playerTempDeck.add(basicPlayerDefend2);
+        playerTempDeck.add(basicPlayerAttackDefendCombo);
+        playerTempDeck.add(specialPlayerAttack);
+
+        for (int i = 0; i < 4; i++) { //Make playerHand a size of 4, and draw cards for them all.
+            playerHand.add(null);
+            drawCard(i);
+        }
+
+        //drawCard(0);
+        //drawCard(1);
+        //drawCard(2);
+        //drawCard(3);
+        //playerHand.add(basicPlayerAttack2);
+        //playerHand.add(basicPlayerDefend2);
+        //playerHand.add(basicPlayerAttackDefendCombo);
+        //playerHand.add(specialPlayerAttack);
+
+
 
         //These aren't included anywhere, so they probably should be added somewhere, temp here maybe.
         playerShipManaRate = playerShip.getManaRegenRate();
@@ -147,44 +186,95 @@ public class BattleMode {
 
     /**
      * Draws a card from the TempDeck and gives it into the selected person's hand.
-     * @param isPlayer - Boolean to see if the draw is for the user or the enemy.
+     * @param cardLocation - The index of the card being replaced.
      */
-    public void drawCard(Boolean isPlayer){}
+    public void drawCard(Integer cardLocation){
+        Random random = new Random();
+        boolean isPlayerHandEmpty = false;
+        Integer sizeOfPlayerHand = 4;
+        //The reason for this is as follows: we are wanting to keep an array size of 4 consistent for playerHand, however
+        //using the .remove() function actually shortens the size. Yet .set(index,null) is still counted as an element, hence
+        //isEmpty does not work, and the size() is still 4.
+        //Is this the most agile way to do this? I don't know, but it worked.
+
+        for (Card s:playerHand){
+            if(s == null){
+                sizeOfPlayerHand--;
+            }
+        }
+        if (sizeOfPlayerHand == 0){
+            isPlayerHandEmpty = true;
+        }
+
+
+
+        if (playerTempDeck.size() > 0 && (sizeOfPlayerHand < 4 || playerHand.size() < 4)){
+            System.out.println("Adding cards from deck.");
+
+            Integer n = random.nextInt(playerTempDeck.size()); //0 to the number in the bracket. Pick a random card from the deck and use it here.
+            playerHand.set(cardLocation, playerTempDeck.get(n));
+            System.out.println("Now the playerHand is: " + playerHand.toString());
+            //System.out.println("Size of deck: " + playerTempDeck.size());
+            //System.out.println("Trying to remove: " + playerTempDeck.get(n).getEffect());
+            playerTempDeck.remove(playerTempDeck.get(n));
+        }
+
+        if (playerTempDeck.size() == 0 && (isPlayerHandEmpty || playerHand.size() == 0)){ //deck is empty and no cards left to play, reshuffle.
+            System.out.println("Hand and deck are both empty!");
+            playerTempDeck.addAll(discardedCards);
+            discardedCards.clear();
+            drawCard(0);
+            drawCard(1);
+            drawCard(2);
+            drawCard(3);
+        }
+    }
 
     /**
      * Puts the card what was chosen into play.
      * @param card - a given card and its information.
-     * @param target - whom the effects of the card apply to.
+     * @param user - who was the one who used said card.
      */
-    public void applyCard(Card card, String target){
-
-        if(card.getEffect().contains("A")){ //attack
-            if(target == "player"){
-                if(enemyMana >= card.getManaCost()){
-                    updateMana("enemy", -card.getManaCost());
-                    updateHealth(target, -Character.getNumericValue(card.getEffect().charAt(1)), true);
-                }
-            } else if (target == "enemy"){
+    public void applyCard(Card card, String user){
+        if (user.equals("player")){
+            if (card == null){
+                System.out.println("No card in this slot");
+                //System.out.println("Size of tempDeck: " + playerTempDeck.size());
+            } else{
                 if(playerMana >= card.getManaCost()){
                     updateMana("player", -card.getManaCost());
-                    updateHealth(target, -Character.getNumericValue(card.getEffect().charAt(1)), true);
+
+                    if(card.getEffect().contains("A")){ //attack
+                        //looks long, but it finds the index of the Attack symbol ("A") and adds one to it, so it'll find the value 5 if the input is "A5", anywhere on the string.
+                        //Allows for things such as "A4D1" in theory.
+                        updateHealth("enemy", -Character.getNumericValue(card.getEffect().charAt(card.getEffect().indexOf("A") + 1)), true);
+                    }
+                    if(card.getEffect().contains("D")) { //Defend
+                        updateDefence("player", Character.getNumericValue(card.getEffect().charAt(card.getEffect().indexOf("D") + 1)));
+                    }
+
+                    //Discard the card just used, put into discarded pile.
+                    Integer index = playerHand.indexOf(card);
+                    discardedCards.add(card);
+                    System.out.println("Current index is: " + index);
+                    System.out.println("At that index was: " + playerHand.get(index));
+                    playerHand.set(index, null);
+
+                    System.out.println("The deck is currently: " + playerHand.toString());
+                    //playerHand.remove(card); //Doesn't work, shortens the size all together.
+                    drawCard(index);
                 }
             }
-
         }
-        if(card.getEffect().contains("D")) { //attack
-            if(target == "player"){
-                if(playerMana >= card.getManaCost()){
-                    updateMana("player", -card.getManaCost());
-                    updateDefence("player", Character.getNumericValue(card.getEffect().charAt(1)));
 
+        else if (user.equals("enemy")){
+            if(enemyMana >= card.getManaCost()){
+                updateMana("enemy", -card.getManaCost());
+                if(card.getEffect().contains("A")){
+                    updateHealth("player", -Character.getNumericValue(card.getEffect().charAt(card.getEffect().indexOf("A") + 1)), true);
                 }
-
-
-            } else if (target == "enemy"){
-                if(enemyMana >= card.getManaCost()){
-                    updateMana("enemy", -card.getManaCost());
-                    updateDefence("enemy", Character.getNumericValue(card.getEffect().charAt(1)));
+                if(card.getEffect().contains("D")) {
+                    updateDefence("enemy", Character.getNumericValue(card.getEffect().charAt(card.getEffect().indexOf("D") + 1)));
                 }
             }
         }
@@ -300,7 +390,7 @@ public class BattleMode {
      */
     public void basicEnemyAI(){
         if(enemyMana == enemyManaMax){
-            applyCard(enemyPlayCard(), "player");
+            applyCard(enemyPlayCard(), "enemy");
         }
     }
 

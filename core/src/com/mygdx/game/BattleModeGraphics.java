@@ -80,15 +80,15 @@ public class BattleModeGraphics extends ApplicationAdapter {
         }
     }
 
-    public class AttackCard extends Actor {
+    public class Card1 extends Actor {
         Texture texture = new Texture(Gdx.files.internal("CardAttack.png"));
         public boolean started = false;
 
-        public AttackCard() {
+        public Card1() {
             setBounds(getX(), getY(), texture.getWidth(), texture.getHeight());
             addListener(new InputListener(){
                 public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-                    ((AttackCard)event.getTarget()).started = true;
+                    ((Card1)event.getTarget()).started = true;
                     return true;
                 }
             });
@@ -101,22 +101,25 @@ public class BattleModeGraphics extends ApplicationAdapter {
 
         @Override
         public void act(float delta){
+            //In theory, you can make it so that apply Card is a function that returns true or false,
+            //true if the card is there and it went through, false if there's not enough mana or if the card is not present.
+            //I will not do this now, however.
             if(started){
-                battleMode.applyCard(battleMode.playerPlayCard(0), "enemy");
+                battleMode.applyCard(battleMode.playerPlayCard(0), "player");
                 started = false;
             }
         }
     }
 
-    public class DefendCard extends Actor {
-        Texture texture = new Texture(Gdx.files.internal("CardDefend.png"));
+    public class Card2 extends Actor {
+        Texture texture = new Texture(Gdx.files.internal("CardAttack.png"));
         public boolean started = false;
 
-        public DefendCard() {
+        public Card2() {
             setBounds(getX(), getY(), texture.getWidth(), texture.getHeight());
             addListener(new InputListener(){
                 public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-                    ((DefendCard)event.getTarget()).started = true;
+                    ((Card2)event.getTarget()).started = true;
                     return true;
                 }
             });
@@ -131,6 +134,62 @@ public class BattleModeGraphics extends ApplicationAdapter {
         public void act(float delta){
             if(started){
                 battleMode.applyCard(battleMode.playerPlayCard(1), "player");
+                started = false;
+            }
+        }
+    }
+
+    public class Card3 extends Actor {
+        Texture texture = new Texture(Gdx.files.internal("CardAttack.png"));
+        public boolean started = false;
+
+        public Card3() {
+            setBounds(getX(), getY(), texture.getWidth(), texture.getHeight());
+            addListener(new InputListener(){
+                public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+                    ((Card3)event.getTarget()).started = true;
+                    return true;
+                }
+            });
+        }
+
+        @Override
+        public void draw(Batch batch, float alpha) {
+            batch.draw(texture, this.getX(), getY());
+        }
+
+        @Override
+        public void act(float delta){
+            if(started){
+                battleMode.applyCard(battleMode.playerPlayCard(2), "player");
+                started = false;
+            }
+        }
+    }
+
+    public class Card4 extends Actor {
+        Texture texture = new Texture(Gdx.files.internal("CardAttack.png"));
+        public boolean started = false;
+
+        public Card4() {
+            setBounds(getX(), getY(), texture.getWidth(), texture.getHeight());
+            addListener(new InputListener(){
+                public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+                    ((Card4)event.getTarget()).started = true;
+                    return true;
+                }
+            });
+        }
+
+        @Override
+        public void draw(Batch batch, float alpha) {
+            batch.draw(texture, this.getX(), getY());
+        }
+
+        @Override
+        public void act(float delta){
+            if(started){
+                battleMode.applyCard(battleMode.playerPlayCard(3), "player");
                 started = false;
             }
         }
@@ -161,18 +220,24 @@ public class BattleModeGraphics extends ApplicationAdapter {
 
         PlayerShip playerShipActor = new PlayerShip();
         EnemyShip enemyShipActor = new EnemyShip();
-        AttackCard attackCardActor = new AttackCard();
-        DefendCard defendCardActor = new DefendCard();
+        Card1 card1Actor = new Card1();
+        Card2 card2Actor = new Card2();
+        Card3 card3Actor = new Card3();
+        Card4 card4Actor = new Card4();
 
         playerShipActor.setPosition(0,250);
         enemyShipActor.setPosition(470,250);
-        attackCardActor.setPosition(150, 0);
-        defendCardActor.setPosition(350, 0);
+        card1Actor.setPosition(50, 0);
+        card2Actor.setPosition(180, 0);
+        card3Actor.setPosition(310, 0);
+        card4Actor.setPosition(440, 0);
 
         stage.addActor(playerShipActor);
         stage.addActor(enemyShipActor);
-        stage.addActor(attackCardActor);
-        stage.addActor(defendCardActor);
+        stage.addActor(card1Actor);
+        stage.addActor(card2Actor);
+        stage.addActor(card3Actor);
+        stage.addActor(card4Actor);
     }
 
     @Override

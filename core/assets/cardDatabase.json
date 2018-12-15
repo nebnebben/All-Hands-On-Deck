@@ -17,7 +17,7 @@
       "effect": "A4"
     },
     "CID_03": {
-      "name": "Basic Defend/Shield",
+      "name": "Basic Defend/Shield 1",
       "description": "This card will shield the player by 3.",
       "shopCost": 15,
       "goldCost": 0,
@@ -25,20 +25,20 @@
       "effect": "D3"
     },
     "CID_04": {
-      "name": "Basic Debuff",
-      "description": "This card will remove the enemy's mana by 4.",
+      "name": "Basic Defend 2",
+      "description": "This card will shield the player by 5.",
       "shopCost": 10,
       "goldCost": 0,
-      "manacost": 1,
-      "effect": "R4"
+      "manacost": 5,
+	  "effect": "D5"
     },
-    "CID_05": {
-      "name": "Basic Enemy Attack",
-      "description": "This card will remove the player's health by 2.",
-      "shopCost": 20,
+    "CID_05": {	
+      "name": "Basic Attack and Shield",
+      "description": "This card will deal 3 damage and shield the player by 1.",
+      "shopCost": 50,
       "goldCost": 0,
-      "manacost": 8,
-      "effect": "R3"
+      "manacost": 6,
+      "effect": "A3D1"
     },
     "CID_06": {
       "name": "Basic Special Attack",
