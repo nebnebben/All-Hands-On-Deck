@@ -44,6 +44,7 @@ public class GameVisuals extends ApplicationAdapter {
     private TextButton.TextButtonStyle buttonStyle;
     private TextButton.TextButtonStyle clickStyle;
     private TextButton.TextButtonStyle curNodeStyle;
+    private Encounter curEncounter;
 
     @Override
     public void create () {
@@ -64,7 +65,7 @@ public class GameVisuals extends ApplicationAdapter {
         //non-neighbor non-current
         buttonStyle = new TextButton.TextButtonStyle();
         buttonStyle.fontColor = Color.RED;
-        buttonStyle.downFontColor = Color.PINK;
+        buttonStyle.downFontColor = Color.YELLOW;
         buttonStyle.font = new BitmapFont();
 
         //neighbor button
@@ -75,8 +76,8 @@ public class GameVisuals extends ApplicationAdapter {
 
         //current button
         curNodeStyle = new TextButton.TextButtonStyle();
-        curNodeStyle.fontColor = Color.CYAN;
-        curNodeStyle.downFontColor = Color.BLUE;
+        curNodeStyle.fontColor = Color.BLUE;
+        curNodeStyle.downFontColor = Color.YELLOW;
         curNodeStyle.font = new BitmapFont();
 
         //initiliazation of the basic ui elements of the game
@@ -130,6 +131,8 @@ public class GameVisuals extends ApplicationAdapter {
             //scaled x and y values
             x = nodeList[i].getX() * xScale;
             y = nodeList[i].getY() * yScale;
+            //gives each button an independent index which can be accessed by click listener - determines neighbor
+            final int index = i;
 
             //node textButton creation
             //if the node is a neighbor node to the current node it has a different style as defined above
@@ -150,8 +153,10 @@ public class GameVisuals extends ApplicationAdapter {
             {
                 //on left click up - can only follow after a left click down
                 @Override
-                public void touchUp(InputEvent event,float x, float y, int pointer, int button){
-                    
+                public void clicked(InputEvent event,float x, float y){
+                    if (game.getNeighborNodes().contains(index)){
+
+                    }
                 }
             });
             mainStage.addActor(nodeButtons[i]);
@@ -207,6 +212,20 @@ public class GameVisuals extends ApplicationAdapter {
         scoreLabel.setPosition(Gdx.graphics.getWidth() - 12*col_width, Gdx.graphics.getHeight()-row_height);
         scoreLabel.setAlignment(Align.topLeft);
         mainStage.addActor(scoreLabel);
+    }
+
+    //resets the text of all the top labels to the most recent values from game
+    public void updateTopLabels(){
+        turnLabel.setText("Current Turn: " + String.valueOf(game.getCurrentTurn()));
+        goldLabel.setText("Current Gold: " + String.valueOf(game.currentGold));
+        supplyLabel.setText("Current Supplies: " + String.valueOf(game.getCurrentSupplies()));
+        scoreLabel.setText("Current Score: " + String.valueOf(game.getScore()));
+    }
+
+    //called when a viable nieghbor node is pressed - goes through turn change
+    public void turnChange(int targetNode){
+        curEncounter = game.traverseNode(targetNode);
+
     }
 
 }

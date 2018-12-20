@@ -103,7 +103,8 @@ public class GameController {
     }
 
     //changes currentNode to nodeList(targetNode) and goes through turn change process such as giving encounters
-    public void traverseNode(int targetNode) {
+    public Encounter traverseNode(int targetNode) {
+        Encounter encounter;
         currentNode = targetNode;
         currentTurn += 1;
         currentSupplies -= 1;
@@ -120,7 +121,9 @@ public class GameController {
            give encounter as below
         }
          */
-        nodeList[currentNode].giveEncounter();
+        ArrayList<String> encounters = new ArrayList<String>(10);
+        encounter = new Encounter(encounters);
+
         checkLoss();
         checkWin();
         neighborNodes = nodeList[currentNode].getConnectnodes();
@@ -133,6 +136,8 @@ public class GameController {
         If it is a department/college - gives options regarding to those specific nodeTypes
         Else: Triggers a random encounter from the nodes list of encounters.
          */
+
+        return encounter;
     }
 
     //adds a quest to the list of active quests

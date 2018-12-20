@@ -30,6 +30,7 @@ public class Encounter {
     public Encounter(ArrayList<String> effects){
         Encounter encounter = new Encounter();
         encounter.effects = effects;
+        description = "potato potato";
         /*
         TO DO:
         Type of encounter is randomly chosen and options, effects and description are all read from some kind of database
