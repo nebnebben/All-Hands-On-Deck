@@ -5,6 +5,7 @@ import java.lang.Integer;
 public class GameController {
     private Boolean gameComplete; //boolean for whether or not the game is complete
     private Integer currentNode; //node index in node list
+    private ArrayList<Integer> neighborNodes;
     private Integer currentScore; //player score
     private Integer currentSupplies; //supplies used to traverse node map
     public Integer currentGold; //gold used to buy things - functionality elsewhere
@@ -12,12 +13,25 @@ public class GameController {
     private String[] objectives; //list of objectives to complete game
     private Player player; //containing information relating to the player
     //private List<Quests> activeQuests; //list of quests issued to the player
-    private List<Node> nodeList; //full node map - node connections stored in nodes.
+    private Node[] nodeList; //full node map - node connections stored in nodes.
 
+    public ArrayList<Integer> getNeighborNodes() {
+        return neighborNodes;
+    }
 
     //GameController constructor - includes building node map
-    public GameController () {
-        ;
+    public GameController (int colleges, int departments, String pCollege, String pName) {
+        gameComplete = Boolean.FALSE;
+        currentNode = 1;
+        currentScore = 0;
+        currentSupplies = 12;
+        currentGold = 100;
+        currentTurn = 1;
+        objectives = getCollegeObjectives(pCollege);
+        Player player = new Player(pName,pCollege);
+        Node node = new Node(0,0,0);
+        nodeList = node.nodeMapGenerator();
+        neighborNodes = nodeList[0].getConnectnodes();
     }
 
     //iterates through objectives, if all complete returns true and changes gameComplete
@@ -84,18 +98,36 @@ public class GameController {
     }
 
     //completes quest activeQuests(questID): removes it from activeQuests and gives rewards
-    public void completeQuest (Integer questID) {
+    public void completeQuest (int questID) {
         ;
     }
 
     //changes currentNode to nodeList(targetNode) and goes through turn change process such as giving encounters
-    public void traverseNode(Integer targetNode) {
+    public void traverseNode(int targetNode) {
         currentNode = targetNode;
         currentTurn += 1;
         currentSupplies -= 1;
-        //applies entrance effects - dependent on type of node/weather
-        //checkWin
-        //checkLoss
+        checkLoss();
+        /*
+        applyWeatherEffect(nodeList[currentNode].getWeather());
+        checkLoss();
+        currentNodeType = nodeList[currentNode].getNodeType;
+        if (currentNodeType == collegeNode){
+
+        } else if (currentNodeType == departmentNode) {
+
+        } else {
+           give encounter as below
+        }
+         */
+        nodeList[currentNode].giveEncounter();
+        checkLoss();
+        checkWin();
+        neighborNodes = nodeList[currentNode].getConnectnodes();
+        /*
+        if (nodeList[currentNode].getNodeType() ==
+
+        */
         /*
         Looks at target node - specifically type and goes through due process
         If it is a department/college - gives options regarding to those specific nodeTypes
@@ -110,8 +142,25 @@ public class GameController {
     }
     */
 
+    public String[] getCollegeObjectives(String pCollege){
+        String[] out = new String[6];
+        if (pCollege.equals("Alcuin")){
+            out[0] = "placeholder";
+            out[1] = "placeholder";
+            out[2] = "placeholder";
+            out[3] = "placeholder";
+            out[4] = "placeholder";
+            out[5] = "placeholder";
+            return out;
+        } else {
+            return out;
+        }
+
+
+
+    }
     //score always goes up, adds to score
-    public void addScore (Integer in) {
+    public void addScore (int in) {
         currentScore += in;
     }
 
@@ -120,7 +169,7 @@ public class GameController {
         return currentSupplies;
     }
 
-    public void setCurrentSupplies (Integer in) {
+    public void setCurrentSupplies (int in) {
         currentSupplies = in;
     }
 
@@ -142,4 +191,15 @@ public class GameController {
         return currentScore;
     }
 
+    public Node[] getNodeList(){
+        return nodeList;
+    }
+
+    public int getCurrentNode(){
+        return currentNode;
+    }
+
+    public void setCurrentNode(int in){
+        currentNode = in;
+    }
 }

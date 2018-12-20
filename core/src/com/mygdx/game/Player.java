@@ -9,7 +9,11 @@ public class Player {
     private String name;
     private String college;
 
-    //do i need these or do i get from Ship?
+    public Player(String pName, String pCollege ){
+        name = pName;
+        college = pCollege;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
