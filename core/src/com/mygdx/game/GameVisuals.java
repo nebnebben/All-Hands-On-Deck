@@ -228,11 +228,28 @@ public class GameVisuals extends Game {
     public void turnChange(int targetNode){
         //init values including new encounterStage
         Stage encounterStage = new Stage(new ScreenViewport());
+        boolean isLost;
+        boolean isWon;
 
         //traverses the node in game controller
         game.traverseNode(targetNode);
-        updateTopLabels();
-        updateNodeMap();
+        //does completion check before encounter can trigger
+        isLost = game.checkLoss();
+        isWon = game.checkWin();
+        //if either is true then the game is complete, and it ends the game using end game
+        if (isLost || isWon) {
+            endGame(isWon);
+        }
+        //triggers encounter based on whether the node is a college/department node or not
+        // INSERT FUNCTIONALITY HERE
+
+        //checks whether the game is won or lost again - if it isn't the visuals are updated and turn change is complete
+        if (isLost || isWon) {
+            endGame(isWon);
+        } else {
+            updateTopLabels();
+            updateNodeMap();
+        }
 
 
     }
@@ -252,6 +269,8 @@ public class GameVisuals extends Game {
 
     //ends the game differently depending on whether it was won or lost
     public void endGame (Boolean win) {
+        //includes new endgame stage - destroy previous stage to make it inaccessible
+        Stage endStage = new Stage(new ScreenViewport());
         if (win){
             ;
         } else {

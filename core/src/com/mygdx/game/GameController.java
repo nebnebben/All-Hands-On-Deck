@@ -28,7 +28,7 @@ public class GameController {
         currentGold = 100;
         currentTurn = 1;
         objectives = getCollegeObjectives(pCollege);
-        Player player = new Player(pName,pCollege);
+        player = new Player(pName,pCollege);
         Node node = new Node(0,0,0);
         nodeList = node.nodeMapGenerator();
         neighborNodes = nodeList[0].getConnectnodes();
@@ -50,15 +50,13 @@ public class GameController {
 
     //checks playerShip's health or supplies, if below 0 return true and change gameComplete;
     public Boolean checkLoss(){
-        /*
-        if (player.playerShip.health <= 0 || currentSupplies < 0){
+        if (player.getPlayerShip().getIsDead() || (currentSupplies < 0)){
             gameComplete = Boolean.TRUE;
             return Boolean.TRUE;
         } else {
             return Boolean.FALSE;
         }
-         */
-        return Boolean.TRUE; //placeholder
+
     }
 
     //takes in quest, goes through its objectives and checks if it has been complete
@@ -108,36 +106,7 @@ public class GameController {
         currentNode = targetNode;
         currentTurn += 1;
         currentSupplies -= 1;
-        //checkLoss();
-        /*
-        applyWeatherEffect(nodeList[currentNode].getWeather());
-        checkLoss();
-        currentNodeType = nodeList[currentNode].getNodeType;
-        if (currentNodeType == collegeNode){
-
-        } else if (currentNodeType == departmentNode) {
-
-        } else {
-           give encounter as below
-        }
-         */
-        //ArrayList<String> encounters = new ArrayList<String>(10);
-        //encounter = new Encounter(encounters);
-
-        //checkLoss();
-        //checkWin();
         neighborNodes = nodeList[currentNode].getConnectnodes();
-        /*
-        if (nodeList[currentNode].getNodeType() ==
-
-        */
-        /*
-        Looks at target node - specifically type and goes through due process
-        If it is a department/college - gives options regarding to those specific nodeTypes
-        Else: Triggers a random encounter from the nodes list of encounters.
-         */
-
-        //return encounter;
     }
 
     //adds a quest to the list of active quests
@@ -150,12 +119,12 @@ public class GameController {
     public String[] getCollegeObjectives(String pCollege){
         String[] out = new String[6];
         if (pCollege.equals("Alcuin")){
-            out[0] = "placeholder";
-            out[1] = "placeholder";
-            out[2] = "placeholder";
-            out[3] = "placeholder";
-            out[4] = "placeholder";
-            out[5] = "placeholder";
+            out[0] = "G-100";
+            out[1] = "G-100";
+            out[2] = "G-120";
+            out[3] = "G-100";
+            out[4] = "G-100";
+            out[5] = "G-100";
             return out;
         } else {
             return out;

@@ -9,6 +9,7 @@ public class Ship {
 
     public Ship() {
         // constructor.
+        isDead = Boolean.FALSE;
     }
     public void setName(String name) {
         this.name = name;
