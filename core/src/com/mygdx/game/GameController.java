@@ -22,7 +22,7 @@ public class GameController {
     //GameController constructor - includes building node map
     public GameController (int colleges, int departments, String pCollege, String pName) {
         gameComplete = Boolean.FALSE;
-        currentNode = 1;
+        currentNode = 0;
         currentScore = 0;
         currentSupplies = 12;
         currentGold = 100;
@@ -103,12 +103,12 @@ public class GameController {
     }
 
     //changes currentNode to nodeList(targetNode) and goes through turn change process such as giving encounters
-    public Encounter traverseNode(int targetNode) {
+    public void traverseNode(int targetNode) {
         Encounter encounter;
         currentNode = targetNode;
         currentTurn += 1;
         currentSupplies -= 1;
-        checkLoss();
+        //checkLoss();
         /*
         applyWeatherEffect(nodeList[currentNode].getWeather());
         checkLoss();
@@ -121,11 +121,11 @@ public class GameController {
            give encounter as below
         }
          */
-        ArrayList<String> encounters = new ArrayList<String>(10);
-        encounter = new Encounter(encounters);
+        //ArrayList<String> encounters = new ArrayList<String>(10);
+        //encounter = new Encounter(encounters);
 
-        checkLoss();
-        checkWin();
+        //checkLoss();
+        //checkWin();
         neighborNodes = nodeList[currentNode].getConnectnodes();
         /*
         if (nodeList[currentNode].getNodeType() ==
@@ -137,7 +137,7 @@ public class GameController {
         Else: Triggers a random encounter from the nodes list of encounters.
          */
 
-        return encounter;
+        //return encounter;
     }
 
     //adds a quest to the list of active quests
@@ -178,15 +178,7 @@ public class GameController {
         currentSupplies = in;
     }
 
-    //ends the game differently depending on whether it was won or lost
-    public void endGame (Boolean win) {
-        if (win){
-            ;
-        } else {
-            ;
-        }
 
-    }
 
     public int getCurrentTurn(){
         return currentTurn;

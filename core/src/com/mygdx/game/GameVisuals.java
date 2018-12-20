@@ -1,7 +1,9 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -31,7 +33,7 @@ Break down into 3 sections:
     - Node map containing an image of all the nodes as well as the ability to click on nodes in order to traverse - button
     - Background
  */
-public class GameVisuals extends ApplicationAdapter {
+public class GameVisuals extends Game {
     private Stage mainStage; //stage for the majority of the game - pauses when encounter pop ups
     private GameController game; //actual game controller
     private Label.LabelStyle resourceStyle; //labelstyle for all labels
@@ -155,7 +157,7 @@ public class GameVisuals extends ApplicationAdapter {
                 @Override
                 public void clicked(InputEvent event,float x, float y){
                     if (game.getNeighborNodes().contains(index)){
-
+                        turnChange(index);
                     }
                 }
             });
@@ -224,8 +226,37 @@ public class GameVisuals extends ApplicationAdapter {
 
     //called when a viable nieghbor node is pressed - goes through turn change
     public void turnChange(int targetNode){
-        curEncounter = game.traverseNode(targetNode);
+        //init values including new encounterStage
+        Stage encounterStage = new Stage(new ScreenViewport());
+
+        //traverses the node in game controller
+        game.traverseNode(targetNode);
+        updateTopLabels();
+        updateNodeMap();
+
 
     }
 
+    //goes through and updates the button style of the node map.
+    public void updateNodeMap() {
+        for (int i=0; i<game.getNodeList().length; i++){
+            if (game.getCurrentNode() == i){
+                nodeButtons[i].setStyle(curNodeStyle);
+            } else if (game.getNeighborNodes().contains(i)) {
+                nodeButtons[i].setStyle(clickStyle);
+            } else {
+                nodeButtons[i].setStyle(buttonStyle);
+            }
+        }
+    }
+
+    //ends the game differently depending on whether it was won or lost
+    public void endGame (Boolean win) {
+        if (win){
+            ;
+        } else {
+            ;
+        }
+
+    }
 }
