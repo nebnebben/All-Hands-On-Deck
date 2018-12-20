@@ -20,6 +20,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
+import javax.swing.plaf.basic.BasicOptionPaneUI;
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -40,6 +41,9 @@ public class GameVisuals extends ApplicationAdapter {
     private Label goldLabel;
     private Label supplyLabel;
     private Label scoreLabel;
+    private TextButton.TextButtonStyle buttonStyle;
+    private TextButton.TextButtonStyle clickStyle;
+    private TextButton.TextButtonStyle curNodeStyle;
 
     @Override
     public void create () {
@@ -56,7 +60,24 @@ public class GameVisuals extends ApplicationAdapter {
         int row_height = Gdx.graphics.getHeight()/GuideRows;
         int col_width = Gdx.graphics.getWidth()/GuideCols;
 
+        //creating button styles for different nodes (current, neighbor, neither
+        //non-neighbor non-current
+        buttonStyle = new TextButton.TextButtonStyle();
+        buttonStyle.fontColor = Color.RED;
+        buttonStyle.downFontColor = Color.PINK;
+        buttonStyle.font = new BitmapFont();
 
+        //neighbor button
+        clickStyle = new TextButton.TextButtonStyle();
+        clickStyle.fontColor = Color.GREEN;
+        clickStyle.downFontColor = Color.YELLOW;
+        clickStyle.font = new BitmapFont();
+
+        //current button
+        curNodeStyle = new TextButton.TextButtonStyle();
+        curNodeStyle.fontColor = Color.CYAN;
+        curNodeStyle.downFontColor = Color.BLUE;
+        curNodeStyle.font = new BitmapFont();
 
         //initiliazation of the basic ui elements of the game
         addBackgroundGrid(GuideCols,GuideRows); //adds the background grid with a repeating texture
@@ -100,15 +121,10 @@ public class GameVisuals extends ApplicationAdapter {
         int nodeListLength = game.getNodeList().length;
         int x;
         int y;
+        TextButton.TextButtonStyle aStyle;
         Node[] nodeList = game.getNodeList();
 
-
-        //creating button style for nodes - only accessed on creation so can be local
-        TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle();
-        buttonStyle.fontColor = Color.RED;
-        buttonStyle.font = new BitmapFont();
-
-        //draws nodes + lines
+        //iterates through all nodes creating buttons and connecting lines
         nodeButtons = new TextButton[nodeListLength];
         for (int i=0;i < nodeListLength; i++){
             //scaled x and y values
@@ -116,7 +132,15 @@ public class GameVisuals extends ApplicationAdapter {
             y = nodeList[i].getY() * yScale;
 
             //node textButton creation
-            nodeButtons[i] = new TextButton(String.valueOf(i),buttonStyle);
+            //if the node is a neighbor node to the current node it has a different style as defined above
+            if (game.getNeighborNodes().contains(i)){
+                aStyle = clickStyle;
+            } else if (game.getCurrentNode() != i) {
+                aStyle = buttonStyle;
+            } else {
+                aStyle = curNodeStyle;
+            }
+            nodeButtons[i] = new TextButton(String.valueOf(i),aStyle);
             nodeButtons[i].setText("0");
             nodeButtons[i].setSize(nodeSize,nodeSize);
             nodeButtons[i].setPosition(x,y);
@@ -124,11 +148,10 @@ public class GameVisuals extends ApplicationAdapter {
             //listener is what allows the button to be clicked
             nodeButtons[i].addListener(new ClickListener()
             {
-                //overrides the base clicked function to replace it with our own
+                //on left click up - can only follow after a left click down
                 @Override
-                public void clicked(InputEvent event,float x, float y){
-                    if (game.getNeighborNodes().contains(nodeList[getButton()]))
-                    game.traverseNode(getButton());
+                public void touchUp(InputEvent event,float x, float y, int pointer, int button){
+                    
                 }
             });
             mainStage.addActor(nodeButtons[i]);
