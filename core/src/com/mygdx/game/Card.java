@@ -3,7 +3,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
 import com.badlogic.gdx.Gdx;
-import org.json.*;
+//import org.json.*; //The Json library used.
 
 
 
@@ -59,6 +59,7 @@ public class Card {
     }
     //----------------------------Remove the stuff above once the card database is in action, maybe.
 
+/*
     public void JSONTest(){ //Testing to see how to parse JSON files into variables.
         String content = null;
         try {
@@ -71,10 +72,14 @@ public class Card {
         //JSONObject test = new JSONObject(filename);
         //JSONObject outputTest = test.getJSONObject("CID_01");
 
+
+
+        //The stuff below here are examples of how to parse a JSON database.
         JSONObject json = new JSONObject(content);
         JSONObject outputTest = json.getJSONObject("CardBase");
         JSONObject outputTest2 = json.getJSONObject("CardBase").getJSONObject("CID_01");
         String testingString = json.getJSONObject("CardBase").getJSONObject("CID_01").getString("name");
         System.out.println(testingString);
     }
+*/
 }

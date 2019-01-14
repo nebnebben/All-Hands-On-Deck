@@ -21,14 +21,20 @@ public class BattleMode {
     private String enemyShipEffects;
     //The currently held cards for the enemy and the player.
     private List<Card> playerHand = new ArrayList<Card>();
-    private List<Card> enemyHand = new ArrayList<Card>();
+    private List<Card> enemyHand = new ArrayList<Card>();//Basic enemy type.
+    private List<Card> enemyFastHand = new ArrayList<Card>();//Special enemy type, fast.
+    private List<Card> enemyHeavyHand = new ArrayList<Card>();//Special enemy type, heavy.
+    private List<Card> enemySteadyHand = new ArrayList<Card>();//Special enemy type, fast and heavy.
+
+    private Boolean isSpecialEnemy; //See if the enemy is special and if they need one of the special decks.
+
     ////private Card playerCurrentCard;
     ////private Card enemyCurrentCard;
     //Keeps track of the progression of time, giving both players mana and playing their moves.
     private double clock;
     //The deck that both the enemy and the player brings into the current battle.
     private List<Card> playerTempDeck = new ArrayList<Card>(); //the definition of =new arraylist will not be needed when the deck is inputted from the other mode, as needs be.
-    private List<Card> enemyTempDeck; //Maybe remove - May not be too much of a pain to fully implement.
+    //private List<Card> enemyTempDeck; //Maybe remove - May not be too much of a pain to fully implement.
     private List<Card> discardedCards = new ArrayList<Card>();
 
 
@@ -57,10 +63,10 @@ public class BattleMode {
 
 
 
-    public BattleMode() {
+    public BattleMode(){ //Integer playerShipHealth, Integer playerShipHealthMax, Integer playerManaMax, Integer playerShipManaRate, Integer playerGoldAmount, Integer playerScore), ArrayList<Card> playerTempDeck --Doesn't work for some reason.
         //Some of these depend on the actual ship stats. Pull all of this from existing data when battle starts.
         playerManaMax = 25;
-        enemyManaMax = 5;
+        enemyManaMax = 10;
         playerMana = 0;
         enemyMana = 0;
         playerShipHealthMax = 20;
@@ -68,7 +74,7 @@ public class BattleMode {
         playerShipHealth = 20;
         enemyShipHealth = 50;
        //
-
+        isSpecialEnemy = false;
         clock = 0;
 
 
@@ -94,6 +100,47 @@ public class BattleMode {
         basicEnemyAttack.setManaCost(5);
         enemyHand.add(basicEnemyAttack);
 
+        //The special enemies.
+        //--Fast, less hp?
+        Card specialFastAttack = new Card();
+        specialFastAttack.setEffect("A1");
+        specialFastAttack.setManaCost(2);
+        Card specialFastAttack2 = new Card();
+        specialFastAttack2.setEffect("A2");
+        specialFastAttack2.setManaCost(3);
+        Card specialFastBlock = new Card();
+        specialFastBlock.setEffect("A1D1");
+        specialFastBlock.setManaCost(3);
+        enemyFastHand.add(specialFastAttack);
+        enemyFastHand.add(specialFastAttack2);
+        enemyFastHand.add(specialFastBlock);
+        //--Heavy, more HP?
+        Card specialHeavyAttack = new Card();
+        specialHeavyAttack.setEffect("A6");
+        specialHeavyAttack.setManaCost(8);
+        Card specialHeavyAttack2 = new Card();
+        specialHeavyAttack2.setEffect("A15");
+        specialHeavyAttack2.setManaCost(15);
+        Card specialHeavyBlock = new Card();
+        specialHeavyBlock.setEffect("A2D6");
+        specialHeavyBlock.setManaCost(8);
+        enemyHeavyHand.add(specialHeavyAttack);
+        enemyHeavyHand.add(specialHeavyAttack2);
+        enemyHeavyHand.add(specialHeavyBlock);
+        //--Steady, average in all ways.
+        Card specialSteadyAttack = new Card();
+        specialSteadyAttack.setEffect("A4");
+        specialSteadyAttack.setManaCost(4);
+        Card specialSteadyAttack2 = new Card();
+        specialSteadyAttack2.setEffect("A8");
+        specialSteadyAttack2.setManaCost(7);
+        Card specialSteadyBlock = new Card();
+        specialSteadyBlock.setEffect("A3D2");
+        specialSteadyBlock.setManaCost(5);
+        enemySteadyHand.add(specialSteadyAttack);
+        enemySteadyHand.add(specialSteadyAttack2);
+        enemySteadyHand.add(specialSteadyBlock);
+        //end of special enemy decks
 
 
         Card basicPlayerAttack = new Card();
@@ -178,7 +225,11 @@ public class BattleMode {
      */
     public Card enemyPlayCard(){ //Is it really worth the effort to give the enemy a full deck/temp hand? Having 2-4 basic abilities that vary should be enough.
         if(!(enemyHand.isEmpty())){
-            return enemyHand.get(0);
+            if(isSpecialEnemy){ //To-do: Make it pick between steady, fast, and hard. Make it select one of the three cards instead of just one card.
+                return enemySteadyHand.get(0);
+            }else{
+                return enemyHand.get(0);
+            }
         } else {
             return null;
         }
@@ -439,6 +490,14 @@ public class BattleMode {
 
     public String showGold() {
         return playerGoldAmount.toString();
+    }
+
+    public Boolean isCardEmpty(Integer cardNumber){
+        if(playerHand.get(cardNumber) == null){
+            return true;
+        } else{
+            return false;
+        }
     }
 
 
