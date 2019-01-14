@@ -31,6 +31,21 @@ Assessment stuff
 
 ## Assessment Two
 **Coming Eventually!**
+<p> + <a href="https://github.com/7SeasOfSomething/All-Hands-On-Deck/blob/master/docs/assessment2/Arch2.pdf">Architecture 2 </a></p>
+<p> + <a href="https://github.com/7SeasOfSomething/All-Hands-On-Deck/blob/master/docs/assessment2/Impl2.pdf">Implementation</a></p>
+<p> + <a href="https://github.com/7SeasOfSomething/All-Hands-On-Deck/blob/master/docs/assessment2/Test2.pdf">Testing Report</a></p>
+<p> + <a href="https://github.com/7SeasOfSomething/All-Hands-On-Deck/blob/master/docs/assessment2/Updates2.pdf">Updates on Assessment 1 Deliverables</a></p>
+
+<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - <a href="https://raw.githubusercontent.com/7SeasOfSomething/All-Hands-On-Deck/master/docs/assessment1/architecture/ArchitectureMain.jpg">Requirements V2</a></p>
+<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - <a href="https://raw.githubusercontent.com/7SeasOfSomething/All-Hands-On-Deck/master/docs/assessment1/architecture/ActivityDiagramBattle.jpg">Replace these with</a></p>
+<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - <a href="https://raw.githubusercontent.com/7SeasOfSomething/All-Hands-On-Deck/master/docs/assessment1/architecture/ActivityDiagramGame.jpg">Any updated Assessment 1 documents?</a></p>
+<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - <a href="https://raw.githubusercontent.com/7SeasOfSomething/All-Hands-On-Deck/master/docs/assessment1/architecture/ActivityDiagramMinigame.jpg">Figure this out later</a></p>
+
+
+<p> + <a href="https://github.com/7SeasOfSomething/All-Hands-On-Deck/blob/master/docs/assessment2/Updates2.pdf">Game executable</a></p>
+<p> + <a href="https://github.com/7SeasOfSomething/All-Hands-On-Deck/blob/master/docs/assessment2/Updates2.pdf">Test plan and results</a></p>
+<p> + <a href="https://github.com/7SeasOfSomething/All-Hands-On-Deck/blob/master/docs/assessment2/Updates2.pdf">User Manual</a></p>
+
 ## Assessment Three
 **Coming Eventually!**
 ## Assessment Four
