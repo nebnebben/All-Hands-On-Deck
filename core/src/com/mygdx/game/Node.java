@@ -199,3 +199,36 @@ public class Node {
 //ArrayList<Integer> list=new ArrayList<Integer>();
 }
 
+class CollegeNode extends Node{
+
+    private String name;
+    private int CollegeStatus;
+
+    public CollegeNode(int id, int x, int y){
+        super( id,  x,  y);
+    }
+
+    public void buyCard(int CardID){}
+
+    public void giveQuest(){}
+
+    public void attackCollege(){}
+
+
+}
+
+class DepartmentNode extends Node{
+
+    private String name;
+    private  int departmentStatus;
+
+    public DepartmentNode(int id, int x, int y){
+        super( id,  x,  y);
+    }
+
+    public void buyUpgrade(int choice){}
+
+    public void attackCollege(){}
+
+    public void playMinigame(){}
+}
