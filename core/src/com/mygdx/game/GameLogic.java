@@ -2,8 +2,9 @@ package com.mygdx.game;
 import java.util.*;
 import java.lang.Integer;
 
-public class GameController {
+public class GameLogic {
     private Boolean gameComplete; //boolean for whether or not the game is complete
+    private Boolean isWon; //boolean for whether the game is won or not - used after game is resolved
     private Integer currentNode; //node index in node list
     private ArrayList<Integer> neighborNodes;
     private Integer currentScore; //player score
@@ -19,8 +20,8 @@ public class GameController {
         return neighborNodes;
     }
 
-    //GameController constructor - includes building node map
-    public GameController (int colleges, int departments, String pCollege, String pName) {
+    //GameLogic constructor - includes building node map
+    public GameLogic(int colleges, int departments, String pCollege, String pName) {
         gameComplete = Boolean.FALSE;
         currentNode = 0;
         currentScore = 0;
@@ -32,18 +33,20 @@ public class GameController {
         Node node = new Node(0,0,0);
         nodeList = node.nodeMapGenerator();
         neighborNodes = nodeList[0].getConnectnodes();
+        isWon = Boolean.FALSE;
     }
 
     //iterates through objectives, if all complete returns true and changes gameComplete
     public Boolean checkWin(){
         Boolean outcome = Boolean.TRUE;
-        for (int i=0; i<=objectives.length;i++){
+        for (int i=0; i<=objectives.length-1;i++){
             if (!checkObjective(objectives[i])) {
                 outcome = Boolean.FALSE;
             }
         }
         if (outcome) {
             gameComplete = Boolean.TRUE;
+            isWon = Boolean.TRUE;
         }
         return outcome;
     }
@@ -168,4 +171,10 @@ public class GameController {
     public void setCurrentNode(int in){
         currentNode = in;
     }
+
+    public Boolean getIsWon(){
+        return isWon;
+    }
 }
+
+

@@ -1,43 +1,37 @@
 package com.mygdx.game;
 
-import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
-import javax.swing.plaf.basic.BasicOptionPaneUI;
-import java.awt.*;
-import java.util.ArrayList;
-
 
 /*
 Break down into 3 sections:
-    - Top bar containing relevant game information such as the ability to see deck and game state stats like gold and turn
+    - Top bar containing relevant gameLogic information such as the ability to see deck and gameLogic state stats like gold and turn
     - Node map containing an image of all the nodes as well as the ability to click on nodes in order to traverse - button
     - Background
  */
-public class GameVisuals extends Game {
-    private Stage mainStage; //stage for the majority of the game - pauses when encounter pop ups
-    private GameController game; //actual game controller
+public class GameVisuals extends ScreenAdapter {
+    private Game game;
+    private Stage mainStage; //stage for the majority of the gameLogic - pauses when encounter pop ups
+    private GameLogic gameLogic; //actual gameLogic controller
     private Label.LabelStyle resourceStyle; //labelstyle for all labels
-    private TextButton[] nodeButtons; //map of buttons - ID matches that of the game nodeList
+    private TextButton[] nodeButtons; //map of buttons - ID matches that of the gameLogic nodeList
     //top bar labels
     private Label turnLabel;
     private Label goldLabel;
@@ -48,11 +42,14 @@ public class GameVisuals extends Game {
     private TextButton.TextButtonStyle curNodeStyle;
     private Encounter curEncounter;
 
-    @Override
+    public GameVisuals(Game game){
+        this.game = game;
+        create();
+    }
     public void create () {
         //init variables
         SpriteBatch batch = new SpriteBatch();
-        game = new GameController(5,2,"Alcuin","p1");
+        gameLogic = new GameLogic(5,2,"Alcuin","p1");
         mainStage = new Stage(new ScreenViewport());
 
         Gdx.input.setInputProcessor(mainStage); //allows the mainStage and only the mainStage to have inputs
@@ -82,7 +79,7 @@ public class GameVisuals extends Game {
         curNodeStyle.downFontColor = Color.YELLOW;
         curNodeStyle.font = new BitmapFont();
 
-        //initiliazation of the basic ui elements of the game
+        //initiliazation of the basic ui elements of the gameLogic
         addBackgroundGrid(GuideCols,GuideRows); //adds the background grid with a repeating texture
         createTopLabels(row_height, col_width); //creates the set of top labels
         createNodeMap(3,2); //creates the nodeMap with x,y coordinates scaled to match window
@@ -90,11 +87,13 @@ public class GameVisuals extends Game {
     }
 
     @Override
-    public void render () {
+    public void render(float delta) {
+
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         mainStage.act();
         mainStage.draw();
+
     }
 
     @Override
@@ -121,11 +120,11 @@ public class GameVisuals extends Game {
     public void createNodeMap(int xScale, int yScale){
         //variable init
         float nodeSize = 10;
-        int nodeListLength = game.getNodeList().length;
+        int nodeListLength = gameLogic.getNodeList().length;
         int x;
         int y;
         TextButton.TextButtonStyle aStyle;
-        Node[] nodeList = game.getNodeList();
+        Node[] nodeList = gameLogic.getNodeList();
 
         //iterates through all nodes creating buttons and connecting lines
         nodeButtons = new TextButton[nodeListLength];
@@ -138,9 +137,9 @@ public class GameVisuals extends Game {
 
             //node textButton creation
             //if the node is a neighbor node to the current node it has a different style as defined above
-            if (game.getNeighborNodes().contains(i)){
+            if (gameLogic.getNeighborNodes().contains(i)){
                 aStyle = clickStyle;
-            } else if (game.getCurrentNode() != i) {
+            } else if (gameLogic.getCurrentNode() != i) {
                 aStyle = buttonStyle;
             } else {
                 aStyle = curNodeStyle;
@@ -156,7 +155,7 @@ public class GameVisuals extends Game {
                 //on left click up - can only follow after a left click down
                 @Override
                 public void clicked(InputEvent event,float x, float y){
-                    if (game.getNeighborNodes().contains(index)){
+                    if (gameLogic.getNeighborNodes().contains(index)){
                         turnChange(index);
                     }
                 }
@@ -188,62 +187,63 @@ public class GameVisuals extends Game {
 
         //all labels follow this basic layout
         turnLabel = new Label("turn",resourceStyle);
-        turnLabel.setText("Current Turn: " + String.valueOf(game.getCurrentTurn()));
+        turnLabel.setText("Current Turn: " + String.valueOf(gameLogic.getCurrentTurn()));
         turnLabel.setSize(col_width,row_height);
         turnLabel.setPosition(Gdx.graphics.getWidth()-3*col_width,Gdx.graphics.getHeight()-row_height);
         turnLabel.setAlignment(Align.topLeft);
         mainStage.addActor(turnLabel);
 
         goldLabel = new Label("gold",resourceStyle);
-        goldLabel.setText("Current Gold: " + String.valueOf(game.currentGold));
+        goldLabel.setText("Current Gold: " + String.valueOf(gameLogic.currentGold));
         goldLabel.setSize(col_width,row_height);
         goldLabel.setPosition(Gdx.graphics.getWidth()- 6*col_width,Gdx.graphics.getHeight()-row_height);
         goldLabel.setAlignment(Align.topLeft);
         mainStage.addActor(goldLabel);
 
         supplyLabel = new Label("supplies",resourceStyle);
-        supplyLabel.setText("Current Supplies: " + String.valueOf(game.getCurrentSupplies()));
+        supplyLabel.setText("Current Supplies: " + String.valueOf(gameLogic.getCurrentSupplies()));
         supplyLabel.setSize(col_width,row_height);
         supplyLabel.setPosition(Gdx.graphics.getWidth()-9*col_width,Gdx.graphics.getHeight()-row_height);
         supplyLabel.setAlignment(Align.topLeft);
         mainStage.addActor(supplyLabel);
 
         scoreLabel = new Label("score",resourceStyle);
-        scoreLabel.setText("Current Score: " + String.valueOf(game.getScore()));
+        scoreLabel.setText("Current Score: " + String.valueOf(gameLogic.getScore()));
         scoreLabel.setSize(col_width, row_height);
         scoreLabel.setPosition(Gdx.graphics.getWidth() - 12*col_width, Gdx.graphics.getHeight()-row_height);
         scoreLabel.setAlignment(Align.topLeft);
         mainStage.addActor(scoreLabel);
     }
 
-    //resets the text of all the top labels to the most recent values from game
+    //resets the text of all the top labels to the most recent values from gameLogic
     public void updateTopLabels(){
-        turnLabel.setText("Current Turn: " + String.valueOf(game.getCurrentTurn()));
-        goldLabel.setText("Current Gold: " + String.valueOf(game.currentGold));
-        supplyLabel.setText("Current Supplies: " + String.valueOf(game.getCurrentSupplies()));
-        scoreLabel.setText("Current Score: " + String.valueOf(game.getScore()));
+        turnLabel.setText("Current Turn: " + String.valueOf(gameLogic.getCurrentTurn()));
+        goldLabel.setText("Current Gold: " + String.valueOf(gameLogic.currentGold));
+        supplyLabel.setText("Current Supplies: " + String.valueOf(gameLogic.getCurrentSupplies()));
+        scoreLabel.setText("Current Score: " + String.valueOf(gameLogic.getScore()));
     }
 
-    //called when a viable nieghbor node is pressed - goes through turn change
+    //called when a viable neighbor node is pressed - goes through turn change
     public void turnChange(int targetNode){
+        System.out.println("turn changed");
         //init values including new encounterStage
         Stage encounterStage = new Stage(new ScreenViewport());
         boolean isLost;
         boolean isWon;
 
-        //traverses the node in game controller
-        game.traverseNode(targetNode);
+        //traverses the node in gameLogic controller
+        gameLogic.traverseNode(targetNode);
         //does completion check before encounter can trigger
-        isLost = game.checkLoss();
-        isWon = game.checkWin();
-        //if either is true then the game is complete, and it ends the game using end game
+        isLost = gameLogic.checkLoss();
+        isWon = gameLogic.checkWin();
+        //if either is true then the gameLogic is complete, and it ends the gameLogic using end gameLogic
         if (isLost || isWon) {
             endGame(isWon);
         }
         //triggers encounter based on whether the node is a college/department node or not
         // INSERT FUNCTIONALITY HERE
 
-        //checks whether the game is won or lost again - if it isn't the visuals are updated and turn change is complete
+        //checks whether the gameLogic is won or lost again - if it isn't the visuals are updated and turn change is complete
         if (isLost || isWon) {
             endGame(isWon);
         } else {
@@ -256,10 +256,10 @@ public class GameVisuals extends Game {
 
     //goes through and updates the button style of the node map.
     public void updateNodeMap() {
-        for (int i=0; i<game.getNodeList().length; i++){
-            if (game.getCurrentNode() == i){
+        for (int i=0; i<gameLogic.getNodeList().length; i++){
+            if (gameLogic.getCurrentNode() == i){
                 nodeButtons[i].setStyle(curNodeStyle);
-            } else if (game.getNeighborNodes().contains(i)) {
+            } else if (gameLogic.getNeighborNodes().contains(i)) {
                 nodeButtons[i].setStyle(clickStyle);
             } else {
                 nodeButtons[i].setStyle(buttonStyle);
@@ -267,15 +267,8 @@ public class GameVisuals extends Game {
         }
     }
 
-    //ends the game differently depending on whether it was won or lost
+    //switches to the GameEndVisual screen
     public void endGame (Boolean win) {
-        //includes new endgame stage - destroy previous stage to make it inaccessible
-        Stage endStage = new Stage(new ScreenViewport());
-        if (win){
-            ;
-        } else {
-            ;
-        }
-
+        game.setScreen(new GameEndVisual(game, win));
     }
 }
