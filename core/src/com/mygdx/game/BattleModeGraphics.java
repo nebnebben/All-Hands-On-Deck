@@ -73,7 +73,7 @@ public class BattleModeGraphics extends ScreenAdapter {
     }
 
     public class EnemyShip extends Actor {
-        Texture texture = new Texture(Gdx.files.internal("EnemyShip.png"));
+        Texture texture = new Texture(Gdx.files.internal("Ship1_Undamaged.png"));
         public boolean started = false;
 
         public EnemyShip() {
@@ -82,7 +82,17 @@ public class BattleModeGraphics extends ScreenAdapter {
 
         @Override
         public void draw(Batch batch, float alpha) {
-            batch.draw(texture, this.getX(), getY());
+            batch.draw(texture, this.getX(), getY(),150,150);
+        }
+
+        @Override
+        public void act(float delta){
+            if(battleMode.getShipHealthPercentage("enemy") == 0){
+                texture = new Texture(Gdx.files.internal("Ship1_destroyed.png"));
+            } else{
+                //Another check is necessary here to give it the correcy sprite, to-do.
+                texture = new Texture(Gdx.files.internal("Ship1_Undamaged.png"));
+            }
         }
     }
 
@@ -186,7 +196,7 @@ public class BattleModeGraphics extends ScreenAdapter {
                 started = false;
             }
             if(battleMode.isCardEmpty(2)){
-                texture = new Texture(Gdx.files.internal("CardEmpty.png"));
+                texture = new Texture(Gdx.files.internal("CardAttack.png"));
             } else{
                 //Another check is necessary here to give it the correcy sprite, to-do.
                 texture = new Texture(Gdx.files.internal("CardAttack.png"));
@@ -220,7 +230,7 @@ public class BattleModeGraphics extends ScreenAdapter {
                 started = false;
             }
             if(battleMode.isCardEmpty(3)){
-                texture = new Texture(Gdx.files.internal("CardEmpty.png"));
+                texture = new Texture(Gdx.files.internal("CardAttack.png"));
             } else{
                 //Another check is necessary here to give it the correcy sprite, to-do.
                 texture = new Texture(Gdx.files.internal("CardAttack.png"));
