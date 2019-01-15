@@ -29,6 +29,8 @@ import java.util.Scanner;
 
 public class BattleModeGraphics extends ScreenAdapter {
     protected Screen screen;
+    private Game game;
+    private ScreenAdapter parent;
     private Texture background;
     SpriteBatch batch;
     BitmapFont playerFont;
@@ -225,7 +227,8 @@ public class BattleModeGraphics extends ScreenAdapter {
 
 
 
-    public BattleModeGraphics(){
+    public BattleModeGraphics(Game game){
+        this.game = game;
         create();
     }
 

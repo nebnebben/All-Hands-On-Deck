@@ -400,7 +400,9 @@ public class BattleMode {
      */
     public void updateClock(){
         clock += 1;
-
+        if(clock >= 10000){
+            clock = 0;
+        }
         if (clock % playerShipManaRate == 0){
             updateMana("player", 1);
         }
