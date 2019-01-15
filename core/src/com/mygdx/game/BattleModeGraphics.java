@@ -1,9 +1,6 @@
 package com.mygdx.game;
 
-import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -30,7 +27,7 @@ import java.util.Scanner;
 
 //Json attemps. Delete when done.---------------------
 
-public class BattleModeGraphics extends Game {
+public class BattleModeGraphics extends ScreenAdapter {
     protected Screen screen;
     private Texture background;
     SpriteBatch batch;
@@ -228,8 +225,11 @@ public class BattleModeGraphics extends Game {
 
 
 
+    public BattleModeGraphics(){
+        create();
+    }
 
-    @Override
+
     public void create() {
         stage = new Stage();
         batch = new SpriteBatch();
@@ -274,7 +274,7 @@ public class BattleModeGraphics extends Game {
     }
 
     @Override
-    public void render() {
+    public void render(float delta) {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -319,7 +319,7 @@ public class BattleModeGraphics extends Game {
     }
 
 
-        @Override
+    @Override
     public void dispose() {
         batch.dispose();
         playerFont.dispose();

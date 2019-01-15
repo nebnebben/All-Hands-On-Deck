@@ -86,7 +86,9 @@ public class BattleMode {
         // Get this from the ship classes too
         playerShip.setPointsWorth(0); //Import the total score that the player gained to here.
         playerScore = playerShip.getPointsWorth();
-        playerShip.setGoldAmount(20);
+        playerShip.setGoldAmount(20); //to-do, make it so using a card with a gold cost actually take away from the gold amount, plus
+        //plus have it so that if a gold-costing card is left, you can discard it, as there may be a possibility a player will be left with it
+        //without enough gold to actually pay for it.
         playerGoldAmount = playerShip.getGoldAmount();
         playerShip.setManaRegenRate(30); //60 for 1 second, 120 for 2 seconds, etc.
         enemyShip.setManaRegenRate(60);
