@@ -83,13 +83,13 @@ public class GameLogic {
         switch (details[0].charAt(0)) {
             //Checks for the specified amount of gold
             case 'G':
-                if (currentGold > Integer.parseInt(details[1])){
+                if (currentGold >= Integer.parseInt(details[1])){
                 return Boolean.TRUE;
                 } else {
                     return Boolean.FALSE;
                 }
             case 'T':
-                if (currentTurn > Integer.parseInt(details[1])){
+                if (currentTurn >= Integer.parseInt(details[1])){
                     return Boolean.TRUE;
                 } else {
                     return Boolean.FALSE;
@@ -123,8 +123,8 @@ public class GameLogic {
         String[] out = new String[6];
         if (pCollege.equals("Alcuin")){
             out[0] = "G-100";
-            out[1] = "G-100";
-            out[2] = "G-120";
+            out[1] = "T-2";
+            out[2] = "G-100";
             out[3] = "G-100";
             out[4] = "G-100";
             out[5] = "G-100";

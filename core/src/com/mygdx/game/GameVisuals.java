@@ -225,7 +225,6 @@ public class GameVisuals extends ScreenAdapter {
 
     //called when a viable neighbor node is pressed - goes through turn change
     public void turnChange(int targetNode){
-        System.out.println("turn changed");
         //init values including new encounterStage
         Stage encounterStage = new Stage(new ScreenViewport());
         boolean isLost;
