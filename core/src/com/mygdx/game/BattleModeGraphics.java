@@ -91,6 +91,8 @@ public class BattleModeGraphics extends ScreenAdapter {
         public boolean started = false;
 
         public Card1() {
+            //setScale(0.5f);
+            //setBounds(getX(), getY(), texture.getWidth(), texture.getHeight());
             setBounds(getX(), getY(), texture.getWidth(), texture.getHeight());
             addListener(new InputListener(){
                 public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
@@ -98,11 +100,12 @@ public class BattleModeGraphics extends ScreenAdapter {
                     return true;
                 }
             });
+
         }
 
         @Override
         public void draw(Batch batch, float alpha) {
-            batch.draw(texture, this.getX(), getY());
+            batch.draw(texture, this.getX(), getY(),100,150); //-------------------------------------------------------------------------------------------------------------------------play with this
         }
 
         @Override
@@ -267,6 +270,12 @@ public class BattleModeGraphics extends ScreenAdapter {
         card2Actor.setPosition(180, 0);
         card3Actor.setPosition(310, 0);
         card4Actor.setPosition(440, 0);
+       // card1Actor.setScale(0.3f);
+        ///card1Actor.setSize(150,200);
+        //card2Actor.setScale(0.3f);
+        //card3Actor.setScale(0.3f);
+        //card4Actor.setScale(0.3f);
+
 
         stage.addActor(playerShipActor);
         stage.addActor(enemyShipActor);
