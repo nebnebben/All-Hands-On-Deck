@@ -2,7 +2,7 @@ package com.mygdx.game;
 
 public class Ship {
     private String name;
-    //private Boolean isDead;
+    private Boolean isDead;
     private Integer totalHealth;
     private Integer totalMana;
     private Integer manaRegenRate;
@@ -11,7 +11,7 @@ public class Ship {
 
 
     public Ship() {
-        //this.isDead = false;
+        this.isDead = false;
         // constructor.
     }
 
@@ -63,6 +63,10 @@ public class Ship {
 
     public Integer getGoldAmount(){
         return this.goldAmount;
+    }
+
+    public Boolean getIsDead(){
+        return isDead;
     }
 
 }
