@@ -1,0 +1,52 @@
+{
+  "CardBase": {
+    "CID_01": {
+      "name": "Basic Attack 1",
+      "description": "This card will deal 2 damage.",
+      "shopCost": 20,
+      "goldCost": 0,
+      "manacost": 2,
+      "effect": "A2"
+    },
+    "CID_02": {
+      "name": "Basic Attack 2",
+      "description": "This card will deal 4 damage.",
+      "shopCost": 50,
+      "goldCost": 0,
+      "manacost": 4,
+      "effect": "A4"
+    },
+    "CID_03": {
+      "name": "Basic Defend/Shield 1",
+      "description": "This card will shield the player by 3.",
+      "shopCost": 15,
+      "goldCost": 0,
+      "manacost": 2,
+      "effect": "D3"
+    },
+    "CID_04": {
+      "name": "Basic Defend 2",
+      "description": "This card will shield the player by 5.",
+      "shopCost": 10,
+      "goldCost": 0,
+      "manacost": 5,
+	  "effect": "D5"
+    },
+    "CID_05": {	
+      "name": "Basic Attack and Shield",
+      "description": "This card will deal 3 damage and shield the player by 1.",
+      "shopCost": 50,
+      "goldCost": 0,
+      "manacost": 6,
+      "effect": "A3D1"
+    },
+    "CID_06": {
+      "name": "Basic Special Attack",
+      "description": "This card will remove the enemy's health by 7 and cost the player 5 gold.",
+      "shopCost": 100,
+      "goldCost": 5,
+      "manacost": 3,
+      "effect": "A7"
+    }
+  }
+}

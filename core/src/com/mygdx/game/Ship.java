@@ -2,15 +2,19 @@ package com.mygdx.game;
 
 public class Ship {
     private String name;
-    private Boolean isDead;
+    //private Boolean isDead;
+    private Integer totalHealth;
     private Integer totalMana;
     private Integer manaRegenRate;
+    private Integer pointsWorth;
+    private Integer goldAmount;
 
 
     public Ship() {
+        //this.isDead = false;
         // constructor.
-        isDead = Boolean.FALSE;
     }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -19,13 +23,6 @@ public class Ship {
         return name;
     }
 
-    public void setIsDead(Boolean isDead) {
-        this.isDead = isDead;
-    }
-
-    public Boolean getIsDead()
-    {  return isDead;
-    }
 
     public void setTotalMana(Integer totalMana) {
         this.totalMana = totalMana;
@@ -40,14 +37,32 @@ public class Ship {
     }
 
     public Integer getManaRegenRate() {
-        return manaRegenRate;
+        return this.manaRegenRate;
     }
 
     //public void addCard(Card card){
         //adds card var to ship from type Card
     //}
+
     public void removeCard(Integer cardIndex){
         //removes card var to ship from type Card
+    }
+
+    public void setPointsWorth(Integer pointsWorth){
+        this.pointsWorth = pointsWorth;
+    }
+
+    public Integer getPointsWorth(){
+        return this.pointsWorth;
+    }
+
+
+    public void setGoldAmount(Integer goldAmount){
+        this.goldAmount = goldAmount;
+    }
+
+    public Integer getGoldAmount(){
+        return this.goldAmount;
     }
 
 }
