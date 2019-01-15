@@ -268,6 +268,6 @@ public class GameVisuals extends ScreenAdapter {
 
     //switches to the GameEndVisual screen
     public void endGame (Boolean win) {
-        game.setScreen(new GameEndVisual(game, win));
+        game.setScreen(new GameEndVisual(game, this, win));
     }
 }

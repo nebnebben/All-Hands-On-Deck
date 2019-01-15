@@ -12,16 +12,20 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
+import java.util.concurrent.TimeUnit;
+
 public class GameEndVisual extends ScreenAdapter {
     private Game game;
+    private ScreenAdapter parent;
     private Boolean isWon;
     private Label endLabel;
     private Label.LabelStyle resourceStyle;
     private Stage endStage;
 
     //constructor call for establishing connection through parent game
-    public GameEndVisual(Game game, Boolean isWon) {
+    public GameEndVisual(Game game, ScreenAdapter parent, Boolean isWon) {
         this.game = game;
+        this.parent = parent;
         this.isWon = isWon;
         create();
     }
@@ -32,10 +36,10 @@ public class GameEndVisual extends ScreenAdapter {
         //only called if game over - only needs to check if the game has been won
         if (isWon) {
             getEndLabel("won");
+            System.out.println("won");
         } else {
             getEndLabel("lost");
         }
-
     }
 
     private void getEndLabel(String in){
@@ -57,6 +61,13 @@ public class GameEndVisual extends ScreenAdapter {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         endStage.act();
         endStage.draw();
+        dispose();
+    }
+
+    @Override
+    public void dispose(){
+        endStage.dispose();
+        game.setScreen(parent);
     }
 
 }
