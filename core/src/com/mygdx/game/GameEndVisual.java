@@ -61,13 +61,11 @@ public class GameEndVisual extends ScreenAdapter {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         endStage.act();
         endStage.draw();
-        dispose();
     }
 
     @Override
     public void dispose(){
         endStage.dispose();
-        game.setScreen(parent);
     }
 
 }

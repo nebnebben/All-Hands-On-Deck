@@ -123,7 +123,7 @@ public class GameLogic {
         String[] out = new String[6];
         if (pCollege.equals("Alcuin")){
             out[0] = "G-100";
-            out[1] = "T-2";
+            out[1] = "T-10";
             out[2] = "G-100";
             out[3] = "G-100";
             out[4] = "G-100";
