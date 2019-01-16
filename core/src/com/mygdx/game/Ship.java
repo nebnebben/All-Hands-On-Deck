@@ -1,5 +1,7 @@
 package com.mygdx.game;
 
+import java.util.ArrayList;
+
 public class Ship {
     private String name;
     private Boolean isDead;
@@ -8,11 +10,21 @@ public class Ship {
     private Integer manaRegenRate;
     private Integer pointsWorth;
     private Integer goldAmount;
+    private ArrayList<Card> deck;
 
-
+    //default ship
     public Ship() {
         this.isDead = false;
+        //adds base deck
+        deck = new ArrayList<Card>();
+        deck.add(new Card());
         // constructor.
+        name = "The Pigeons Droppings";
+        totalHealth = 250;
+        totalMana = 250;
+        manaRegenRate = 10;
+        pointsWorth = 30;
+        goldAmount = 50;
     }
 
     public void setName(String name) {
@@ -69,4 +81,11 @@ public class Ship {
         return isDead;
     }
 
+    public void addCard(Card card){
+        deck.add(card);
+    }
+
+    public int getHealth(){
+        return totalHealth;
+    }
 }

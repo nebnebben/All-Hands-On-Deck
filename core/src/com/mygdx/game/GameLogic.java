@@ -177,6 +177,10 @@ public class GameLogic {
     public Boolean getIsWon(){
         return isWon;
     }
+
+    public Player getPlayer() {
+        return player;
+    }
 }
 
 

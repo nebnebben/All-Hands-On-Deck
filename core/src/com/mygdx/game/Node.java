@@ -1,3 +1,5 @@
+package com.mygdx.game;
+
 import java.util.*;
 //import java.util.Random;
 //import java.util.function.IntToDoubleFunction;
@@ -250,18 +252,20 @@ public class Node {
 class CollegeNode extends Node{
 
     private String name;
+    private Card card;
     private int CollegeStatus; //1 = Friendly, 0 = Hostile
 
     public CollegeNode(int id, int x, int y, String name, int status){
         super( id,  x,  y);
         this.name = name;
         this.CollegeStatus = status;
+        card = new Card();
     }
 
-    public String buyCard(
+    public Card buyCard(
     ){
         //return card ID
-        return "A4";
+        return card;
     }
 
     public void giveQuest(
@@ -299,7 +303,7 @@ class DepartmentNode extends Node{
     }
 
     public int[] buyUpgrade(){
-        int[] uprgrade = new int[1];
+        int[] upgrade = new int[2];
         if (this.name == "Comp Sci"){
             upgrade[0] = 1;
             upgrade[1] = 10;

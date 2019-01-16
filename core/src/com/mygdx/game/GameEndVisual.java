@@ -33,7 +33,7 @@ public class GameEndVisual extends ScreenAdapter {
         this.parent = parent;
         this.isWon = isWon;
         this.score = score;
-        create();
+        create(); //builds visuals
     }
 
     //creation init

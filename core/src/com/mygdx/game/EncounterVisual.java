@@ -49,6 +49,7 @@ public class EncounterVisual extends ScreenAdapter {
         optionStyle.downFontColor = Color.BLUE;
         optionStyle.font = new BitmapFont();
 
+        //create builds the actual visuals
         create();
     }
 

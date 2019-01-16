@@ -2,7 +2,6 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -37,6 +36,7 @@ public class GameVisuals extends ScreenAdapter {
     private Label goldLabel;
     private Label supplyLabel;
     private Label scoreLabel;
+    private TextButton shipButton; //allows for the ship to be viewed
     private TextButton.TextButtonStyle buttonStyle;
     private TextButton.TextButtonStyle clickStyle;
     private TextButton.TextButtonStyle curNodeStyle;
@@ -44,6 +44,7 @@ public class GameVisuals extends ScreenAdapter {
 
     public GameVisuals(Game game){
         this.game = game;
+        //builds visuals
         create();
     }
     public void create () {
@@ -84,6 +85,7 @@ public class GameVisuals extends ScreenAdapter {
         createTopLabels(row_height, col_width); //creates the set of top labels
         createNodeMap(3,2); //creates the nodeMap with x,y coordinates scaled to match window
 
+
     }
 
     //render includes necessary functionality used when moving through screens because it is called on screen change
@@ -94,14 +96,22 @@ public class GameVisuals extends ScreenAdapter {
         updateTopLabels();
 
         //actual render functionality
+        //clears image
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        //draws visuals
         mainStage.act();
         mainStage.draw();
 
 
         //when switching between screens, the input stage needs to be reset to the stage on this screen
         Gdx.input.setInputProcessor(mainStage);
+        //switching between screens may have also resulted in a loss/win
+        Boolean isWon = gameLogic.checkWin();
+        Boolean isLost = gameLogic.checkLoss();
+        if (isWon || isLost){
+            endGame(isWon);
+        }
 
 
     }
@@ -145,6 +155,9 @@ public class GameVisuals extends ScreenAdapter {
             //gives each button an independent index which can be accessed by click listener - determines neighbor
             final int index = i;
 
+            //constant screen parent for use within the button
+            final ScreenAdapter parent = this;
+
             //node textButton creation
             //if the node is a neighbor node to the current node it has a different style as defined above
             if (gameLogic.getNeighborNodes().contains(i)){
@@ -155,7 +168,14 @@ public class GameVisuals extends ScreenAdapter {
                 aStyle = curNodeStyle;
             }
             nodeButtons[i] = new TextButton(String.valueOf(i),aStyle);
-            nodeButtons[i].setText("0");
+            //map symbol dependent on node type
+            if (nodeList[i].getNodeType().equals("College")){
+                nodeButtons[i].setText("C");
+            } else if (nodeList[i].getNodeType().equals("Department")){
+                nodeButtons[i].setText("D");
+            } else {
+                nodeButtons[i].setText("0");
+            }
             nodeButtons[i].setSize(nodeSize,nodeSize);
             nodeButtons[i].setPosition(x,y);
             nodeButtons[i].setZIndex(i);
@@ -165,8 +185,18 @@ public class GameVisuals extends ScreenAdapter {
                 //on left click up - can only follow after a left click down
                 @Override
                 public void clicked(InputEvent event,float x, float y){
+                    //if it is one of the neighbor Nodes, turn change. If it is the current Node, check for college/department
                     if (gameLogic.getNeighborNodes().contains(index)){
                         turnChange(index);
+                    } else if (gameLogic.getCurrentNode() == index){
+                        //if the node is a college or department, screen change to the college/department visuals
+                        if (gameLogic.getNodeList()[index].getNodeType().equals("College")){
+                            CollegeNode node = (CollegeNode) gameLogic.getNodeList()[index];
+                            game.setScreen(new CollegeVisual(game, parent , gameLogic, node));
+                        } else if (gameLogic.getNodeList()[index].getNodeType().equals("Department")){
+                            DepartmentNode node = (DepartmentNode) gameLogic.getNodeList()[index];
+                            game.setScreen(new DepartmentVisual(game, parent, gameLogic, node));
+                        }
                     }
                 }
             });
@@ -223,6 +253,20 @@ public class GameVisuals extends ScreenAdapter {
         scoreLabel.setPosition(Gdx.graphics.getWidth() - 12*col_width, Gdx.graphics.getHeight()-row_height);
         scoreLabel.setAlignment(Align.topLeft);
         mainStage.addActor(scoreLabel);
+
+        final ScreenAdapter parent = this;
+        shipButton = new TextButton("ship", buttonStyle);
+        shipButton.setText("View ship");
+        shipButton.setSize(col_width, row_height);
+        shipButton.setPosition(10, Gdx.graphics.getHeight()-row_height-14);
+        shipButton.getLabel().setAlignment(Align.topLeft);
+        shipButton.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                game.setScreen(new ShipVisual(game,parent,gameLogic.getPlayer().getPlayerShip()));
+            }
+        });
+        mainStage.addActor(shipButton);
     }
 
     //resets the text of all the top labels to the most recent values from gameLogic
@@ -251,9 +295,17 @@ public class GameVisuals extends ScreenAdapter {
         if (isLost || isWon) {
             endGame(isWon);
         }
-        //triggers encounter based on whether the node is a college/department node or not
-        game.setScreen(new EncounterVisual(game, this, gameLogic,encounter));
-
+        //triggers screen change based on whether the node is a college/department node or not
+        if (gameLogic.getNodeList()[targetNode].getNodeType().equals("College")){
+            CollegeNode node = (CollegeNode) gameLogic.getNodeList()[targetNode];
+            game.setScreen(new CollegeVisual(game, this, gameLogic, node));
+        } else if (gameLogic.getNodeList()[targetNode].getNodeType().equals("Department")) {
+            DepartmentNode node = (DepartmentNode) gameLogic.getNodeList()[targetNode];
+            game.setScreen(new DepartmentVisual(game,this, gameLogic, node));
+        } else {
+            //if the node was not a department or a college, it triggers and encounter
+            game.setScreen(new EncounterVisual(game, this, gameLogic, encounter));
+        }
 
 
         //checks whether the gameLogic is won or lost again - if it isn't the visuals are updated and turn change is complete
