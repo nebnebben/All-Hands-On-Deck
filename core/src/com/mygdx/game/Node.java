@@ -1,4 +1,3 @@
-package com.mygdx.game;
 import java.util.*;
 //import java.util.Random;
 //import java.util.function.IntToDoubleFunction;
@@ -60,7 +59,36 @@ public class Node {
         Boolean inbounds = true;
         for (int i = 0; i < Map.length; i++){
             //Gives each node an id, and a default location
-            Map[i] = new Node(i,0,0);
+            if(i < 5){
+                switch (i){
+                    //First 3 nodes are colleges, 4+5 are departments
+                    case 0:
+                        Map[i] = new CollegeNode(i, 0,0,"Alcuin", 1);
+                        Map[i].setNodeType("College");
+                        break;
+                    case 1:
+                        Map[i] = new CollegeNode(i, 0,0,"James", 0);
+                        Map[i].setNodeType("College");
+                        break;
+                    case 2:
+                        Map[i] = new CollegeNode(i, 0,0,"Derwent", 0);
+                        Map[i].setNodeType("College");
+                        break;
+                    case 3:
+                        Map[i] = new DepartmentNode(i, 0,0,"Comp Sci", 1);
+                        Map[i].setNodeType("Department");
+                        break;
+                    case 4:
+                        Map[i] = new DepartmentNode(i, 0,0,"Philosophy", 1);
+                        Map[i].setNodeType("Department");
+                        break;
+                }
+
+            } else {
+                //Otherwise just normal nodes
+                Map[i] = new Node(i,0,0);
+                Map[i].setNodeType("Normal");
+            }
             inbounds = true;
             //Loop to check no node is within x distance of each other
             while(inbounds == true){
@@ -71,8 +99,15 @@ public class Node {
 
                 //Check to see whether the co-ordinates are within x of another node, if yes loop
                 for (int j = 0; j < i; j++){
-                    if (Math.sqrt((Math.pow((Map[i].x - Map[j].x),2) + Math.pow((Map[i].y - Map[j].y),2))) < 30){
-                        inbounds = true;
+                    //Ensures colleges (first 3) are further away from each other than normal nodes
+                    if (i < 3){
+                        if (Math.sqrt((Math.pow((Map[i].x - Map[j].x),2) + Math.pow((Map[i].y - Map[j].y),2))) < 120){
+                            inbounds = true;
+                        }
+                    } else {
+                        if (Math.sqrt((Math.pow((Map[i].x - Map[j].x),2) + Math.pow((Map[i].y - Map[j].y),2))) < 30){
+                            inbounds = true;
+                        }
                     }
                 }
 
@@ -114,7 +149,10 @@ public class Node {
             //Adds to the nearest 3 nodes to connectnodes
             Map[i].connectnodes = new ArrayList<Integer>();
             for (int k = 0; k < 3; k++){
-                Map[i].connectnodes.add(Distance[k][1].intValue());
+                //Connects them if they aren't both colleges
+                if (Map[i].nodeType != "College" || Map[k].nodeType != "College"){
+                    Map[i].connectnodes.add(Distance[k][1].intValue());
+                }
             }
 
 
@@ -197,24 +235,45 @@ public class Node {
         return this.connectnodes;
     }
 
-//ArrayList<Integer> list=new ArrayList<Integer>();
 }
 
 class CollegeNode extends Node{
 
     private String name;
-    private int CollegeStatus;
+    private int CollegeStatus; //1 = Friendly, 0 = Hostile
 
-    public CollegeNode(int id, int x, int y){
+    public CollegeNode(int id, int x, int y, String name, int status){
         super( id,  x,  y);
+        this.name = name;
+        this.CollegeStatus = status;
     }
 
-    public void buyCard(int CardID){}
+    public String buyCard(
+    ){
+        //return card ID
+        return "A4";
+    }
 
-    public void giveQuest(){}
+    public void giveQuest(
+    ){
+        //return Quest
+    }
 
-    public void attackCollege(){}
+    public void attackCollege(){
+        // BattleMode battleMode = new BattleMode();
+    }
 
+    public String getCollegeName(){
+        return this.name;
+    }
+
+    public void setCollegeName(String name){
+        this.name = name;
+    }
+
+    public int getCollegeStatus(){
+        return this.CollegeStatus;
+    }
 
 }
 
@@ -223,13 +282,39 @@ class DepartmentNode extends Node{
     private String name;
     private  int departmentStatus;
 
-    public DepartmentNode(int id, int x, int y){
+    public DepartmentNode(int id, int x, int y, String name, int status){
         super( id,  x,  y);
+        this.name = name;
+        this.departmentStatus = status;
     }
 
-    public void buyUpgrade(int choice){}
+    public int[] buyUpgrade(){
+        int[] uprgrade = new int[1];
+        if (this.name == "Comp Sci"){
+            upgrade[0] = 1;
+            upgrade[1] = 10;
+            return upgrade;
+        } else {
+            upgrade[0] = 2;
+            upgrade[1] = 20;
+            return upgrade;
+        }
+    }
 
-    public void attackCollege(){}
+    public void attackCollege(){
+        // BattleMode battleMode = new BattleMode();
+    }
 
-    public void playMinigame(){}
+
+    public String getDepartmentName(){
+        return this.name;
+    }
+
+    public void setDepartmentName(String name){
+        this.name = name;
+    }
+
+    public int getDepartmentStatus(){
+        return this.departmentStatus;
+    }
 }
