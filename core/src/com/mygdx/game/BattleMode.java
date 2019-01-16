@@ -506,13 +506,10 @@ public class BattleMode {
 
     public float getShipHealthPercentage(String targetShip){
         if(targetShip == "player"){
-            return ((float) (playerShipHealth/playerShipHealthMax))*100;
+            return (((float)playerShipHealth/(float)playerShipHealthMax)*100);
         } else if(targetShip == "enemy"){
-            System.out.println("Health percentage is: "+ ((float) (enemyShipHealth/enemyShipHealthMax))*100);
-            return ((float) (enemyShipHealth/enemyShipHealthMax))*100;
+            return ((float)enemyShipHealth/(float)enemyShipHealthMax)*100;
         }
-        return 100;
+        return 0;
     }
-
-
 }
