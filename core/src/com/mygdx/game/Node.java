@@ -34,15 +34,25 @@ public class Node {
     }
 
     //Randomly decides on which encounter to selectz
-    public void giveEncounter() {
+    public Encounter giveEncounter() {
         Random chance = new Random();
         int n = chance.nextInt(100)+1;
         if (n > encounterchance) {
+            /*
             chance = new Random();
             n = chance.nextInt(encounters.length);
             //encounter[n]
+            */
+            String[] encounterEffects = new String[2];
+            encounterEffects[0] = "S-L-2";
+            encounterEffects[1] = "S-L-3";
+            return new Encounter(encounterEffects, "You run into a rock and require repairs to your ship",5);
         } else {
             //no encounter
+            String[] encounterEffects = new String[2];
+            encounterEffects[0] = "S-L-2";
+            encounterEffects[1] = "S-L-3";
+            return new Encounter(encounterEffects, "You run into a rock and require repairs to your ship", 5);
         }
     }
 

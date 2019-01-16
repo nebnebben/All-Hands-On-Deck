@@ -141,7 +141,7 @@ public class GameLogic {
         currentScore += in;
     }
 
-    //supplies getter/setters
+    //supplies getter/setters + adder (can add negative value to lose)
     public Integer getCurrentSupplies () {
         return currentSupplies;
     }
@@ -150,7 +150,9 @@ public class GameLogic {
         currentSupplies = in;
     }
 
-
+    public void addSupplies (int in){
+        currentSupplies = currentSupplies + in;
+    }
 
     public int getCurrentTurn(){
         return currentTurn;

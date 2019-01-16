@@ -15,18 +15,24 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import java.util.concurrent.TimeUnit;
 
 public class GameEndVisual extends ScreenAdapter {
+    //data/logic parameters
     private Game game;
     private ScreenAdapter parent;
     private Boolean isWon;
+    private int score;
+
+    //visual paramters
     private Label endLabel;
+    private Label scoreLabel;
     private Label.LabelStyle resourceStyle;
     private Stage endStage;
 
     //constructor call for establishing connection through parent game
-    public GameEndVisual(Game game, ScreenAdapter parent, Boolean isWon) {
+    public GameEndVisual(Game game, ScreenAdapter parent, Boolean isWon, int score) {
         this.game = game;
         this.parent = parent;
         this.isWon = isWon;
+        this.score = score;
         create();
     }
 
@@ -36,10 +42,16 @@ public class GameEndVisual extends ScreenAdapter {
         //only called if game over - only needs to check if the game has been won
         if (isWon) {
             getEndLabel("won");
-            System.out.println("won");
         } else {
             getEndLabel("lost");
         }
+
+        scoreLabel  = new Label("score",resourceStyle);
+        scoreLabel.setText("Score: " + score);
+        scoreLabel.setSize(10, 10);
+        scoreLabel.setPosition(Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight()/2 - 14);
+        scoreLabel.setAlignment(Align.center);
+        endStage.addActor(scoreLabel);
     }
 
     private void getEndLabel(String in){
@@ -47,10 +59,10 @@ public class GameEndVisual extends ScreenAdapter {
         resourceStyle.fontColor = Color.RED;
         resourceStyle.font = new BitmapFont();
 
-        endLabel = new Label("turn",resourceStyle);
+        endLabel = new Label("end",resourceStyle);
         endLabel.setText("You " + in);
-        endLabel.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        endLabel.setPosition(Gdx.graphics.getWidth()/4,Gdx.graphics.getHeight()/4);
+        endLabel.setSize(10, 10);
+        endLabel.setPosition(Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight()/2);
         endLabel.setAlignment(Align.center);
         endStage.addActor(endLabel);
     }

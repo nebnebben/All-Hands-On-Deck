@@ -21,17 +21,18 @@ public class Encounter {
         this.effects = effects;
         this.description = description;
         this.score = score;
+        options = new String[effects.length];
         //Options initialized utilizing effects
-        for (int i=0; i<effects.length-1;i++){
+        for (int i=0; i<effects.length;i++){
             //effect number
             String num = Integer.toString(i+1);
             //plus the effect parsed as a readable string
-            options[i] = num + ". " + parseEffectString(effects[i]);
+            options[i] = num + ". " + effectString2Text(effects[i]);
         }
 
     }
 
-    private String parseEffectString(String effect){
+    private String effectString2Text(String effect){
         String[] details = effect.split("-");
         switch (details[0].charAt(0)) {
             //battle, details[1] contains details for the enemy ship
@@ -60,4 +61,20 @@ public class Encounter {
         return
     }
     */
+
+    public String[] getOptions(){
+        return options;
+    }
+
+    public String getDescription(){
+        return description;
+    }
+
+    public String[] getEffects(){
+        return effects;
+    }
+
+    public int getScore(){
+        return score;
+    }
 }

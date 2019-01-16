@@ -86,13 +86,23 @@ public class GameVisuals extends ScreenAdapter {
 
     }
 
+    //render includes necessary functionality used when moving through screens because it is called on screen change
     @Override
     public void render(float delta) {
 
+        //gameLogic data may have changed on screen change, so the top labels have to be updated
+        updateTopLabels();
+
+        //actual render functionality
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         mainStage.act();
         mainStage.draw();
+
+
+        //when switching between screens, the input stage needs to be reset to the stage on this screen
+        Gdx.input.setInputProcessor(mainStage);
+
 
     }
 
@@ -225,13 +235,15 @@ public class GameVisuals extends ScreenAdapter {
 
     //called when a viable neighbor node is pressed - goes through turn change
     public void turnChange(int targetNode){
-        //init values including new encounterStage
-        Stage encounterStage = new Stage(new ScreenViewport());
+        //init values including the encounter triggered
         boolean isLost;
         boolean isWon;
+        Encounter encounter;
 
-        //traverses the node in gameLogic controller
+        //traverses the node in gameLogic controller then sets encounter node to the new node
         gameLogic.traverseNode(targetNode);
+        encounter = gameLogic.getNodeList()[gameLogic.getCurrentNode()].giveEncounter();
+
         //does completion check before encounter can trigger
         isLost = gameLogic.checkLoss();
         isWon = gameLogic.checkWin();
@@ -240,7 +252,9 @@ public class GameVisuals extends ScreenAdapter {
             endGame(isWon);
         }
         //triggers encounter based on whether the node is a college/department node or not
-        // INSERT FUNCTIONALITY HERE
+        game.setScreen(new EncounterVisual(game, this, gameLogic,encounter));
+
+
 
         //checks whether the gameLogic is won or lost again - if it isn't the visuals are updated and turn change is complete
         if (isLost || isWon) {
@@ -268,6 +282,6 @@ public class GameVisuals extends ScreenAdapter {
 
     //switches to the GameEndVisual screen
     public void endGame (Boolean win) {
-        game.setScreen(new GameEndVisual(game, this, win));
+        game.setScreen(new GameEndVisual(game, this, win, gameLogic.getScore()));
     }
 }
