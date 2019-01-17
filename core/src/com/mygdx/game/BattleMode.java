@@ -63,7 +63,7 @@ public class BattleMode {
 
 
 
-    public BattleMode(Ship playerShip, Ship enemyShip){ //Integer playerShipHealth, Integer playerShipHealthMax, Integer playerManaMax, Integer playerShipManaRate, Integer playerGoldAmount, Integer playerScore), ArrayList<Card> playerTempDeck --Doesn't work for some reason.
+    public BattleMode(Ship playerShip, Ship enemyShip, int gold){ //Integer playerShipHealth, Integer playerShipHealthMax, Integer playerManaMax, Integer playerShipManaRate, Integer playerGoldAmount, Integer playerScore), ArrayList<Card> playerTempDeck --Doesn't work for some reason.
         //Some of these depend on the actual ship stats. Pull all of this from existing data when battle starts.
         playerMana = 0;
         enemyMana = 0;
@@ -102,19 +102,19 @@ public class BattleMode {
         enemyShipDead = false;
 
 
-//        playerManaMax = 25;
-//        enemyManaMax = 10;
-//        playerShipHealthMax = 20;
-//        enemyShipHealthMax = 10;
-//        playerShipHealth = 20;
-//        enemyShipHealth = 10;
-//        isSpecialEnemy = false;
-//        playerScore = 0;
-//        playerGoldAmount = 40;
-//        playerShipManaRate = 30;
-//        enemyShipManaRate = 60;
-//        scoreToGain = 50;
-//        goldToGain = 10;
+        playerManaMax = playerShip.getTotalMana();
+        enemyManaMax = enemyShip.getTotalMana();
+        playerShipHealthMax = playerShip.getTotalHealth();
+        enemyShipHealthMax = enemyShip.getTotalHealth();
+        playerShipHealth = playerShipHealthMax;
+        enemyShipHealth = enemyShipHealthMax;
+        isSpecialEnemy = enemyShip.getIsSpecial();
+        playerScore = 0;
+        playerGoldAmount = gold ;
+        playerShipManaRate = playerShip.getManaRegenRate();
+        enemyShipManaRate = enemyShip.getManaRegenRate();
+        scoreToGain = enemyShip.getPointsWorth();
+        goldToGain = enemyShip.getGoldAmount();
 //
 //
 //        playerShip.setPointsWorth(0); //Import the total score that the player gained to here.

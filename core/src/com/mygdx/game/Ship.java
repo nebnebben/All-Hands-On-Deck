@@ -19,7 +19,7 @@ public class Ship {
         this.isDead = false;
         //adds base deck
         deck = new ArrayList<Card>();
-        deck.add(new Card());
+        deck.add(new Card("fast attack", "attacks fast", 10, 0, 2, "A9"));
         // constructor.
         name = "The Pigeons Droppings";
         totalHealth = 250;
@@ -74,10 +74,6 @@ public class Ship {
         return this.manaRegenRate;
     }
 
-    //public void addCard(Card card){
-        //adds card var to ship from type Card
-    //}
-
     public void removeCard(Integer cardIndex){
         //removes card var to ship from type Card
     }
@@ -108,7 +104,6 @@ public class Ship {
     public Boolean getIsSpecial(){return isSpecial;}
 
     public ArrayList<Card> getDeck(){return deck;}
-
 
 
     public void addCard(Card card){

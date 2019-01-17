@@ -14,6 +14,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
+import java.util.ArrayList;
+
 public class EncounterVisual extends ScreenAdapter {
     //data/logic parameters
     private Game game;
@@ -107,7 +109,32 @@ public class EncounterVisual extends ScreenAdapter {
         switch (details[0].charAt(0)) {
             //battle, details[1] contains details for the enemy ship
             case 'B':
-                //insert battle change here
+                //initializes a ship to be fought, then switches to the battle screen with its parent set as GameVisuals
+                //details of the ship to be fought are stored, but the ships deck is stored as cards with / separation
+                int shipMaxHealth = Integer.parseInt(details[1]);
+                int shipMana = Integer.parseInt(details[2]);
+                int shipRegen = Integer.parseInt(details[3]);
+                int shipPoints = Integer.parseInt(details[4]);
+                int shipGold = Integer.parseInt(details[5]);
+                String shipDeckString = details[6];
+                String[] shipCards = shipDeckString.split("/");
+                ArrayList<Card> shipDeck = new ArrayList<Card>();
+                for (int i = 0; i < shipCards.length; i++){
+                    //individual cards have their details split between periods
+                    String [] cardDetails = shipCards[i].split(",");
+                    String cardName = cardDetails[0];
+                    String cardDesc = cardDetails[1];
+                    int cardShop = Integer.parseInt(cardDetails[2]);
+                    int cardGold = Integer.parseInt(cardDetails[3]);
+                    int cardMana = Integer.parseInt(cardDetails[4]);
+                    String cardEffect = cardDetails[5];
+                    //then instantiated and added to the deck
+                    Card inCard = new Card(cardName, cardDesc, cardShop, cardGold, cardMana, cardEffect);
+                    shipDeck.add(inCard);
+                }
+                Ship enemyShip = new Ship(shipMaxHealth, shipMaxHealth, shipMana, shipRegen, shipPoints, shipGold, shipDeck, Boolean.FALSE);
+                dispose();
+                game.setScreen(new BattleModeGraphics(game, parent, gameLogic, enemyShip));
             //change supplies - details [1] indicates whether to add or subtract, details [2] by how much
             case 'S':
                 if (details[1].equals("L")) {

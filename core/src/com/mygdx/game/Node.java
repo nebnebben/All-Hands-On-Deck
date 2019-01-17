@@ -47,7 +47,7 @@ public class Node {
             */
             String[] encounterEffects = new String[2];
             encounterEffects[0] = "S-L-2";
-            encounterEffects[1] = "S-L-3";
+            encounterEffects[1] = "B-50-50-5-50-50-pot,pot,5,5,5,A2";
             return new Encounter(encounterEffects, "You run into a rock and require repairs to your ship",5);
         } else {
             //no encounter
@@ -76,15 +76,19 @@ public class Node {
                 switch (i){
                     //First 3 nodes are colleges, 4+5 are departments
                     case 0:
-                        Map[i] = new CollegeNode(i, 0,0,"Alcuin", 1);
+                        //first initializes colleges unique card, then changes a node to a collegeNode
+                        Card alcuinCard = new Card("something", "something", 10, 0, 2, "A2");
+                        Map[i] = new CollegeNode(i, 0,0,"Alcuin", 1, alcuinCard);
                         Map[i].setNodeType("College");
                         break;
                     case 1:
-                        Map[i] = new CollegeNode(i, 0,0,"James", 0);
+                        Card jamesCard = new Card("something", "something", 10, 0, 2, "A2");
+                        Map[i] = new CollegeNode(i, 0,0,"James", 0, jamesCard);
                         Map[i].setNodeType("College");
                         break;
                     case 2:
-                        Map[i] = new CollegeNode(i, 0,0,"Derwent", 0);
+                        Card derwentCard = new Card("something", "something", 10, 0, 2, "A2");
+                        Map[i] = new CollegeNode(i, 0,0,"Derwent", 0, derwentCard);
                         Map[i].setNodeType("College");
                         break;
                     case 3:
@@ -256,11 +260,11 @@ class CollegeNode extends Node{
     private Card card;
     private int CollegeStatus; //1 = Friendly, 0 = Hostile
 
-    public CollegeNode(int id, int x, int y, String name, int status){
+    public CollegeNode(int id, int x, int y, String name, int status, Card card){
         super( id,  x,  y);
         this.name = name;
         this.CollegeStatus = status;
-        card = new Card();
+        this.card = card;
     }
 
     public Card buyCard(

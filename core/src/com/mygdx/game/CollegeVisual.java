@@ -20,6 +20,7 @@ public class CollegeVisual extends ScreenAdapter {
     private ScreenAdapter parent;
     private GameLogic gameLogic;
     private CollegeNode collegeNode;
+    final private CollegeVisual clickThis;
 
     //visual parameters
     private Label nameLabel;
@@ -36,6 +37,7 @@ public class CollegeVisual extends ScreenAdapter {
         this.parent = parent;
         this.gameLogic = gameLogic;
         this.collegeNode = collegeNode;
+        clickThis = this;
         collegeStage = new Stage(new ScreenViewport());
 
         //initiliazes the standard TextButtonStyle for the options to follow
@@ -124,8 +126,9 @@ public class CollegeVisual extends ScreenAdapter {
             //on left click up - can only follow after a left click down
             @Override
             public void clicked(InputEvent event, float x, float y){
-                //every encounter has a score which is added on, then the actual choice is interpreted
-                //add battle effect here
+                Ship enemyShip = new Ship();
+                dispose();
+                game.setScreen(new BattleModeGraphics(game, clickThis, gameLogic, enemyShip));
             }
         });
         collegeStage.addActor(attackButton);

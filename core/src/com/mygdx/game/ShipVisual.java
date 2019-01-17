@@ -67,7 +67,7 @@ public class ShipVisual extends ScreenAdapter {
 
         //health
         healthLabel = new Label("health", resourceStyle);
-        healthLabel.setText("Health: " + Integer.toString(ship.getHealth()));
+        healthLabel.setText("Health: " + Integer.toString(ship.getCurrentHealth()) + "/"+ Integer.toString(ship.getHealth()));
         healthLabel.setPosition(0, Gdx.graphics.getHeight()-40);
         healthLabel.setSize(10,12);
         healthLabel.setAlignment(Align.topLeft);

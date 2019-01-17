@@ -28,7 +28,13 @@ public class Card {
         return Arrays.asList(shopCost, goldCost, manaCost);
     }
 
-    public Card(){
+    public Card(String name, String description, int shopCost, int goldCost, int manaCost, String effect){
+        this.name = name;
+        this.description = description;
+        this.shopCost = shopCost;
+        this.goldCost = goldCost;
+        this.manaCost = manaCost;
+        this.effect = effect;
         numberOfCards++;
     }
 

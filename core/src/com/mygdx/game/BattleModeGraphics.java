@@ -33,6 +33,7 @@ public class BattleModeGraphics extends ScreenAdapter {
     protected Screen screen;
     private Game game;
     private ScreenAdapter parent;
+    private GameLogic gameLogic;
     private Texture background;
     private TextButton exitButton;
     private TextButton.TextButtonStyle optionStyle;
@@ -273,11 +274,12 @@ public class BattleModeGraphics extends ScreenAdapter {
 
 
 
-    public BattleModeGraphics(Game game, Ship playerShip, Ship enemyShip){
+    public BattleModeGraphics(Game game, ScreenAdapter parent, GameLogic gameLogic, Ship enemyShip){
         this.game = game;
-        this.playerShip = playerShip;
+        this.playerShip = gameLogic.getPlayer().getPlayerShip();
         this.enemyShip = enemyShip;
-        battleMode = new BattleMode(playerShip, enemyShip);
+        this.parent = parent;
+        battleMode = new BattleMode(playerShip, enemyShip, gameLogic.currentGold );
 
         //initiliazes the standard TextButtonStyle for the exit button to follow
         optionStyle = new TextButton.TextButtonStyle();
