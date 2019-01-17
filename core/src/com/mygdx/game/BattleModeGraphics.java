@@ -12,7 +12,9 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Align;
 
 
 //Json attempts. Delete when done. -----------------
@@ -29,7 +31,11 @@ import java.util.Scanner;
 
 public class BattleModeGraphics extends ScreenAdapter {
     protected Screen screen;
+    private Game game;
+    private ScreenAdapter parent;
     private Texture background;
+    private TextButton exitButton;
+    private TextButton.TextButtonStyle optionStyle;
     SpriteBatch batch;
     BitmapFont playerFont;
     BitmapFont enemyFont;
@@ -39,7 +45,10 @@ public class BattleModeGraphics extends ScreenAdapter {
     Sprite sprite;
 
 
-    BattleMode battleMode = new BattleMode();
+
+    BattleMode battleMode;
+    private Ship playerShip;
+    private Ship enemyShip;
 
     //temp?
     private Integer playerCurrentMana;
@@ -56,7 +65,7 @@ public class BattleModeGraphics extends ScreenAdapter {
 
 
     public class PlayerShip extends Actor {
-        Texture texture = new Texture(Gdx.files.internal("PlayerShip.png"));
+        Texture texture = new Texture(Gdx.files.internal("Ship2_Undamaged.png"));
         public boolean started = false;
 
 
@@ -66,12 +75,31 @@ public class BattleModeGraphics extends ScreenAdapter {
 
         @Override
         public void draw(Batch batch, float alpha) {
-            batch.draw(texture, this.getX(), getY());
+            batch.draw(texture, this.getX(), getY(),150,150);
+        }
+
+        @Override
+        public void act(float delta){ //Changes sprite depending on how much damage the ship has taken
+            float hpPercentage = battleMode.getShipHealthPercentage("player");
+            if(hpPercentage <= 0){
+                texture = new Texture(Gdx.files.internal("Ship2_destroyed.png"));
+            } else if(hpPercentage <= 80 && hpPercentage > 60){
+                texture = new Texture(Gdx.files.internal("Ship2_damage1.png"));
+            } else if(hpPercentage <= 60 && hpPercentage > 40){
+                texture = new Texture(Gdx.files.internal("Ship2_damage2.png"));
+            } else if(hpPercentage <= 40 && hpPercentage > 20){
+                texture = new Texture(Gdx.files.internal("Ship2_damage3.png"));
+            } else if(hpPercentage <= 20 && hpPercentage > 0){
+                texture = new Texture(Gdx.files.internal("Ship2_damage4.png"));
+            } else{
+                //Another check is necessary here to give it the correct sprite, to-do.
+                texture = new Texture(Gdx.files.internal("Ship2_Undamaged.png"));
+            }
         }
     }
 
     public class EnemyShip extends Actor {
-        Texture texture = new Texture(Gdx.files.internal("EnemyShip.png"));
+        Texture texture = new Texture(Gdx.files.internal("Ship1_Undamaged.png"));
         public boolean started = false;
 
         public EnemyShip() {
@@ -79,8 +107,25 @@ public class BattleModeGraphics extends ScreenAdapter {
         }
 
         @Override
-        public void draw(Batch batch, float alpha) {
-            batch.draw(texture, this.getX(), getY());
+        public void draw(Batch batch, float alpha) {batch.draw(texture, this.getX(), getY(),150,150);}
+
+        @Override
+        public void act(float delta){ //Changes sprite depending on how much damage the ship has taken
+            float hpPercentage = battleMode.getShipHealthPercentage("enemy");
+            if(hpPercentage <= 0){
+                texture = new Texture(Gdx.files.internal("Ship1_destroyed.png"));
+            } else if(hpPercentage <= 80 && hpPercentage> 60){
+                texture = new Texture(Gdx.files.internal("Ship1_damage1.png"));
+            } else if(hpPercentage <= 60 && hpPercentage > 40){
+                texture = new Texture(Gdx.files.internal("Ship1_damage2.png"));
+            } else if(hpPercentage <= 40 && hpPercentage > 20){
+                texture = new Texture(Gdx.files.internal("Ship1_damage3.png"));
+            } else if(hpPercentage <= 20 &&hpPercentage > 0){
+                texture = new Texture(Gdx.files.internal("Ship1_damage4.png"));
+            } else{
+                //Another check is necessary here to give it the correct sprite, to-do.
+                texture = new Texture(Gdx.files.internal("Ship1_Undamaged.png"));
+            }
         }
     }
 
@@ -89,6 +134,8 @@ public class BattleModeGraphics extends ScreenAdapter {
         public boolean started = false;
 
         public Card1() {
+            //setScale(0.5f);
+            //setBounds(getX(), getY(), texture.getWidth(), texture.getHeight());
             setBounds(getX(), getY(), texture.getWidth(), texture.getHeight());
             addListener(new InputListener(){
                 public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
@@ -96,11 +143,11 @@ public class BattleModeGraphics extends ScreenAdapter {
                     return true;
                 }
             });
+
         }
 
         @Override
-        public void draw(Batch batch, float alpha) {
-            batch.draw(texture, this.getX(), getY());
+        public void draw(Batch batch, float alpha) {batch.draw(texture, this.getX(), getY());
         }
 
         @Override
@@ -113,10 +160,10 @@ public class BattleModeGraphics extends ScreenAdapter {
                 started = false;
             }
             if(battleMode.isCardEmpty(0)){
-                texture = new Texture(Gdx.files.internal("CardEmpty.png"));
+                texture = new Texture(Gdx.files.internal("CardEmpty_small.png"));
             } else{
                 //Another check is necessary here to give it the correcy sprite, to-do.
-                texture = new Texture(Gdx.files.internal("CardAttack.png"));
+                texture = new Texture(Gdx.files.internal("CardActive_Small.png"));
             }
         }
     }
@@ -135,10 +182,11 @@ public class BattleModeGraphics extends ScreenAdapter {
             });
         }
 
+
         @Override
-        public void draw(Batch batch, float alpha) {
-            batch.draw(texture, this.getX(), getY());
-        }
+        public void draw(Batch batch, float alpha) {batch.draw(texture, this.getX(), getY());}
+
+
 
         @Override
         public void act(float delta){
@@ -147,10 +195,10 @@ public class BattleModeGraphics extends ScreenAdapter {
                 started = false;
             }
             if(battleMode.isCardEmpty(1)){
-                texture = new Texture(Gdx.files.internal("CardEmpty.png"));
+                texture = new Texture(Gdx.files.internal("CardEmpty_small.png"));
             } else{
                 //Another check is necessary here to give it the correcy sprite, to-do.
-                texture = new Texture(Gdx.files.internal("CardAttack.png"));
+                texture = new Texture(Gdx.files.internal("CardActive_Small.png"));
             }
         }
     }
@@ -181,10 +229,10 @@ public class BattleModeGraphics extends ScreenAdapter {
                 started = false;
             }
             if(battleMode.isCardEmpty(2)){
-                texture = new Texture(Gdx.files.internal("CardEmpty.png"));
+                texture = new Texture(Gdx.files.internal("CardEmpty_small.png"));
             } else{
                 //Another check is necessary here to give it the correcy sprite, to-do.
-                texture = new Texture(Gdx.files.internal("CardAttack.png"));
+                texture = new Texture(Gdx.files.internal("CardActive_Small.png"));
             }
         }
     }
@@ -215,17 +263,28 @@ public class BattleModeGraphics extends ScreenAdapter {
                 started = false;
             }
             if(battleMode.isCardEmpty(3)){
-                texture = new Texture(Gdx.files.internal("CardEmpty.png"));
+                texture = new Texture(Gdx.files.internal("CardEmpty_small.png"));
             } else{
                 //Another check is necessary here to give it the correcy sprite, to-do.
-                texture = new Texture(Gdx.files.internal("CardAttack.png"));
+                texture = new Texture(Gdx.files.internal("CardActive_Small.png"));
             }
         }
     }
 
 
 
-    public BattleModeGraphics(){
+    public BattleModeGraphics(Game game, Ship playerShip, Ship enemyShip){
+        this.game = game;
+        this.playerShip = playerShip;
+        this.enemyShip = enemyShip;
+        battleMode = new BattleMode(playerShip, enemyShip);
+
+        //initiliazes the standard TextButtonStyle for the exit button to follow
+        optionStyle = new TextButton.TextButtonStyle();
+        optionStyle.fontColor = Color.BLACK;
+        optionStyle.downFontColor = Color.BLUE;
+        optionStyle.font = new BitmapFont();
+
         create();
     }
 
@@ -258,12 +317,18 @@ public class BattleModeGraphics extends ScreenAdapter {
 
 
 
-        playerShipActor.setPosition(0,250);
+        playerShipActor.setPosition(10,250);
         enemyShipActor.setPosition(470,250);
         card1Actor.setPosition(50, 0);
         card2Actor.setPosition(180, 0);
         card3Actor.setPosition(310, 0);
         card4Actor.setPosition(440, 0);
+       // card1Actor.setScale(0.3f);
+        ///card1Actor.setSize(150,200);
+        //card2Actor.setScale(0.3f);
+        //card3Actor.setScale(0.3f);
+        //card4Actor.setScale(0.3f);
+
 
         stage.addActor(playerShipActor);
         stage.addActor(enemyShipActor);
@@ -273,12 +338,30 @@ public class BattleModeGraphics extends ScreenAdapter {
         stage.addActor(card4Actor);
     }
 
+    //creates the exit button which switches back to the parent stage
+    private void createExitButton(){
+        exitButton = new TextButton("exit", optionStyle);
+        exitButton.setText("Exit");
+        exitButton.setSize(100,12);
+        exitButton.setPosition(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
+        exitButton.getLabel().setAlignment(Align.left);
+        exitButton.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                dispose();
+                game.setScreen(parent);
+            }
+        });
+        stage.addActor(exitButton);
+    }
+
+
     @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-
+        Gdx.input.setInputProcessor(stage);
 
         String playerManaBar = battleMode.showHealthBar("player");
         String playerHealthBar = battleMode.showManaBar("player");
@@ -297,6 +380,7 @@ public class BattleModeGraphics extends ScreenAdapter {
         //battleMode.basicEnemyAI();
         if(battleMode.gameIsOver()){
             gameOver = true;
+            createExitButton();
         }
         if(!(gameOver)){
             battleMode.updateClock();

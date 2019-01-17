@@ -9,8 +9,8 @@ import java.util.*;
 public class BattleMode {
     //Calling instances of the ship class for the enemy and the player.
     //Made public for now, may not be correct.
-    public Ship enemyShip;
-    public Ship playerShip;
+    private Ship enemyShip;
+    private Ship playerShip;
     //The mana count and max for both the player and the enemy.
     private Integer playerMana;
     private Integer enemyMana;
@@ -22,11 +22,11 @@ public class BattleMode {
     //The currently held cards for the enemy and the player.
     private List<Card> playerHand = new ArrayList<Card>();
     private List<Card> enemyHand = new ArrayList<Card>();//Basic enemy type.
-    private List<Card> enemyFastHand = new ArrayList<Card>();//Special enemy type, fast.
-    private List<Card> enemyHeavyHand = new ArrayList<Card>();//Special enemy type, heavy.
-    private List<Card> enemySteadyHand = new ArrayList<Card>();//Special enemy type, fast and heavy.
+    //private List<Card> enemyFastHand = new ArrayList<Card>();//Special enemy type, fast.
+    //private List<Card> enemyHeavyHand = new ArrayList<Card>();//Special enemy type, heavy.
+    //private List<Card> enemySteadyHand = new ArrayList<Card>();//Special enemy type, fast and heavy.
 
-    private Boolean isSpecialEnemy; //See if the enemy is special and if they need one of the special decks.
+    private Boolean isSpecialEnemy; //See if the enemy is special and if they need a special sprite/deck/etc
 
     ////private Card playerCurrentCard;
     ////private Card enemyCurrentCard;
@@ -63,115 +63,151 @@ public class BattleMode {
 
 
 
-    public BattleMode(){ //Integer playerShipHealth, Integer playerShipHealthMax, Integer playerManaMax, Integer playerShipManaRate, Integer playerGoldAmount, Integer playerScore), ArrayList<Card> playerTempDeck --Doesn't work for some reason.
+    public BattleMode(Ship playerShip, Ship enemyShip){ //Integer playerShipHealth, Integer playerShipHealthMax, Integer playerManaMax, Integer playerShipManaRate, Integer playerGoldAmount, Integer playerScore), ArrayList<Card> playerTempDeck --Doesn't work for some reason.
         //Some of these depend on the actual ship stats. Pull all of this from existing data when battle starts.
-        playerManaMax = 25;
-        enemyManaMax = 10;
         playerMana = 0;
         enemyMana = 0;
-        playerShipHealthMax = 20;
-        enemyShipHealthMax = 50;
-        playerShipHealth = 20;
-        enemyShipHealth = 50;
-       //
-        isSpecialEnemy = false;
+        this.playerShip = playerShip;
+        this.enemyShip = enemyShip;
+
+        playerManaMax = playerShip.getTotalMana();
+        playerShipHealthMax = playerShip.getTotalHealth();
+        playerShipHealth = playerShip.getCurrentHealth();
+        playerScore = playerShip.getPointsWorth();
+        playerGoldAmount = playerShip.getGoldAmount();
+        playerShipDefence = 0;
+        playerShipManaRate = playerShip.getManaRegenRate();
+        playerTempDeck = playerShip.getDeck();
+
+        enemyManaMax = enemyShip.getTotalMana();
+        enemyShipHealthMax = enemyShip.getTotalHealth();
+        enemyShipHealth = enemyShip.getCurrentHealth();
+        enemyShipDefence = 0;
+        enemyShipManaRate = enemyShip.getManaRegenRate();
+        enemyHand = enemyShip.getDeck();
+
+        isSpecialEnemy = enemyShip.getIsSpecial();
+        scoreToGain = enemyShip.getPointsWorth();
+        goldToGain = enemyShip.getGoldAmount();
+
+        //Can't figure out a way to add points or gold AFTER the battle is finish, so add them prematurely instead.
+        //However, the already set variables, "playerGoldAmount" and "playerScore" will be the ones displayed and
+        //used in taking away from, etc.
+
+        playerShip.setPointsWorth(playerScore + scoreToGain);
+        playerShip.setGoldAmount(playerGoldAmount + goldToGain);
+
         clock = 0;
-
-
-        Ship playerShip = new Ship();
-        Ship enemyShip = new Ship();
         playerShipDead = false;
         enemyShipDead = false;
 
-        // Get this from the ship classes too
-        playerShip.setPointsWorth(0); //Import the total score that the player gained to here.
-        playerScore = playerShip.getPointsWorth();
-        playerShip.setGoldAmount(20); //to-do, make it so using a card with a gold cost actually take away from the gold amount, plus
-        //plus have it so that if a gold-costing card is left, you can discard it, as there may be a possibility a player will be left with it
-        //without enough gold to actually pay for it.
-        playerGoldAmount = playerShip.getGoldAmount();
-        playerShip.setManaRegenRate(30); //60 for 1 second, 120 for 2 seconds, etc.
-        enemyShip.setManaRegenRate(60);
-        playerShipDefence = 0;
-        enemyShipDefence = 0;
-        //
 
-        //Adding an enemy attack.
-        Card basicEnemyAttack = new Card();
-        basicEnemyAttack.setEffect("A3"); //A = attack.  D = Defend.
-        basicEnemyAttack.setManaCost(5);
-        enemyHand.add(basicEnemyAttack);
+//        playerManaMax = 25;
+//        enemyManaMax = 10;
+//        playerShipHealthMax = 20;
+//        enemyShipHealthMax = 10;
+//        playerShipHealth = 20;
+//        enemyShipHealth = 10;
+//        isSpecialEnemy = false;
+//        playerScore = 0;
+//        playerGoldAmount = 40;
+//        playerShipManaRate = 30;
+//        enemyShipManaRate = 60;
+//        scoreToGain = 50;
+//        goldToGain = 10;
+//
+//
+//        playerShip.setPointsWorth(0); //Import the total score that the player gained to here.
+//        playerShip.setGoldAmount(20); //to-do, make it so using a card with a gold cost actually take away from the gold amount, plus
+//        //plus have it so that if a gold-costing card is left, you can discard it, as there may be a possibility a player will be left with it
+//        //without enough gold to actually pay for it.
+//        playerShip.setManaRegenRate(30); //60 for 1 second, 120 for 2 seconds, etc.
+//        enemyShip.setManaRegenRate(60);
+//        enemyShip.setPointsWorth(50);
+//        enemyShip.setGoldAmount(10);
+//
+//
+//        //Adding an enemy attack.
+//        Card basicEnemyAttack = new Card();
+//        basicEnemyAttack.setEffect("A3"); //A = attack.  D = Defend.
+//        basicEnemyAttack.setManaCost(5);
+//        enemyHand.add(basicEnemyAttack);
+//
+//        //The special enemies.
+//        //--Fast, less hp?
+//        Card specialFastAttack = new Card();
+//        specialFastAttack.setEffect("A1");
+//        specialFastAttack.setManaCost(2);
+//        Card specialFastAttack2 = new Card();
+//        specialFastAttack2.setEffect("A2");
+//        specialFastAttack2.setManaCost(3);
+//        Card specialFastBlock = new Card();
+//        specialFastBlock.setEffect("A1D1");
+//        specialFastBlock.setManaCost(3);
+//        //enemyFastHand.add(specialFastAttack);
+//        //enemyFastHand.add(specialFastAttack2);
+//        //enemyFastHand.add(specialFastBlock);
+//        //--Heavy, more HP?
+//        Card specialHeavyAttack = new Card();
+//        specialHeavyAttack.setEffect("A6");
+//        specialHeavyAttack.setManaCost(8);
+//        Card specialHeavyAttack2 = new Card();
+//        specialHeavyAttack2.setEffect("A15");
+//        specialHeavyAttack2.setManaCost(15);
+//        Card specialHeavyBlock = new Card();
+//        specialHeavyBlock.setEffect("A2D6");
+//        specialHeavyBlock.setManaCost(8);
+//        //enemyHeavyHand.add(specialHeavyAttack);
+//        //enemyHeavyHand.add(specialHeavyAttack2);
+//        //enemyHeavyHand.add(specialHeavyBlock);
+//        //--Steady, average in all ways.
+//        Card specialSteadyAttack = new Card();
+//        specialSteadyAttack.setEffect("A4");
+//        specialSteadyAttack.setManaCost(4);
+//        Card specialSteadyAttack2 = new Card();
+//        specialSteadyAttack2.setEffect("A8");
+//        specialSteadyAttack2.setManaCost(7);
+//        Card specialSteadyBlock = new Card();
+//        specialSteadyBlock.setEffect("A3D2");
+//        specialSteadyBlock.setManaCost(5);
+//        //enemySteadyHand.add(specialSteadyAttack);
+//        //enemySteadyHand.add(specialSteadyAttack2);
+//        //enemySteadyHand.add(specialSteadyBlock);
+//        //end of special enemy decks
+//
+//
+//        Card basicPlayerAttack = new Card();
+//        Card basicPlayerDefend = new Card();
+//        Card basicPlayerAttack2 = new Card();
+//        Card basicPlayerDefend2 = new Card();
+//        Card basicPlayerAttackDefendCombo = new Card();
+//        Card specialPlayerAttack = new Card();
+//
+//        basicPlayerAttack.setEffect("A2"); // The number for A is the attack value.
+//        basicPlayerAttack.setManaCost(2);
+//        basicPlayerDefend.setEffect("D3"); //For D, that'll be the % block applied. 5 will be divided by 10 and applied to the defence value.
+//        basicPlayerDefend.setManaCost(2);  //...Hence, 5 = 0.5 = 50% armour block.
+//        basicPlayerAttack2.setEffect("A4");
+//        basicPlayerAttack2.setManaCost(4);
+//        basicPlayerDefend2.setEffect("D5");
+//        basicPlayerDefend2.setManaCost(5);
+//        basicPlayerAttackDefendCombo.setEffect("A3D3");
+//        basicPlayerAttackDefendCombo.setManaCost(6);
+//        specialPlayerAttack.setEffect("A7");
+//        specialPlayerAttack.setManaCost(3);
+//        specialPlayerAttack.setGoldCost(5);
+//
+//        playerTempDeck.add(basicPlayerAttack); //These will be replaced in the future, import deck from the collection given from the other class
+//        playerTempDeck.add(basicPlayerDefend);
+//        playerTempDeck.add(basicPlayerAttack2);
+//        playerTempDeck.add(basicPlayerDefend2);
+//        playerTempDeck.add(basicPlayerAttackDefendCombo);
+//        playerTempDeck.add(specialPlayerAttack);
+//
+//
+//        playerShip.setPointsWorth(playerScore + scoreToGain);
+//        playerShip.setGoldAmount(playerGoldAmount + goldToGain);
 
-        //The special enemies.
-        //--Fast, less hp?
-        Card specialFastAttack = new Card();
-        specialFastAttack.setEffect("A1");
-        specialFastAttack.setManaCost(2);
-        Card specialFastAttack2 = new Card();
-        specialFastAttack2.setEffect("A2");
-        specialFastAttack2.setManaCost(3);
-        Card specialFastBlock = new Card();
-        specialFastBlock.setEffect("A1D1");
-        specialFastBlock.setManaCost(3);
-        enemyFastHand.add(specialFastAttack);
-        enemyFastHand.add(specialFastAttack2);
-        enemyFastHand.add(specialFastBlock);
-        //--Heavy, more HP?
-        Card specialHeavyAttack = new Card();
-        specialHeavyAttack.setEffect("A6");
-        specialHeavyAttack.setManaCost(8);
-        Card specialHeavyAttack2 = new Card();
-        specialHeavyAttack2.setEffect("A15");
-        specialHeavyAttack2.setManaCost(15);
-        Card specialHeavyBlock = new Card();
-        specialHeavyBlock.setEffect("A2D6");
-        specialHeavyBlock.setManaCost(8);
-        enemyHeavyHand.add(specialHeavyAttack);
-        enemyHeavyHand.add(specialHeavyAttack2);
-        enemyHeavyHand.add(specialHeavyBlock);
-        //--Steady, average in all ways.
-        Card specialSteadyAttack = new Card();
-        specialSteadyAttack.setEffect("A4");
-        specialSteadyAttack.setManaCost(4);
-        Card specialSteadyAttack2 = new Card();
-        specialSteadyAttack2.setEffect("A8");
-        specialSteadyAttack2.setManaCost(7);
-        Card specialSteadyBlock = new Card();
-        specialSteadyBlock.setEffect("A3D2");
-        specialSteadyBlock.setManaCost(5);
-        enemySteadyHand.add(specialSteadyAttack);
-        enemySteadyHand.add(specialSteadyAttack2);
-        enemySteadyHand.add(specialSteadyBlock);
-        //end of special enemy decks
-
-
-        Card basicPlayerAttack = new Card();
-        Card basicPlayerDefend = new Card();
-        Card basicPlayerAttack2 = new Card();
-        Card basicPlayerDefend2 = new Card();
-        Card basicPlayerAttackDefendCombo = new Card();
-        Card specialPlayerAttack = new Card();
-
-        basicPlayerAttack.setEffect("A2"); // The number for A is the attack value.
-        basicPlayerAttack.setManaCost(2);
-        basicPlayerDefend.setEffect("D3"); //For D, that'll be the % block applied. 5 will be divided by 10 and applied to the defence value.
-        basicPlayerDefend.setManaCost(2);  //...Hence, 5 = 0.5 = 50% armour block.
-        basicPlayerAttack2.setEffect("A4");
-        basicPlayerAttack2.setManaCost(4);
-        basicPlayerDefend2.setEffect("D5");
-        basicPlayerDefend2.setManaCost(5);
-        basicPlayerAttackDefendCombo.setEffect("A3D3");
-        basicPlayerAttackDefendCombo.setManaCost(6);
-        specialPlayerAttack.setEffect("A7");
-        specialPlayerAttack.setManaCost(3);
-        specialPlayerAttack.setGoldCost(5);
-
-        playerTempDeck.add(basicPlayerAttack); //These will be replaced in the future, import deck from the collection given from the other class
-        playerTempDeck.add(basicPlayerDefend);
-        playerTempDeck.add(basicPlayerAttack2);
-        playerTempDeck.add(basicPlayerDefend2);
-        playerTempDeck.add(basicPlayerAttackDefendCombo);
-        playerTempDeck.add(specialPlayerAttack);
 
         for (int i = 0; i < 4; i++) { //Make playerHand a size of 4, and draw cards for them all.
             playerHand.add(null);
@@ -186,23 +222,6 @@ public class BattleMode {
         //playerHand.add(basicPlayerDefend2);
         //playerHand.add(basicPlayerAttackDefendCombo);
         //playerHand.add(specialPlayerAttack);
-
-
-
-        //These aren't included anywhere, so they probably should be added somewhere, temp here maybe.
-        playerShipManaRate = playerShip.getManaRegenRate();
-        enemyShipManaRate = enemyShip.getManaRegenRate();
-
-
-        enemyShip.setPointsWorth(500); //Instead of a solid value being passed through, we may have to take a value from the ship class/encounter database to see how much each enemy is worth.
-        scoreToGain = enemyShip.getPointsWorth();
-        enemyShip.setGoldAmount(10);
-        goldToGain = enemyShip.getGoldAmount();
-
-        //Can't figure out a way to add points or gold AFTER the battle is finish, so add them prematurely instead.
-        playerShip.setPointsWorth(playerScore + scoreToGain);
-        playerShip.setGoldAmount(playerGoldAmount + goldToGain);
-
     }
 
 
@@ -227,11 +246,7 @@ public class BattleMode {
      */
     public Card enemyPlayCard(){ //Is it really worth the effort to give the enemy a full deck/temp hand? Having 2-4 basic abilities that vary should be enough.
         if(!(enemyHand.isEmpty())){
-            if(isSpecialEnemy){ //To-do: Make it pick between steady, fast, and hard. Make it select one of the three cards instead of just one card.
-                return enemySteadyHand.get(0);
-            }else{
-                return enemyHand.get(0);
-            }
+            return enemyHand.get(0);
         } else {
             return null;
         }
@@ -248,7 +263,7 @@ public class BattleMode {
         //The reason for this is as follows: we are wanting to keep an array size of 4 consistent for playerHand, however
         //using the .remove() function actually shortens the size. Yet .set(index,null) is still counted as an element, hence
         //isEmpty does not work, and the size() is still 4.
-        //Is this the most agile way to do this? I don't know, but it worked.
+        //Is this the most agile way to do this? I don't know, but this worked.
 
         for (Card s:playerHand){
             if(s == null){
@@ -262,18 +277,18 @@ public class BattleMode {
 
 
         if (playerTempDeck.size() > 0 && (sizeOfPlayerHand < 4 || playerHand.size() < 4)){
-            System.out.println("Adding cards from deck.");
+            //System.out.println("Adding cards from deck.");
 
             Integer n = random.nextInt(playerTempDeck.size()); //0 to the number in the bracket. Pick a random card from the deck and use it here.
             playerHand.set(cardLocation, playerTempDeck.get(n));
-            System.out.println("Now the playerHand is: " + playerHand.toString());
+            //System.out.println("Now the playerHand is: " + playerHand.toString());
             //System.out.println("Size of deck: " + playerTempDeck.size());
             //System.out.println("Trying to remove: " + playerTempDeck.get(n).getEffect());
             playerTempDeck.remove(playerTempDeck.get(n));
         }
 
         if (playerTempDeck.size() == 0 && (isPlayerHandEmpty || playerHand.size() == 0)){ //deck is empty and no cards left to play, reshuffle.
-            System.out.println("Hand and deck are both empty!");
+            //System.out.println("Hand and deck are both empty!");
             playerTempDeck.addAll(discardedCards);
             discardedCards.clear();
             drawCard(0);
@@ -291,11 +306,13 @@ public class BattleMode {
     public void applyCard(Card card, String user){
         if (user.equals("player")){
             if (card == null){
-                System.out.println("No card in this slot");
+                //System.out.println("No card in this slot");
                 //System.out.println("Size of tempDeck: " + playerTempDeck.size());
             } else{
                 if(playerMana >= card.getManaCost()){
                     updateMana("player", -card.getManaCost());
+                    //Check if has enough gold, too. Make free cards have a worth of gold = 0.
+                    //playerGoldAmount -= card.getGoldCost(); //------------------------------------------------Implement this once it can be tested.
 
                     if(card.getEffect().contains("A")){ //attack
                         //looks long, but it finds the index of the Attack symbol ("A") and adds one to it, so it'll find the value 5 if the input is "A5", anywhere on the string.
@@ -309,11 +326,12 @@ public class BattleMode {
                     //Discard the card just used, put into discarded pile.
                     Integer index = playerHand.indexOf(card);
                     discardedCards.add(card);
-                    System.out.println("Current index is: " + index);
-                    System.out.println("At that index was: " + playerHand.get(index));
+                    //System.out.println("Current index is: " + index);
+                    //System.out.println("At that index was: " + playerHand.get(index));
                     playerHand.set(index, null);
 
-                    System.out.println("The deck is currently: " + playerHand.toString());
+
+                    //System.out.println("The deck is currently: " + playerHand.toString());
                     //playerHand.remove(card); //Doesn't work, shortens the size all together.
                     drawCard(index);
                 }
@@ -376,6 +394,7 @@ public class BattleMode {
             else if (playerShipHealth <= 0){
                 //PlayerDied
                 playerShipDead = true;
+                playerShip.setIsDead();
             }
 
         } else if (target == "enemy"){
@@ -389,6 +408,7 @@ public class BattleMode {
             else if (enemyShipHealth <= 0){
                 //Enemy Died
                 enemyShipDead = true;
+                enemyShip.setIsDead();
             }
         }
     }
@@ -400,7 +420,9 @@ public class BattleMode {
      */
     public void updateClock(){
         clock += 1;
-
+        if(clock >= 10000){
+            clock = 0;
+        }
         if (clock % playerShipManaRate == 0){
             updateMana("player", 1);
         }
@@ -475,13 +497,13 @@ public class BattleMode {
 
         if(target == "player"){
             playerShipDefence += (double)amount / 10;
-            if(playerShipDefence > 0.7){ //Having the player be able to be fully resistant wouldn't make for an engaging game.
-                playerShipDefence = 0.7;
+            if(playerShipDefence > 0.6){ //Having the player be able to be fully resistant wouldn't make for an engaging game.
+                playerShipDefence = 0.6;
             }
         } else if(target == "enemy"){
             enemyShipDefence += (double)amount / 10;
-            if(enemyShipDefence > 0.7){
-                enemyShipDefence = 0.7;
+            if(enemyShipDefence > 0.6){
+                enemyShipDefence = 0.6;
             }
         }
     }
@@ -502,5 +524,12 @@ public class BattleMode {
         }
     }
 
-
+    public float getShipHealthPercentage(String targetShip){
+        if(targetShip == "player"){
+            return (((float)playerShipHealth/(float)playerShipHealthMax)*100);
+        } else if(targetShip == "enemy"){
+            return ((float)enemyShipHealth/(float)enemyShipHealthMax)*100;
+        }
+        return 0;
+    }
 }
