@@ -256,14 +256,14 @@ public class GameVisuals extends ScreenAdapter {
 
         final ScreenAdapter parent = this;
         shipButton = new TextButton("ship", buttonStyle);
-        shipButton.setText("View ship");
+        shipButton.setText("View ship & objectives");
         shipButton.setSize(col_width, row_height);
         shipButton.setPosition(10, Gdx.graphics.getHeight()-row_height-14);
         shipButton.getLabel().setAlignment(Align.topLeft);
         shipButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
-                game.setScreen(new ShipVisual(game,parent,gameLogic.getPlayer().getPlayerShip()));
+                game.setScreen(new ShipVisual(game,parent,gameLogic));
             }
         });
         mainStage.addActor(shipButton);

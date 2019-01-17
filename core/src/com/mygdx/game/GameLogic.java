@@ -132,10 +132,19 @@ public class GameLogic {
         } else {
             return out;
         }
-
-
-
     }
+
+    public String obj2Str(String objective){
+        String[] details = objective.split("-");
+        switch(details[0].charAt(0)){
+            case 'T':
+                return "Reach turn "+ details[1];
+            case 'G':
+                return "Have "+details[1]+" gold";
+            default: return "objective failure";
+        }
+    }
+
     //score always goes up, adds to score
     public void addScore (int in) {
         currentScore += in;

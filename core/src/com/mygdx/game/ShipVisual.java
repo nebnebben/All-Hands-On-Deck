@@ -19,21 +19,24 @@ public class ShipVisual extends ScreenAdapter {
     private Game game;
     private ScreenAdapter parent;
     private Ship ship;
+    private GameLogic gameLogic;
 
     //visual parameters
     private Label nameLabel;
     private Label healthLabel;
     private Label manaLabel;
     private Label regenLabel;
+    private Label[] objectiveLabels;
     private Label.LabelStyle resourceStyle;
     private TextButton exitButton;
     private TextButton.TextButtonStyle optionStyle;
     private Stage shipStage;
 
-    public ShipVisual(Game game, ScreenAdapter parent, Ship ship){
+    public ShipVisual(Game game, ScreenAdapter parent, GameLogic gameLogic){
         this.game = game;
         this.parent = parent;
-        this.ship = ship;
+        this.gameLogic = gameLogic;
+        this.ship = gameLogic.getPlayer().getPlayerShip();
         shipStage = new Stage(new ScreenViewport());
 
         //initiliazes the standard TextButtonStyle for the exit button to follow
@@ -47,6 +50,8 @@ public class ShipVisual extends ScreenAdapter {
         resourceStyle.fontColor = Color.RED;
         resourceStyle.font = new BitmapFont();
 
+        //initializes list of objectives
+        objectiveLabels = new Label[gameLogic.getCollegeObjectives(gameLogic.getPlayer().getCollege()).length];
         //actual creates visuals
         create();
     }
@@ -84,6 +89,23 @@ public class ShipVisual extends ScreenAdapter {
         manaLabel.setAlignment(Align.topLeft);
         shipStage.addActor(manaLabel);
 
+        //goes through list of objectives and gives them labels
+        for (int i = 0; i < gameLogic.getCollegeObjectives(gameLogic.getPlayer().getCollege()).length;i++){
+            //initializes offset for all labels
+            int labelOffset = i*15 + 100;
+            objectiveLabels[i] = new Label("objective" + Integer.toString(i),resourceStyle);
+            //depending on whether or not the objective is complete shows different text
+            String objective = gameLogic.getCollegeObjectives(gameLogic.getPlayer().getCollege())[i];
+            if (gameLogic.checkObjective(gameLogic.getCollegeObjectives(gameLogic.getPlayer().getCollege())[i])){
+                objectiveLabels[i].setText(gameLogic.obj2Str(objective)+": Complete");
+            } else {
+                objectiveLabels[i].setText(gameLogic.obj2Str(objective)+": Incomplete");
+            }
+            objectiveLabels[i].setPosition(0, Gdx.graphics.getHeight() - labelOffset);
+            objectiveLabels[i].setSize(10,12);
+            objectiveLabels[i].setAlignment(Align.topLeft);
+            shipStage.addActor(objectiveLabels[i]);
+        }
         //exit
         createExitButton();
 
@@ -92,9 +114,9 @@ public class ShipVisual extends ScreenAdapter {
     //creates the exit button which switches back to the parent stage
     private void createExitButton(){
         exitButton = new TextButton("exit", optionStyle);
-        exitButton.setText("4. Exit");
+        exitButton.setText("Exit");
         exitButton.setSize(100,12);
-        exitButton.setPosition(20, Gdx.graphics.getHeight() - 85);
+        exitButton.setPosition(Gdx.graphics.getWidth()/2, 15);
         exitButton.getLabel().setAlignment(Align.left);
         exitButton.addListener(new ClickListener(){
             @Override

@@ -17,6 +17,7 @@ public class Node {
     private int encounterchance;    //Chance of an encounter
     private int x;                  //x location of node
     private int y;                  //y location of node
+    private Ship bossShip;
 
     //Instatiates the Node
     public Node(int id, int x, int y){
