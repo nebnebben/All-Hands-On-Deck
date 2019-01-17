@@ -23,6 +23,7 @@ public class Ship {
         // constructor.
         name = "The Pigeons Droppings";
         totalHealth = 250;
+        currentHealth = 250;
         totalMana = 250;
         manaRegenRate = 10;
         pointsWorth = 30;
