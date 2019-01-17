@@ -12,7 +12,9 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Align;
 
 
 //Json attempts. Delete when done. -----------------
@@ -32,6 +34,8 @@ public class BattleModeGraphics extends ScreenAdapter {
     private Game game;
     private ScreenAdapter parent;
     private Texture background;
+    private TextButton exitButton;
+    private TextButton.TextButtonStyle optionStyle;
     SpriteBatch batch;
     BitmapFont playerFont;
     BitmapFont enemyFont;
@@ -41,7 +45,10 @@ public class BattleModeGraphics extends ScreenAdapter {
     Sprite sprite;
 
 
-    BattleMode battleMode = new BattleMode();
+
+    BattleMode battleMode;
+    private Ship playerShip;
+    private Ship enemyShip;
 
     //temp?
     private Integer playerCurrentMana;
@@ -266,8 +273,18 @@ public class BattleModeGraphics extends ScreenAdapter {
 
 
 
-    public BattleModeGraphics(Game game){
+    public BattleModeGraphics(Game game, Ship playerShip, Ship enemyShip){
         this.game = game;
+        this.playerShip = playerShip;
+        this.enemyShip = enemyShip;
+        battleMode = new BattleMode(playerShip, enemyShip);
+
+        //initiliazes the standard TextButtonStyle for the exit button to follow
+        optionStyle = new TextButton.TextButtonStyle();
+        optionStyle.fontColor = Color.BLACK;
+        optionStyle.downFontColor = Color.BLUE;
+        optionStyle.font = new BitmapFont();
+
         create();
     }
 
@@ -321,12 +338,30 @@ public class BattleModeGraphics extends ScreenAdapter {
         stage.addActor(card4Actor);
     }
 
+    //creates the exit button which switches back to the parent stage
+    private void createExitButton(){
+        exitButton = new TextButton("exit", optionStyle);
+        exitButton.setText("Exit");
+        exitButton.setSize(100,12);
+        exitButton.setPosition(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
+        exitButton.getLabel().setAlignment(Align.left);
+        exitButton.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                dispose();
+                game.setScreen(parent);
+            }
+        });
+        stage.addActor(exitButton);
+    }
+
+
     @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-
+        Gdx.input.setInputProcessor(stage);
 
         String playerManaBar = battleMode.showHealthBar("player");
         String playerHealthBar = battleMode.showManaBar("player");
@@ -345,6 +380,7 @@ public class BattleModeGraphics extends ScreenAdapter {
         //battleMode.basicEnemyAI();
         if(battleMode.gameIsOver()){
             gameOver = true;
+            createExitButton();
         }
         if(!(gameOver)){
             battleMode.updateClock();

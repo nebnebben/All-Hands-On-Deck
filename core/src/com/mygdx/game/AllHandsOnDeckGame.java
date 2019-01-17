@@ -9,7 +9,7 @@ public class AllHandsOnDeckGame extends Game {
     @Override
     public void create(){
         game = this;
-        game.setScreen(new BattleModeGraphics(game));
+        game.setScreen(new BattleModeGraphics(game, new Ship(), new Ship()));
         //game.setScreen(new GameVisuals(game));
     }
 
