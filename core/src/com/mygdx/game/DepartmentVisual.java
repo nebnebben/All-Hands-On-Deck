@@ -58,7 +58,7 @@ public class DepartmentVisual extends ScreenAdapter {
     private void create(){
         //creates department label
         nameLabel = new Label("name", resourceStyle);
-        nameLabel.setText(departmentNode.getDepartmentName());
+        nameLabel.setText(departmentNode.getDepartmentName()+", Allied: "+Integer.toString(departmentNode.getDepartmentStatus()));
         nameLabel.setSize(100,12);
         nameLabel.setPosition(20, Gdx.graphics.getHeight()-15);
         nameLabel.setAlignment(Align.left);
@@ -117,7 +117,7 @@ public class DepartmentVisual extends ScreenAdapter {
     //attacks the department, which triggers a unique battle
     private void createAttackButton(){
         //added to include parent screen in clickListener.
-        final ScreenAdapter clickThis = this;
+        final ScreenAdapter clickThis = parent;
         attackButton = new TextButton("attack",optionStyle);
         attackButton.setText("3. Attack department");
         attackButton.setSize(100, 12);
@@ -131,10 +131,12 @@ public class DepartmentVisual extends ScreenAdapter {
             @Override
             public void clicked(InputEvent event, float x, float y){
                 //every encounter has a score which is added on, then the actual choice is interpreted
-                //add battle effect here
-                Ship enemyShip = new Ship();
-                dispose();
-                game.setScreen(new BattleModeGraphics(game, clickThis, gameLogic, enemyShip));
+                //cant attack an already allied department
+                if (departmentNode.getDepartmentStatus() != 1) {
+                    Ship enemyShip = new Ship();
+                    dispose();
+                    game.setScreen(new BattleModeGraphics(game, clickThis, gameLogic, enemyShip));
+                }
             }
         });
         departmentStage.addActor(attackButton);

@@ -37,6 +37,8 @@ public class Card {
         this.effect = effect;
         numberOfCards++;
     }
+    //empty constructor for catching
+    public Card(){}
 
     public Integer getManaCost(){
         return manaCost;

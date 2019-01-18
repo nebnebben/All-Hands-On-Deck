@@ -35,10 +35,10 @@ public class Node {
         encounters[1] = new Encounter(new String[]{"H-L-5","S-L-3"},
                 "The winds have taken you into some rocks, do you sail slowly through or is speed of the essence?",
                 5);
-        encounters [2] = new Encounter(new String[]{"G-L-30","H-L-5&G-G-100"},
+        encounters [2] = new Encounter(new String[]{"D-L-30","H-L-5%D-G-100"},
                 "There is a poetry competition on the ship. As captain, do you rig the votes in your favor\n and risk a mutiny?",
                 10);
-        encounters[3] = new Encounter(new String[]{"G-L-100&I-G-250&H-M","H-L-15"},
+        encounters[3] = new Encounter(new String[]{"D-L-100%I-G-250%H-M","H-L-15"},
                 "You run into the god of the seas, Poseidon. He offers to bless your ship for a cost,\n do you take his offer or risk his wrath?",
                 15);
 
@@ -56,7 +56,7 @@ public class Node {
     //Randomly decides on which encounter to select - future implementation includes encounter chance for different encounters
     public Encounter giveEncounter() {
         Random chance = new Random();
-        return encounters[chance.nextInt(encounters.length-1)];
+        return encounters[chance.nextInt(encounters.length)];
 
     }
 
@@ -94,11 +94,11 @@ public class Node {
                         Map[i].setNodeType("College");
                         break;
                     case 3:
-                        Map[i] = new DepartmentNode(i, 0,0,"Comp Sci", 1, 20);
+                        Map[i] = new DepartmentNode(i, 0,0,"Comp Sci", 0, 20);
                         Map[i].setNodeType("Department");
                         break;
                     case 4:
-                        Map[i] = new DepartmentNode(i, 0,0,"Philosophy", 1, 20);
+                        Map[i] = new DepartmentNode(i, 0,0,"Philosophy", 0, 20);
                         Map[i].setNodeType("Department");
                         break;
                 }

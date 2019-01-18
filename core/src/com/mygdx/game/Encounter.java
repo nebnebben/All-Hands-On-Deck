@@ -34,15 +34,13 @@ public class Encounter {
 
     private String effectString2Text(String effect){
         //for multiple effect effects
-        String[] sumEffects = effect.split("&");
+        String[] sumEffects = effect.split("%");
         //and counter for phrasing
-        int andCounter = sumEffects.length;
+        int andCounter = sumEffects.length-1;
         //out string
         String out = "";
         for (String e: sumEffects) {
-            System.out.println(e);
-            String[] details = effect.split("-");
-            System.out.println(details[0].charAt(0));
+            String[] details = e.split("-");
             switch (details[0].charAt(0)) {
                 //battle, details[1] contains details for the enemy ship
                 case 'B':
@@ -65,12 +63,13 @@ public class Encounter {
                         out += "Gain full health";
                     }
                     break;
-                case 'G':
+                case 'D':
                     if (details[1].equals("L")){
                         out += "Lose " + details[2] + " gold";
                     } else if (details[1].equals("G")){
                         out += "Gain " + details[2] + " gold";
                     }
+                    break;
                 //max health
                 case 'I':
                     if (details[1].equals("L")){
@@ -83,14 +82,15 @@ public class Encounter {
                     out= "EFFECT NOT RECOGNIZED";
                     break;
             }
-            //dec and counter
-            andCounter -= 1;
             //if there is more than 1 effect left, add comma. If there is one, add and. Otherwise nothing
             if (andCounter > 1){
-                out += ", ";
+                out = out + ", ";
             } else if (andCounter == 1){
-                out += " and ";
+                out = out + " and ";
             }
+            //dec counter
+            andCounter -= 1;
+
         }
         return out;
 

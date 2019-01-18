@@ -58,7 +58,7 @@ public class CollegeVisual extends ScreenAdapter {
     private void create(){
         //displays college name
         nameLabel = new Label("name", resourceStyle);
-        nameLabel.setText(collegeNode.getCollegeName());
+        nameLabel.setText(collegeNode.getCollegeName()+", Allied: "+Integer.toString(collegeNode.getCollegeStatus()));
         nameLabel.setSize(100,12);
         nameLabel.setPosition(10, Gdx.graphics.getHeight()-15);
         nameLabel.setAlignment(Align.left);
@@ -126,9 +126,12 @@ public class CollegeVisual extends ScreenAdapter {
             //on left click up - can only follow after a left click down
             @Override
             public void clicked(InputEvent event, float x, float y){
-                Ship enemyShip = new Ship();
-                dispose();
-                game.setScreen(new BattleModeGraphics(game, clickThis, gameLogic, enemyShip));
+                //can't attack an already allied college
+                if (collegeNode.getCollegeStatus() != 1) {
+                    Ship enemyShip = new Ship();
+                    dispose();
+                    game.setScreen(new BattleModeGraphics(game, clickThis, gameLogic, enemyShip));
+                }
             }
         });
         collegeStage.addActor(attackButton);

@@ -83,13 +83,53 @@ public class GameLogic {
         switch (details[0].charAt(0)) {
             //Checks for the specified amount of gold
             case 'G':
-                if (currentGold >= Integer.parseInt(details[1])){
-                return Boolean.TRUE;
+                if (currentGold >= Integer.parseInt(details[1])) {
+                    return Boolean.TRUE;
                 } else {
                     return Boolean.FALSE;
                 }
             case 'T':
-                if (currentTurn >= Integer.parseInt(details[1])){
+                if (currentTurn >= Integer.parseInt(details[1])) {
+                    return Boolean.TRUE;
+                } else {
+                    return Boolean.FALSE;
+                }
+            case 'S':
+                if (currentScore >= Integer.parseInt(details[1])) {
+                    return Boolean.TRUE;
+                } else {
+                    return Boolean.FALSE;
+                }
+                //check college relations
+            case 'C':
+                CollegeNode nodeCollege; //used to cast the relevant nodes to their node list
+                //alcuin
+                if (details[1].equals("A")) {
+                    nodeCollege = (CollegeNode) nodeList[0];
+                    //derwent
+                } else if (details[1].equals("D")) {
+                    nodeCollege = (CollegeNode) nodeList[2];
+                } else {
+                    nodeCollege = new CollegeNode(999,999,999,"unknown",999,new Card());
+                }
+                if (nodeCollege.getCollegeStatus() == 1){
+                    return Boolean.TRUE;
+                } else {
+                    return Boolean.FALSE;
+                }
+            case 'E':
+                DepartmentNode deptNode; //used to cast the relevant nodes to their node list
+                //alcuin
+                if (details[1].equals("A")) {
+                    deptNode = (DepartmentNode) nodeList[0];
+                    //derwent
+                } else if (details[1].equals("D")) {
+                    deptNode = (DepartmentNode) nodeList[2];
+                //dummy department which is never true - for identifying if something has gone wrong
+                } else {
+                    deptNode = new DepartmentNode(999,999,999,"failure",999,999);
+                }
+                if (deptNode.getDepartmentStatus() == 1){
                     return Boolean.TRUE;
                 } else {
                     return Boolean.FALSE;
@@ -122,12 +162,12 @@ public class GameLogic {
     public String[] getCollegeObjectives(String pCollege){
         String[] out = new String[6];
         if (pCollege.equals("Alcuin")){
-            out[0] = "G-100";
+            out[0] = "G-500";
             out[1] = "T-10";
-            out[2] = "G-100";
-            out[3] = "G-100";
-            out[4] = "G-100";
-            out[5] = "G-100";
+            out[2] = "S-100";
+            out[3] = "C-A";
+            out[4] = "C-D";
+            out[5] = "E-C";
             return out;
         } else {
             return out;
@@ -141,6 +181,19 @@ public class GameLogic {
                 return "Reach turn "+ details[1];
             case 'G':
                 return "Have "+details[1]+" gold";
+            case 'S':
+                return "Have "+details[1]+ " score";
+            case 'C':
+                if (details[1].equals("A")){
+                    return "Have Alcuin allied";
+                }
+                if (details[1].equals("D")){
+                    return "Have Derwent allied";
+                }
+            case 'E':
+                if (details[1].equals("C")){
+                    return "Have Computer Science allied";
+                }
             default: return "objective failure";
         }
     }

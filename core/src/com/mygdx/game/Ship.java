@@ -26,7 +26,7 @@ public class Ship {
         totalHealth = 50;
         currentHealth = 50;
         totalMana = 20;
-        manaRegenRate = 30;
+        manaRegenRate = 200;
         pointsWorth = 30;
         goldAmount = 50;
         //basic constructor.

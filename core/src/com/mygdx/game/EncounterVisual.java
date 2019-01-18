@@ -81,10 +81,11 @@ public class EncounterVisual extends ScreenAdapter {
             final int index = i;
             //option labels need to be buttons as well as labels to allow choices to be made by the user
             optionButtons[i]  = new TextButton("option"+Integer.toString(i),optionStyle);
-            optionButtons[i].setText(encounter.getOptions()[i]);
+            optionButtons[i]. setText(encounter.getOptions()[i]);
             optionButtons[i].setSize(100, 12);
-            //base offset for all options is 20 from the top, then an additional offset based on the number of options
-            optionButtons[i].setPosition(optionButtons[i].getText().length()*2,Gdx.graphics.getHeight() - (70 + optionOffset) );
+            //base offset for all options is 70 from the top, then an additional offset based on the number of options
+            int xOffset = Gdx.graphics.getWidth()/2;
+            optionButtons[i].setPosition(xOffset,Gdx.graphics.getHeight() - (70 + optionOffset) );
             //the label for the button needs to be aligned to the left, defaults to the center
             optionButtons[i].getLabel().setAlignment(Align.left);
             //click listener to allow the options to be clicked and as such chosen
@@ -104,15 +105,15 @@ public class EncounterVisual extends ScreenAdapter {
 
     //looks at a chosen effect and carries out said effect, then switches screen away from encounterVisual
     private void interpretEffect(String effect){
-        //+ allows for multiple effects to be stored in the same effect
-        System.out.println(effect);
-        String[] sumEffects = effect.split("&");
-        System.out.println(sumEffects[0]);
+        boolean disposed = Boolean.FALSE; //used to make sure two disposal calls don't happen due to battle switching to diff screen
+        //% allows for multiple effects to be stored in the same effect
+        String[] sumEffects = effect.split("%");
         for (String e:sumEffects) {
             String[] details = e.split("-");
             //first character denotes effect type, rest following - denotes relevant data
             switch (details[0].charAt(0)) {
                 //battle, details[1] contains details for the enemy ship
+                //any multiple encounter with a ship will have to do so at the end to stop it breaking
                 case 'B':
                     //initializes a ship to be fought, then switches to the battle screen with its parent set as GameVisuals
                     //details of the ship to be fought are stored, but the ships deck is stored as cards with / separation
@@ -139,18 +140,16 @@ public class EncounterVisual extends ScreenAdapter {
                     }
                     Ship enemyShip = new Ship(shipMaxHealth, shipMaxHealth, shipMana, shipRegen, shipPoints, shipGold, shipDeck, Boolean.FALSE);
                     dispose();
+                    disposed = Boolean.TRUE;
                     game.setScreen(new BattleModeGraphics(game, parent, gameLogic, enemyShip));
+
                     break;
                     //change supplies - details [1] indicates whether to add or subtract, details [2] by how much
                 case 'S':
                     if (details[1].equals("L")) {
                         gameLogic.addSupplies(0 - Integer.valueOf(details[2]));
-                        dispose();
-                        game.setScreen(parent);
                     } else if (details[1].equals("G")) {
                         gameLogic.addSupplies(Integer.valueOf(details[2]));
-                        dispose();
-                        game.setScreen(parent);
                     }
                     break;
                     //change in health
@@ -160,39 +159,29 @@ public class EncounterVisual extends ScreenAdapter {
                     if (details[1].equals("L")) {
                         health -= Integer.parseInt(details[2]);
                         gameLogic.getPlayer().getPlayerShip().setHealth(health);
-                        dispose();
-                        game.setScreen(parent);
                         //gains health
                     } else if (details[1].equals("G")) {
                         health += Integer.parseInt(details[2]);
                         //if health exceeds maximum health, set health to max health. Otherwise, sethealth to health
                         if (health > gameLogic.getPlayer().getPlayerShip().getTotalHealth()) {
                             gameLogic.getPlayer().getPlayerShip().setHealth(gameLogic.getPlayer().getPlayerShip().getTotalHealth());
-                            dispose();
-                            game.setScreen(parent);
                         } else {
                             gameLogic.getPlayer().getPlayerShip().setHealth(health);
-                            dispose();
-                            game.setScreen(parent);
                         }
                         //maxes health
                     } else if (details[1].equals("M")) {
                         health = gameLogic.getPlayer().getPlayerShip().getTotalHealth();
                         gameLogic.getPlayer().getPlayerShip().setHealth(health);
-                        dispose();
-                        game.setScreen(parent);
                     }
                     break;
                     //gold
-                case 'G':
+                case 'D':
                     //lose gold
                     if (details[1].equals("L")) {
                         gameLogic.currentGold -= Integer.parseInt(details[2]);
                     } else if (details[1].equals("G")) {
                         gameLogic.currentGold += Integer.parseInt(details[2]);
                     }
-                    dispose();
-                    game.setScreen(parent);
                     break;
                 //max health
                 case 'I':
@@ -200,17 +189,24 @@ public class EncounterVisual extends ScreenAdapter {
                     //lose max health
                     if (details[1].equals("L")){
                         totHealth -= Integer.parseInt(details[2]);
+                        System.out.println(totHealth);
                         gameLogic.getPlayer().getPlayerShip().setTotalHealth(totHealth);
                     //gain total health
-                    } else if (details[2].equals("G")){
+                    } else if (details[1].equals("G")){
                         totHealth += Integer.parseInt(details[2]);
+                        System.out.println(totHealth);
                         gameLogic.getPlayer().getPlayerShip().setTotalHealth(totHealth);
                     }
-                    dispose();
-                    game.setScreen(parent);
                     break;
             }
         }
+        //if not already disposed, dispose then screen change to parent
+        if(!disposed) {
+            //done after all effects are interpreted
+            dispose();
+            game.setScreen(parent);
+        }
+
     }
     //overriden methods
     @Override
