@@ -84,24 +84,33 @@ public class Node {
                         Map[i] = new CollegeNode(i, 0,0,"Alcuin", 1, alcuinCard);
                         Map[i].setNodeType("College");
                         //ship - max health-mana-regen-points worth-gold worth-cards(name-description-shop cost-gold cost-mana cost-effect/...)
+                        //B-35-20-90-120-65-barrage,fast heavy damage,0,0,2,A8
                         break;
                     case 1:
                         Card jamesCard = new Card("something", "something", 10, 0, 2, "A2");
                         Map[i] = new CollegeNode(i, 0,0,"James", 0, jamesCard);
                         Map[i].setNodeType("College");
+                        //ship - max health-mana-regen-points worth-gold worth-cards(name-description-shop cost-gold cost-mana cost-effect/...)
+                        //B-70-5-60-100-60-pellets,fast light damage,0,0,1,A1
                         break;
                     case 2:
                         Card derwentCard = new Card("something", "something", 10, 0, 2, "A2");
                         Map[i] = new CollegeNode(i, 0,0,"Derwent", 0, derwentCard);
                         Map[i].setNodeType("College");
+                        //ship - max health-mana-regen-points worth-gold worth-cards(name-description-shop cost-gold cost-mana cost-effect/...)
+                        //B-50-10-120-150-75-cannonball,steady moderate damage,0,0,3,A5
                         break;
                     case 3:
                         Map[i] = new DepartmentNode(i, 0,0,"Comp Sci", 0, 20);
                         Map[i].setNodeType("Department");
+                        //ship - max health-mana-regen-points worth-gold worth-cards(name-description-shop cost-gold cost-mana cost-effect/...)
+                        //B-30-8-120-90-65-defensive blast,moderate attack with defence added,0,0,4,A3D2
                         break;
                     case 4:
                         Map[i] = new DepartmentNode(i, 0,0,"Philosophy", 0, 20);
                         Map[i].setNodeType("Department");
+                        //ship - max health-mana-regen-points worth-gold worth-cards(name-description-shop cost-gold cost-mana cost-effect/...)
+                        //B-30-5-140-120-85-shield bash,light attack with defence added,0,0,5,A1D4
                         break;
                 }
 

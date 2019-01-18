@@ -513,14 +513,24 @@ public class BattleMode {
         }
     }
 
+    /**
+     * @return Return the playerScore variable as a string.
+     */
     public String showPoints(){
         return playerScore.toString();
     }
 
+    /**
+     * @return Return the playerGoldAmount variable as a string.
+     */
     public String showGold() {
         return playerGoldAmount.toString();
     }
 
+    /**
+     * @param cardNumber - The index of a card in the player's hand. Starts at 0.
+     * @return True if there is no card, false otherwise.
+     */
     public Boolean isCardEmpty(Integer cardNumber){
         if(playerHand.get(cardNumber) == null){
             return true;
@@ -529,6 +539,10 @@ public class BattleMode {
         }
     }
 
+    /**
+     * @param targetShip - a string that either points to the player or the enemy.
+     * @return A float value that ranges from 0-100, depending on their health situation.
+     */
     public float getShipHealthPercentage(String targetShip){
         if(targetShip == "player"){
             return (((float)playerShipHealth/(float)playerShipHealthMax)*100);
@@ -538,11 +552,33 @@ public class BattleMode {
         return 0;
     }
 
+    /**
+     * @return returns the gold the player can gain from defeating the enemy ship in this battle.
+     */
     public int getGoldToGain(){
         return goldToGain;
     }
 
+    /**
+     * @return returns the score the player can gain from defeating the enemy ship in this battle.
+     */
     public int getScoreToGain(){
         return scoreToGain;
     }
+
+    /**
+     * This function may be replaced in the future by one called getCardID that does the same function
+     * but uses the cardID rather than the name. Would probably be more of an agile solution when there's
+     * a larger number of cards.
+     * @param cardNumber
+     * @return The name of the card.
+     */
+    public String getCardName(Integer cardNumber){
+        if(playerHand.get(cardNumber) == null){
+            return "CardEmpty_small";
+        } else{
+            return playerHand.get(cardNumber).getName();
+        }
+    }
+
 }

@@ -65,6 +65,8 @@ public class Card {
     public void setGoldCost(Integer goldCost) {
         this.goldCost = goldCost;
     }
+
+    public String getName(){return name;}
     //----------------------------Remove the stuff above once the card database is in action, maybe.
 
 /*

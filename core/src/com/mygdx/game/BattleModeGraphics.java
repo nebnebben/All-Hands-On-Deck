@@ -134,8 +134,11 @@ public class BattleModeGraphics extends ScreenAdapter {
     }
 
     public class Card1 extends Actor {
-        Texture texture = new Texture(Gdx.files.internal("CardAttack.png"));
+        //The fileName will be the card's name. Make sure each card is named.
+        String fileName = battleMode.getCardName(0) + ".png";
+        Texture texture = new Texture(Gdx.files.internal(fileName));
         public boolean started = false;
+
 
         public Card1() {
             //setScale(0.5f);
@@ -166,14 +169,17 @@ public class BattleModeGraphics extends ScreenAdapter {
             if(battleMode.isCardEmpty(0)){
                 texture = new Texture(Gdx.files.internal("CardEmpty_small.png"));
             } else{
-                //Another check is necessary here to give it the correcy sprite, to-do.
-                texture = new Texture(Gdx.files.internal("CardActive_Small.png"));
+                //The fileName will be the card's name. Make sure each card is named.
+                fileName = battleMode.getCardName(0) + ".png";
+                texture = new Texture(Gdx.files.internal(fileName));
             }
         }
     }
 
     public class Card2 extends Actor {
-        Texture texture = new Texture(Gdx.files.internal("CardAttack.png"));
+        //The fileName will be the card's name. Make sure each card is named.
+        String fileName = battleMode.getCardName(1) + ".png";
+        Texture texture = new Texture(Gdx.files.internal(fileName)); //default card type
         public boolean started = false;
 
         public Card2() {
@@ -201,14 +207,17 @@ public class BattleModeGraphics extends ScreenAdapter {
             if(battleMode.isCardEmpty(1)){
                 texture = new Texture(Gdx.files.internal("CardEmpty_small.png"));
             } else{
-                //Another check is necessary here to give it the correcy sprite, to-do.
-                texture = new Texture(Gdx.files.internal("CardActive_Small.png"));
+                //The fileName will be the card's name. Make sure each card is named.
+                fileName = battleMode.getCardName(1) + ".png";
+                texture = new Texture(Gdx.files.internal(fileName));
             }
         }
     }
 
     public class Card3 extends Actor {
-        Texture texture = new Texture(Gdx.files.internal("CardAttack.png"));
+        //The fileName will be the card's name. Make sure each card is named.
+        String fileName = battleMode.getCardName(2) + ".png";
+        Texture texture = new Texture(Gdx.files.internal(fileName)); //default card type
         public boolean started = false;
 
         public Card3() {
@@ -235,14 +244,17 @@ public class BattleModeGraphics extends ScreenAdapter {
             if(battleMode.isCardEmpty(2)){
                 texture = new Texture(Gdx.files.internal("CardEmpty_small.png"));
             } else{
-                //Another check is necessary here to give it the correcy sprite, to-do.
-                texture = new Texture(Gdx.files.internal("CardActive_Small.png"));
+                //The fileName will be the card's name. Make sure each card is named.
+                fileName = battleMode.getCardName(2) + ".png";
+                texture = new Texture(Gdx.files.internal(fileName));
             }
         }
     }
 
     public class Card4 extends Actor {
-        Texture texture = new Texture(Gdx.files.internal("CardAttack.png"));
+        //The fileName will be the card's name. Make sure each card is named.
+        String fileName = battleMode.getCardName(3) + ".png";
+        Texture texture = new Texture(Gdx.files.internal(fileName)); //default card type
         public boolean started = false;
 
         public Card4() {
@@ -269,8 +281,9 @@ public class BattleModeGraphics extends ScreenAdapter {
             if(battleMode.isCardEmpty(3)){
                 texture = new Texture(Gdx.files.internal("CardEmpty_small.png"));
             } else{
-                //Another check is necessary here to give it the correcy sprite, to-do.
-                texture = new Texture(Gdx.files.internal("CardActive_Small.png"));
+                //The fileName will be the card's name. Make sure each card is named.
+                fileName = battleMode.getCardName(3) + ".png";
+                texture = new Texture(Gdx.files.internal(fileName));
             }
         }
     }
