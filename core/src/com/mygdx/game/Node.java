@@ -29,7 +29,8 @@ public class Node {
         encounters = new Encounter[encounterNumber];
         //initializing all encounters
         //all encounters currently have 2 options. This can be expanded by changing effects into an ArrayList<String>
-        encounters[0] = new Encounter(new String[]{"S-L-2","B-50-50-5-50-50-pot,pot,5,5,5,A2"},
+        //ship - max health-mana-regen-points worth-gold worth-cards(name-description-shop cost-gold cost-mana cost-effect/...)
+        encounters[0] = new Encounter(new String[]{"S-L-2","B-50-10-100-50-50-pot,pot,0,0,1,A2"},
                 "You encounter an enemy ship, do you run away or choose to fight",
                 10);
         encounters[1] = new Encounter(new String[]{"H-L-5","S-L-3"},
@@ -82,6 +83,7 @@ public class Node {
                         Card alcuinCard = new Card("something", "something", 10, 0, 2, "A2");
                         Map[i] = new CollegeNode(i, 0,0,"Alcuin", 1, alcuinCard);
                         Map[i].setNodeType("College");
+                        //ship - max health-mana-regen-points worth-gold worth-cards(name-description-shop cost-gold cost-mana cost-effect/...)
                         break;
                     case 1:
                         Card jamesCard = new Card("something", "something", 10, 0, 2, "A2");
