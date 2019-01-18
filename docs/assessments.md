@@ -37,9 +37,11 @@ Assessment stuff
 <p> + <a href="https://github.com/7SeasOfSomething/All-Hands-On-Deck/blob/master/docs/assessment2/Updates2.pdf">Updates on Assessment 1 Deliverables</a></p>
 
 <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - <a href="https://github.com/7SeasOfSomething/All-Hands-On-Deck/blob/master/docs/assessments2/Updated%20Requirements.pdf">Updated Requirements</a></p>
+<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - <a href="https://github.com/7SeasOfSomething/All-Hands-On-Deck/blob/master/docs/assessments2/Updated%20Requirements%20Elicitation.pdf">Updated Requirement Elicitation</a></p>
 <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - <a href="https://github.com/7SeasOfSomething/All-Hands-On-Deck/blob/master/docs/assessments2/Updated%20Plan.pdf">Updated Plan</a></p>
 <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - <a href="https://github.com/7SeasOfSomething/All-Hands-On-Deck/blob/master/docs/assessments2/Updated%20Risk%20Assessment.pdf">Updated Risk Assessment</a></p>
 <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - <a href="https://github.com/7SeasOfSomething/All-Hands-On-Deck/blob/master/docs/assessments2/Gantt%20Chart2.pdf">Updated Gantt Chart</a></p>
+
 
  
 <p> + <a href="https://github.com/7SeasOfSomething/All-Hands-On-Deck/blob/master/docs/assessment2/Updates2.pdf">Game executable</a></p>
