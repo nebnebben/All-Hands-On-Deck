@@ -92,11 +92,11 @@ public class Node {
                         Map[i].setNodeType("College");
                         break;
                     case 3:
-                        Map[i] = new DepartmentNode(i, 0,0,"Comp Sci", 1);
+                        Map[i] = new DepartmentNode(i, 0,0,"Comp Sci", 1, 20);
                         Map[i].setNodeType("Department");
                         break;
                     case 4:
-                        Map[i] = new DepartmentNode(i, 0,0,"Philosophy", 1);
+                        Map[i] = new DepartmentNode(i, 0,0,"Philosophy", 1, 20);
                         Map[i].setNodeType("Department");
                         break;
                 }
@@ -299,19 +299,21 @@ class CollegeNode extends Node{
 class DepartmentNode extends Node{
 
     private String name;
+    private int upgradeCost;
     private  int departmentStatus;
 
-    public DepartmentNode(int id, int x, int y, String name, int status){
+    public DepartmentNode(int id, int x, int y, String name, int status, int upgradeCost){
         super( id,  x,  y);
         this.name = name;
         this.departmentStatus = status;
+        this.upgradeCost = upgradeCost;
     }
 
     public int[] buyUpgrade(){
         int[] upgrade = new int[2];
         if (this.name == "Comp Sci"){
             upgrade[0] = 1;
-            upgrade[1] = 10;
+            upgrade[1] = 20;
             return upgrade;
         } else {
             upgrade[0] = 2;
@@ -335,5 +337,26 @@ class DepartmentNode extends Node{
 
     public int getDepartmentStatus(){
         return this.departmentStatus;
+    }
+
+    //interprets the college upgrades as a string
+    public String[] upgrade2Str(){
+        int[] deptUpgrade = buyUpgrade();
+        String[] out = new String[2];
+        switch(deptUpgrade[0]){
+            case 1:
+                out[0] = "mana regen rate";
+                out[1] = Integer.toString(deptUpgrade[1]);
+                return out;
+            case 2:
+                out[0] = "total mana";
+                out[1] = Integer.toString(deptUpgrade[1]);
+                return out;
+            default: return out;
+        }
+    }
+
+    public int getUpgradeCost(){
+        return upgradeCost;
     }
 }

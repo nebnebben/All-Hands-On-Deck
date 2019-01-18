@@ -22,10 +22,10 @@ public class Ship {
         deck.add(new Card("fast attack", "attacks fast", 10, 0, 2, "A9"));
         // constructor.
         name = "The Pigeons Droppings";
-        totalHealth = 250;
-        currentHealth = 250;
-        totalMana = 250;
-        manaRegenRate = 10;
+        totalHealth = 50;
+        currentHealth = 50;
+        totalMana = 20;
+        manaRegenRate = 30;
         pointsWorth = 30;
         goldAmount = 50;
         //basic constructor.
@@ -113,5 +113,9 @@ public class Ship {
 
     public int getHealth(){
         return totalHealth;
+    }
+
+    public void setHealth(int in){
+        currentHealth = in;
     }
 }

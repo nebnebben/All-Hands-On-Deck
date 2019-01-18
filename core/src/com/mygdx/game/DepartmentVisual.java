@@ -20,6 +20,7 @@ public class DepartmentVisual extends ScreenAdapter {
     private ScreenAdapter parent;
     private GameLogic gameLogic;
     private DepartmentNode departmentNode;
+    private final int upgradeCost;
 
     //visual parameters
     private Label nameLabel;
@@ -36,6 +37,7 @@ public class DepartmentVisual extends ScreenAdapter {
         this.parent = parent;
         this.gameLogic = gameLogic;
         this.departmentNode = departmentNode;
+        this.upgradeCost = departmentNode.getUpgradeCost();
         departmentStage = new Stage(new ScreenViewport());
 
         //initiliazes the standard TextButtonStyle for the options to follow
@@ -63,11 +65,11 @@ public class DepartmentVisual extends ScreenAdapter {
         departmentStage.addActor(nameLabel);
 
         //buy upgrade
-        final int upgradeCost = 20;
         upgradeButton = new TextButton("upgrade", optionStyle);
-        upgradeButton.setText("1. Upgrade ship");
+        String[] upgradeString = departmentNode.upgrade2Str();
+        upgradeButton.setText("1. Upgrade ship "+upgradeString[0]+" by "+upgradeString[1]);
         upgradeButton.setSize(100,12);
-        upgradeButton.setPosition(20, Gdx.graphics.getHeight() - 40);
+        upgradeButton.setPosition(upgradeButton.getText().length()*2, Gdx.graphics.getHeight() - 40);
         upgradeButton.getLabel().setAlignment(Align.left);
         upgradeButton.addListener(new ClickListener(){
             @Override
@@ -160,8 +162,14 @@ public class DepartmentVisual extends ScreenAdapter {
         Ship playerShip = gameLogic.getPlayer().getPlayerShip();
         switch (in[0]){
             case 1:
+                //there is a functional max regen rate, so it will not update. If this is the case the player is refunded
                 int newRegen = playerShip.getManaRegenRate() + in[1];
-                playerShip.setManaRegenRate(newRegen);
+                if (newRegen <= 160){
+                    playerShip.setManaRegenRate(newRegen);
+                } else {
+                    gameLogic.currentGold += upgradeCost;
+                }
+
             case 2:
                 int newTotal = playerShip.getTotalMana() + in[1];
                 playerShip.setTotalMana(newTotal);

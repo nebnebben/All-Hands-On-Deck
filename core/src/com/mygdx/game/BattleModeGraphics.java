@@ -279,6 +279,7 @@ public class BattleModeGraphics extends ScreenAdapter {
         this.playerShip = gameLogic.getPlayer().getPlayerShip();
         this.enemyShip = enemyShip;
         this.parent = parent;
+        this.gameLogic = gameLogic;
         battleMode = new BattleMode(playerShip, enemyShip, gameLogic.currentGold );
 
         //initiliazes the standard TextButtonStyle for the exit button to follow
@@ -350,7 +351,7 @@ public class BattleModeGraphics extends ScreenAdapter {
         exitButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
-                //when the screen is exited gold and score rewards are added to global gameLogic controller
+                ///when the screen is exited gold and score rewards are added to global gameLogic controller
                 gameLogic.currentGold += battleMode.getGoldToGain();
                 gameLogic.addScore(battleMode.getScoreToGain());
                 //then dispose
