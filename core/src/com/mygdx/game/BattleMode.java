@@ -63,7 +63,7 @@ public class BattleMode {
 
 
 
-    public BattleMode(Ship playerShip, Ship enemyShip, int gold){ //Integer playerShipHealth, Integer playerShipHealthMax, Integer playerManaMax, Integer playerShipManaRate, Integer playerGoldAmount, Integer playerScore), ArrayList<Card> playerTempDeck --Doesn't work for some reason.
+    public BattleMode(Ship playerShip, Ship enemyShip, int gold){
         //Some of these depend on the actual ship stats. Pull all of this from existing data when battle starts.
         playerMana = 0;
         enemyMana = 0;
@@ -417,16 +417,17 @@ public class BattleMode {
      * Update clock and increment mana if specific ship's regen amount has been reached.
      * This most likely isn't needed and will be in the actual section that does the graphics
      * and actually runs it in the render class. However, this might as well be here as a temporary thing.
+     * Slowest mana regen rate is 180, which is going to be 3 seconds per mana update.
      */
     public void updateClock(){
         clock += 1;
         if(clock >= 10000){
             clock = 0;
         }
-        if (clock % playerShipManaRate == 0){
+        if (clock % 180 - playerShipManaRate == 0){
             updateMana("player", 1);
         }
-        if (clock % enemyShipManaRate == 0){
+        if (clock % 180 - enemyShipManaRate == 0){
             updateMana("enemy", 1);
         }
     }

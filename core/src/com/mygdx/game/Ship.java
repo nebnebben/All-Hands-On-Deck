@@ -20,6 +20,7 @@ public class Ship {
         //adds base deck
         deck = new ArrayList<Card>();
         deck.add(new Card("fast attack", "attacks fast", 10, 0, 2, "A9"));
+        deck.add(new Card("Slow attack", "attacks not so fast", 5, 0, 4, "A9D6"));
         // constructor.
         name = "The Pigeons Droppings";
         totalHealth = 50;
