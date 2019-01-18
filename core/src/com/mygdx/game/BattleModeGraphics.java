@@ -350,6 +350,10 @@ public class BattleModeGraphics extends ScreenAdapter {
         exitButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
+                //when the screen is exited gold and score rewards are added to global gameLogic controller
+                gameLogic.currentGold += battleMode.getGoldToGain();
+                gameLogic.addScore(battleMode.getScoreToGain());
+                //then dispose
                 dispose();
                 game.setScreen(parent);
             }

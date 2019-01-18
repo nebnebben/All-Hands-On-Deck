@@ -114,6 +114,8 @@ public class DepartmentVisual extends ScreenAdapter {
 
     //attacks the department, which triggers a unique battle
     private void createAttackButton(){
+        //added to include parent screen in clickListener.
+        final ScreenAdapter clickThis = this;
         attackButton = new TextButton("attack",optionStyle);
         attackButton.setText("3. Attack department");
         attackButton.setSize(100, 12);
@@ -128,6 +130,9 @@ public class DepartmentVisual extends ScreenAdapter {
             public void clicked(InputEvent event, float x, float y){
                 //every encounter has a score which is added on, then the actual choice is interpreted
                 //add battle effect here
+                Ship enemyShip = new Ship();
+                dispose();
+                game.setScreen(new BattleModeGraphics(game, clickThis, gameLogic, enemyShip));
             }
         });
         departmentStage.addActor(attackButton);

@@ -100,21 +100,21 @@ public class BattleMode {
         clock = 0;
         playerShipDead = false;
         enemyShipDead = false;
-
-
-        playerManaMax = playerShip.getTotalMana();
-        enemyManaMax = enemyShip.getTotalMana();
-        playerShipHealthMax = playerShip.getTotalHealth();
-        enemyShipHealthMax = enemyShip.getTotalHealth();
-        playerShipHealth = playerShipHealthMax;
-        enemyShipHealth = enemyShipHealthMax;
-        isSpecialEnemy = enemyShip.getIsSpecial();
-        playerScore = 0;
-        playerGoldAmount = gold ;
-        playerShipManaRate = playerShip.getManaRegenRate();
-        enemyShipManaRate = enemyShip.getManaRegenRate();
-        scoreToGain = enemyShip.getPointsWorth();
-        goldToGain = enemyShip.getGoldAmount();
+//
+//
+//        playerManaMax = playerShip.getTotalMana();
+//        enemyManaMax = enemyShip.getTotalMana();
+//        playerShipHealthMax = playerShip.getTotalHealth();
+//        enemyShipHealthMax = enemyShip.getTotalHealth();
+//        playerShipHealth = playerShipHealthMax;
+//        enemyShipHealth = enemyShipHealthMax;
+//        isSpecialEnemy = enemyShip.getIsSpecial();
+//        playerScore = 0;
+//        playerGoldAmount = gold ;
+//        playerShipManaRate = playerShip.getManaRegenRate();
+//        enemyShipManaRate = enemyShip.getManaRegenRate();
+//        scoreToGain = enemyShip.getPointsWorth();
+//        goldToGain = enemyShip.getGoldAmount();
 //
 //
 //        playerShip.setPointsWorth(0); //Import the total score that the player gained to here.
@@ -531,5 +531,13 @@ public class BattleMode {
             return ((float)enemyShipHealth/(float)enemyShipHealthMax)*100;
         }
         return 0;
+    }
+
+    public int getGoldToGain(){
+        return goldToGain;
+    }
+
+    public int getScoreToGain(){
+        return scoreToGain;
     }
 }

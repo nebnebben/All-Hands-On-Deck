@@ -81,7 +81,7 @@ public class GameVisuals extends ScreenAdapter {
         curNodeStyle.font = new BitmapFont();
 
         //initiliazation of the basic ui elements of the gameLogic
-        addBackgroundGrid(GuideCols,GuideRows); //adds the background grid with a repeating texture
+        addBackground(); //adds the background
         createTopLabels(row_height, col_width); //creates the set of top labels
         createNodeMap(3,2); //creates the nodeMap with x,y coordinates scaled to match window
 
@@ -121,14 +121,13 @@ public class GameVisuals extends ScreenAdapter {
         mainStage.dispose();
     }
 
-    //used for sizing judgements
-    public void addBackgroundGrid(int cols, int rows) {
-        //sets background texture and makes it repeating
+    //adds background
+    public void addBackground() {
+        //sets background texture
         Texture texture = new Texture(Gdx.files.internal("space.png"));
-        texture.setWrap(Texture.TextureWrap.MirroredRepeat,Texture.TextureWrap.MirroredRepeat);
 
         TextureRegion textureRegion = new TextureRegion(texture);
-        textureRegion.setRegion(0,0,texture.getWidth()*cols,texture.getHeight()*rows);
+        textureRegion.setRegion(0,0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
         Image background = new Image(textureRegion);
         background.setSize(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
         background.setPosition(0,0);
