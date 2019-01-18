@@ -97,11 +97,13 @@ public class BattleModeGraphics extends ScreenAdapter {
                 texture = new Texture(Gdx.files.internal("Ship2_Undamaged.png"));
             }
         }
+
     }
 
     public class EnemyShip extends Actor {
         Texture texture = new Texture(Gdx.files.internal("Ship1_Undamaged.png"));
         public boolean started = false;
+
 
         public EnemyShip() {
             setBounds(getX(), getY(), texture.getWidth(), texture.getHeight());
@@ -121,13 +123,14 @@ public class BattleModeGraphics extends ScreenAdapter {
                 texture = new Texture(Gdx.files.internal("Ship1_damage2.png"));
             } else if(hpPercentage <= 40 && hpPercentage > 20){
                 texture = new Texture(Gdx.files.internal("Ship1_damage3.png"));
-            } else if(hpPercentage <= 20 &&hpPercentage > 0){
+            } else if(hpPercentage <= 20 && hpPercentage > 0){
                 texture = new Texture(Gdx.files.internal("Ship1_damage4.png"));
             } else{
                 //Another check is necessary here to give it the correct sprite, to-do.
                 texture = new Texture(Gdx.files.internal("Ship1_Undamaged.png"));
             }
         }
+
     }
 
     public class Card1 extends Actor {
@@ -331,6 +334,8 @@ public class BattleModeGraphics extends ScreenAdapter {
         //card2Actor.setScale(0.3f);
         //card3Actor.setScale(0.3f);
         //card4Actor.setScale(0.3f);
+
+
 
 
         stage.addActor(playerShipActor);

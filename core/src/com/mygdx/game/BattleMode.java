@@ -77,7 +77,10 @@ public class BattleMode {
         playerGoldAmount = playerShip.getGoldAmount();
         playerShipDefence = 0;
         playerShipManaRate = playerShip.getManaRegenRate();
-        playerTempDeck = playerShip.getDeck();
+        //Temp deck needs a new copy of the playerShips deck, not a pointer. This will mess up when
+        //the function passes cards through to hand and the discard pile, etc.
+
+        playerTempDeck = new ArrayList<Card>(playerShip.getDeck());
 
         enemyManaMax = enemyShip.getTotalMana();
         enemyShipHealthMax = enemyShip.getTotalHealth();
