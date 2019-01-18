@@ -427,10 +427,10 @@ public class BattleMode {
         if(clock >= 10000){
             clock = 0;
         }
-        if (clock % 180 - playerShipManaRate == 0){
+        if (clock % (180 - playerShipManaRate) == 0){
             updateMana("player", 1);
         }
-        if (clock % 180 - enemyShipManaRate == 0){
+        if (clock % (180 - enemyShipManaRate) == 0){
             updateMana("enemy", 1);
         }
     }
