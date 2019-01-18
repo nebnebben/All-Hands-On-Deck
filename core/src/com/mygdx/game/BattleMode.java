@@ -393,6 +393,7 @@ public class BattleMode {
                 playerShipHealth = playerShipHealthMax;}
             else if (playerShipHealth <= 0){
                 //PlayerDied
+
                 playerShipDead = true;
                 playerShip.setIsDead();
             }

@@ -13,7 +13,7 @@ public class Node {
     private String nodeType;        //Type of the node
     private String weather;         //What weather the node has
     private boolean visibility;     //What the visibility is?
-    private String[] encounters;    //The possible encounters
+    private Encounter[] encounters;    //The possible encounters
     private int encounterchance;    //Chance of an encounter
     private int x;                  //x location of node
     private int y;                  //y location of node
@@ -24,6 +24,24 @@ public class Node {
         this.id = id;
         this.x = x;
         this.y = y;
+        //base set of encounters triggered on non-college/department nodes - encounter number is the total number of encounters
+        int encounterNumber = 4;
+        encounters = new Encounter[encounterNumber];
+        //initializing all encounters
+        //all encounters currently have 2 options. This can be expanded by changing effects into an ArrayList<String>
+        encounters[0] = new Encounter(new String[]{"S-L-2","B-50-50-5-50-50-pot,pot,5,5,5,A2"},
+                "You encounter an enemy ship, do you run away or choose to fight",
+                10);
+        encounters[1] = new Encounter(new String[]{"H-L-5","S-L-3"},
+                "The winds have taken you into some rocks, do you sail slowly through or is speed of the essence?",
+                5);
+        encounters [2] = new Encounter(new String[]{"G-L-30","H-L-5&G-G-100"},
+                "There is a poetry competition on the ship. As captain, do you rig the votes in your favor\n and risk a mutiny?",
+                10);
+        encounters[3] = new Encounter(new String[]{"G-L-100&I-G-250&H-M","H-L-15"},
+                "You run into the god of the seas, Poseidon. He offers to bless your ship for a cost,\n do you take his offer or risk his wrath?",
+                15);
+
     }
 
 
@@ -35,27 +53,11 @@ public class Node {
         return xy;
     }
 
-    //Randomly decides on which encounter to selectz
+    //Randomly decides on which encounter to select - future implementation includes encounter chance for different encounters
     public Encounter giveEncounter() {
         Random chance = new Random();
-        int n = chance.nextInt(100)+1;
-        if (n > encounterchance) {
-            /*
-            chance = new Random();
-            n = chance.nextInt(encounters.length);
-            //encounter[n]
-            */
-            String[] encounterEffects = new String[2];
-            encounterEffects[0] = "S-L-2";
-            encounterEffects[1] = "B-50-50-5-50-50-pot,pot,5,5,5,A2";
-            return new Encounter(encounterEffects, "You run into a rock and require repairs to your ship",5);
-        } else {
-            //no encounter
-            String[] encounterEffects = new String[2];
-            encounterEffects[0] = "S-L-2";
-            encounterEffects[1] = "S-L-3";
-            return new Encounter(encounterEffects, "You run into a rock and require repairs to your ship", 5);
-        }
+        return encounters[chance.nextInt(encounters.length-1)];
+
     }
 
     //Generate list of nodes

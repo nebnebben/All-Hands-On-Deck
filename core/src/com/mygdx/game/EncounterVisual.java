@@ -84,7 +84,7 @@ public class EncounterVisual extends ScreenAdapter {
             optionButtons[i].setText(encounter.getOptions()[i]);
             optionButtons[i].setSize(100, 12);
             //base offset for all options is 20 from the top, then an additional offset based on the number of options
-            optionButtons[i].setPosition(20,Gdx.graphics.getHeight() - (40 + optionOffset) );
+            optionButtons[i].setPosition(optionButtons[i].getText().length()*2,Gdx.graphics.getHeight() - (70 + optionOffset) );
             //the label for the button needs to be aligned to the left, defaults to the center
             optionButtons[i].getLabel().setAlignment(Align.left);
             //click listener to allow the options to be clicked and as such chosen
@@ -104,48 +104,112 @@ public class EncounterVisual extends ScreenAdapter {
 
     //looks at a chosen effect and carries out said effect, then switches screen away from encounterVisual
     private void interpretEffect(String effect){
-        String[] details = effect.split("-");
-        //first character denotes effect type, rest following - denotes relevant data
-        switch (details[0].charAt(0)) {
-            //battle, details[1] contains details for the enemy ship
-            case 'B':
-                //initializes a ship to be fought, then switches to the battle screen with its parent set as GameVisuals
-                //details of the ship to be fought are stored, but the ships deck is stored as cards with / separation
-                int shipMaxHealth = Integer.parseInt(details[1]);
-                int shipMana = Integer.parseInt(details[2]);
-                int shipRegen = Integer.parseInt(details[3]);
-                int shipPoints = Integer.parseInt(details[4]);
-                int shipGold = Integer.parseInt(details[5]);
-                String shipDeckString = details[6];
-                String[] shipCards = shipDeckString.split("/");
-                ArrayList<Card> shipDeck = new ArrayList<Card>();
-                for (int i = 0; i < shipCards.length; i++){
-                    //individual cards have their details split between periods
-                    String [] cardDetails = shipCards[i].split(",");
-                    String cardName = cardDetails[0];
-                    String cardDesc = cardDetails[1];
-                    int cardShop = Integer.parseInt(cardDetails[2]);
-                    int cardGold = Integer.parseInt(cardDetails[3]);
-                    int cardMana = Integer.parseInt(cardDetails[4]);
-                    String cardEffect = cardDetails[5];
-                    //then instantiated and added to the deck
-                    Card inCard = new Card(cardName, cardDesc, cardShop, cardGold, cardMana, cardEffect);
-                    shipDeck.add(inCard);
-                }
-                Ship enemyShip = new Ship(shipMaxHealth, shipMaxHealth, shipMana, shipRegen, shipPoints, shipGold, shipDeck, Boolean.FALSE);
-                dispose();
-                game.setScreen(new BattleModeGraphics(game, parent, gameLogic, enemyShip));
-            //change supplies - details [1] indicates whether to add or subtract, details [2] by how much
-            case 'S':
-                if (details[1].equals("L")) {
-                    gameLogic.addSupplies(0 - Integer.valueOf(details[2]));
+        //+ allows for multiple effects to be stored in the same effect
+        System.out.println(effect);
+        String[] sumEffects = effect.split("&");
+        System.out.println(sumEffects[0]);
+        for (String e:sumEffects) {
+            String[] details = e.split("-");
+            //first character denotes effect type, rest following - denotes relevant data
+            switch (details[0].charAt(0)) {
+                //battle, details[1] contains details for the enemy ship
+                case 'B':
+                    //initializes a ship to be fought, then switches to the battle screen with its parent set as GameVisuals
+                    //details of the ship to be fought are stored, but the ships deck is stored as cards with / separation
+                    int shipMaxHealth = Integer.parseInt(details[1]);
+                    int shipMana = Integer.parseInt(details[2]);
+                    int shipRegen = Integer.parseInt(details[3]);
+                    int shipPoints = Integer.parseInt(details[4]);
+                    int shipGold = Integer.parseInt(details[5]);
+                    String shipDeckString = details[6];
+                    String[] shipCards = shipDeckString.split("/");
+                    ArrayList<Card> shipDeck = new ArrayList<Card>();
+                    for (int i = 0; i < shipCards.length; i++) {
+                        //individual cards have their details split between periods
+                        String[] cardDetails = shipCards[i].split(",");
+                        String cardName = cardDetails[0];
+                        String cardDesc = cardDetails[1];
+                        int cardShop = Integer.parseInt(cardDetails[2]);
+                        int cardGold = Integer.parseInt(cardDetails[3]);
+                        int cardMana = Integer.parseInt(cardDetails[4]);
+                        String cardEffect = cardDetails[5];
+                        //then instantiated and added to the deck
+                        Card inCard = new Card(cardName, cardDesc, cardShop, cardGold, cardMana, cardEffect);
+                        shipDeck.add(inCard);
+                    }
+                    Ship enemyShip = new Ship(shipMaxHealth, shipMaxHealth, shipMana, shipRegen, shipPoints, shipGold, shipDeck, Boolean.FALSE);
+                    dispose();
+                    game.setScreen(new BattleModeGraphics(game, parent, gameLogic, enemyShip));
+                    break;
+                    //change supplies - details [1] indicates whether to add or subtract, details [2] by how much
+                case 'S':
+                    if (details[1].equals("L")) {
+                        gameLogic.addSupplies(0 - Integer.valueOf(details[2]));
+                        dispose();
+                        game.setScreen(parent);
+                    } else if (details[1].equals("G")) {
+                        gameLogic.addSupplies(Integer.valueOf(details[2]));
+                        dispose();
+                        game.setScreen(parent);
+                    }
+                    break;
+                    //change in health
+                case 'H':
+                    //loses health
+                    int health = gameLogic.getPlayer().getPlayerShip().getCurrentHealth();
+                    if (details[1].equals("L")) {
+                        health -= Integer.parseInt(details[2]);
+                        gameLogic.getPlayer().getPlayerShip().setHealth(health);
+                        dispose();
+                        game.setScreen(parent);
+                        //gains health
+                    } else if (details[1].equals("G")) {
+                        health += Integer.parseInt(details[2]);
+                        //if health exceeds maximum health, set health to max health. Otherwise, sethealth to health
+                        if (health > gameLogic.getPlayer().getPlayerShip().getTotalHealth()) {
+                            gameLogic.getPlayer().getPlayerShip().setHealth(gameLogic.getPlayer().getPlayerShip().getTotalHealth());
+                            dispose();
+                            game.setScreen(parent);
+                        } else {
+                            gameLogic.getPlayer().getPlayerShip().setHealth(health);
+                            dispose();
+                            game.setScreen(parent);
+                        }
+                        //maxes health
+                    } else if (details[1].equals("M")) {
+                        health = gameLogic.getPlayer().getPlayerShip().getTotalHealth();
+                        gameLogic.getPlayer().getPlayerShip().setHealth(health);
+                        dispose();
+                        game.setScreen(parent);
+                    }
+                    break;
+                    //gold
+                case 'G':
+                    //lose gold
+                    if (details[1].equals("L")) {
+                        gameLogic.currentGold -= Integer.parseInt(details[2]);
+                    } else if (details[1].equals("G")) {
+                        gameLogic.currentGold += Integer.parseInt(details[2]);
+                    }
                     dispose();
                     game.setScreen(parent);
-                } else if (details[1].equals("G")) {
-                    gameLogic.addSupplies(Integer.valueOf(details[2]));
+                    break;
+                //max health
+                case 'I':
+                    int totHealth = gameLogic.getPlayer().getPlayerShip().getTotalHealth();
+                    //lose max health
+                    if (details[1].equals("L")){
+                        totHealth -= Integer.parseInt(details[2]);
+                        gameLogic.getPlayer().getPlayerShip().setTotalHealth(totHealth);
+                    //gain total health
+                    } else if (details[2].equals("G")){
+                        totHealth += Integer.parseInt(details[2]);
+                        gameLogic.getPlayer().getPlayerShip().setTotalHealth(totHealth);
+                    }
                     dispose();
                     game.setScreen(parent);
-                }
+                    break;
+            }
         }
     }
     //overriden methods

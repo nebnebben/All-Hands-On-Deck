@@ -14,7 +14,7 @@ public class Ship {
     private ArrayList<Card> deck;
     private Boolean isSpecial; //For special enemies, e.g. colleges and departments.
 
-    //default ship
+    //default ship - for player
     public Ship() {
         this.isDead = false;
         //adds base deck
@@ -118,5 +118,9 @@ public class Ship {
 
     public void setHealth(int in){
         currentHealth = in;
+    }
+
+    public void setTotalHealth(int in){
+        totalHealth = in;
     }
 }
