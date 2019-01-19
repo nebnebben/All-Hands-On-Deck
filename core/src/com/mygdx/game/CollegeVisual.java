@@ -20,7 +20,7 @@ public class CollegeVisual extends ScreenAdapter {
     private ScreenAdapter parent;
     private GameLogic gameLogic;
     private CollegeNode collegeNode;
-    final private CollegeVisual clickThis;
+    final private ScreenAdapter clickThis;
 
     //visual parameters
     private Label nameLabel;
@@ -37,7 +37,7 @@ public class CollegeVisual extends ScreenAdapter {
         this.parent = parent;
         this.gameLogic = gameLogic;
         this.collegeNode = collegeNode;
-        clickThis = this;
+        clickThis = parent;
         collegeStage = new Stage(new ScreenViewport());
 
         //initiliazes the standard TextButtonStyle for the options to follow
