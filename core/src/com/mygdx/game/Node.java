@@ -114,7 +114,7 @@ public class Node {
                         ArrayList<Card> csDeck= new ArrayList<Card>();
                         csDeck.add(new Card("defenseive blast","moderate attack with defence added",0,0,4,"A3D2"));
                         Ship csShip = new Ship(30,30,8,129,90,65,csDeck,Boolean.TRUE);
-                        Map[i] = new DepartmentNode(i, 0,0,"Comp Sci", 0, 20, csShip);
+                        Map[i] = new DepartmentNode(i, 0,0,"Computer Science", 0, 20, csShip);
                         Map[i].setNodeType("Department");
                         //ship - max health-mana-regen-points worth-gold worth-cards(name-description-shop cost-gold cost-mana cost-effect/...)
                         //B-30-8-120-90-65-defensive blast,moderate attack with defence added,0,0,4,A3D2
@@ -349,7 +349,7 @@ class DepartmentNode extends Node{
 
     public int[] buyUpgrade(){
         int[] upgrade = new int[2];
-        if (this.name == "Comp Sci"){
+        if (this.name == "Computer Science"){
             upgrade[0] = 1;
             upgrade[1] = 20;
             return upgrade;
