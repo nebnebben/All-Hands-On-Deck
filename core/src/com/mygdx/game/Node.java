@@ -325,6 +325,8 @@ class CollegeNode extends Node{
         return this.CollegeStatus;
     }
 
+    public void setCollegeStatus(int status){this.CollegeStatus = status;}
+
     public Ship getBossShip(){
         return this.bossShip;
     }
@@ -373,6 +375,9 @@ class DepartmentNode extends Node{
 
     public int getDepartmentStatus(){
         return this.departmentStatus;
+    }
+    public void setDepartmentStatus(int status){
+        this.departmentStatus = status;
     }
 
     //interprets the college upgrades as a string

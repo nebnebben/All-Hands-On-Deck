@@ -136,6 +136,7 @@ public class DepartmentVisual extends ScreenAdapter {
                     Ship enemyShip = departmentNode.getBossShip();
                     dispose();
                     game.setScreen(new BattleModeGraphics(game, clickThis, gameLogic, enemyShip));
+                    departmentNode.setDepartmentStatus(1);
                 }
             }
         });

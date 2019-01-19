@@ -131,6 +131,7 @@ public class CollegeVisual extends ScreenAdapter {
                     Ship enemyShip = collegeNode.getBossShip();
                     dispose();
                     game.setScreen(new BattleModeGraphics(game, clickThis, gameLogic, enemyShip));
+                    collegeNode.setCollegeStatus(1);
                 }
             }
         });
