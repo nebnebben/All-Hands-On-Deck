@@ -128,7 +128,7 @@ public class CollegeVisual extends ScreenAdapter {
             public void clicked(InputEvent event, float x, float y){
                 //can't attack an already allied college
                 if (collegeNode.getCollegeStatus() != 1) {
-                    Ship enemyShip = new Ship();
+                    Ship enemyShip = collegeNode.getBossShip();
                     dispose();
                     game.setScreen(new BattleModeGraphics(game, clickThis, gameLogic, enemyShip));
                 }

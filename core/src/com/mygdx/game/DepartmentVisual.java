@@ -133,7 +133,7 @@ public class DepartmentVisual extends ScreenAdapter {
                 //every encounter has a score which is added on, then the actual choice is interpreted
                 //cant attack an already allied department
                 if (departmentNode.getDepartmentStatus() != 1) {
-                    Ship enemyShip = new Ship();
+                    Ship enemyShip = departmentNode.getBossShip();
                     dispose();
                     game.setScreen(new BattleModeGraphics(game, clickThis, gameLogic, enemyShip));
                 }
