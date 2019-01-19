@@ -39,7 +39,7 @@ public class Node {
         encounters [2] = new Encounter(new String[]{"D-L-30","H-L-5%D-G-100"},
                 "There is a poetry competition on the ship. As captain, do you rig the votes in your favor\n and risk a mutiny?",
                 10);
-        encounters[3] = new Encounter(new String[]{"D-L-100%I-G-250%H-M","H-L-15"},
+        encounters[3] = new Encounter(new String[]{"D-L-100%I-G-50%H-M","H-L-15"},
                 "You run into the god of the seas, Poseidon. He offers to bless your ship for a cost,\n do you take his offer or risk his wrath?",
                 15);
 
@@ -80,34 +80,50 @@ public class Node {
                     //First 3 nodes are colleges, 4+5 are departments
                     case 0:
                         //first initializes colleges unique card, then changes a node to a collegeNode
-                        Card alcuinCard = new Card("something", "something", 10, 0, 2, "A2");
-                        Map[i] = new CollegeNode(i, 0,0,"Alcuin", 1, alcuinCard);
+                        Card alcuinCard = new Card("Slow attack", "attacks not so fast", 5, 0, 4, "A4D6");
+                        ArrayList<Card> alcuinDeck = new ArrayList<Card>();
+                        alcuinDeck.add(new Card("barrage","fast heavy damage",0,0,2,"A8"));
+                        Ship alcuinShip = new Ship(35,35,20,90,120,65, alcuinDeck,Boolean.TRUE);
+                        Map[i] = new CollegeNode(i, 0,0,"Alcuin", 1, alcuinCard, alcuinShip);
                         Map[i].setNodeType("College");
                         //ship - max health-mana-regen-points worth-gold worth-cards(name-description-shop cost-gold cost-mana cost-effect/...)
                         //B-35-20-90-120-65-barrage,fast heavy damage,0,0,2,A8
+
                         break;
                     case 1:
                         Card jamesCard = new Card("something", "something", 10, 0, 2, "A2");
-                        Map[i] = new CollegeNode(i, 0,0,"James", 0, jamesCard);
+                        ArrayList<Card> jamesDeck = new ArrayList<Card>();
+                        jamesDeck.add(new Card("pellets","fast light damage",0,0,1,"A1"));
+                        Ship jamesShip = new Ship(70,70,5,60,100,50,jamesDeck,Boolean.TRUE);
+                        Map[i] = new CollegeNode(i, 0,0,"James", 0, jamesCard,jamesShip);
                         Map[i].setNodeType("College");
                         //ship - max health-mana-regen-points worth-gold worth-cards(name-description-shop cost-gold cost-mana cost-effect/...)
                         //B-70-5-60-100-60-pellets,fast light damage,0,0,1,A1
                         break;
                     case 2:
                         Card derwentCard = new Card("something", "something", 10, 0, 2, "A2");
-                        Map[i] = new CollegeNode(i, 0,0,"Derwent", 0, derwentCard);
+                        ArrayList<Card> derwentDeck = new ArrayList<Card>();
+                        derwentDeck.add(new Card("cannonball", "steady moderate damage", 0,0,3,"A5"));
+                        Ship derwentShip = new Ship(50,50,10,120,150,76,derwentDeck,Boolean.TRUE);
+                        Map[i] = new CollegeNode(i, 0,0,"Derwent", 0, derwentCard,derwentShip);
                         Map[i].setNodeType("College");
                         //ship - max health-mana-regen-points worth-gold worth-cards(name-description-shop cost-gold cost-mana cost-effect/...)
                         //B-50-10-120-150-75-cannonball,steady moderate damage,0,0,3,A5
                         break;
                     case 3:
-                        Map[i] = new DepartmentNode(i, 0,0,"Comp Sci", 0, 20);
+                        ArrayList<Card> csDeck= new ArrayList<Card>();
+                        csDeck.add(new Card("defenseive blast","moderate attack with defence added",0,0,4,"A3D2"));
+                        Ship csShip = new Ship(30,30,8,129,90,65,csDeck,Boolean.TRUE);
+                        Map[i] = new DepartmentNode(i, 0,0,"Comp Sci", 0, 20, csShip);
                         Map[i].setNodeType("Department");
                         //ship - max health-mana-regen-points worth-gold worth-cards(name-description-shop cost-gold cost-mana cost-effect/...)
                         //B-30-8-120-90-65-defensive blast,moderate attack with defence added,0,0,4,A3D2
                         break;
                     case 4:
-                        Map[i] = new DepartmentNode(i, 0,0,"Philosophy", 0, 20);
+                        ArrayList<Card> philoDeck = new ArrayList<Card>();
+                        philoDeck.add(new Card("shield bash", "light attack with defence added", 0,0,5,"A1D4"));
+                        Ship philoShip = new Ship(30,30,5,140,120,85,philoDeck,Boolean.TRUE);
+                        Map[i] = new DepartmentNode(i, 0,0,"Philosophy", 0, 20, philoShip);
                         Map[i].setNodeType("Department");
                         //ship - max health-mana-regen-points worth-gold worth-cards(name-description-shop cost-gold cost-mana cost-effect/...)
                         //B-30-5-140-120-85-shield bash,light attack with defence added,0,0,5,A1D4
@@ -272,12 +288,14 @@ class CollegeNode extends Node{
     private String name;
     private Card card;
     private int CollegeStatus; //1 = Friendly, 0 = Hostile
+    private Ship bossShip; //the ship that player battles when college is attacked.
 
-    public CollegeNode(int id, int x, int y, String name, int status, Card card){
+    public CollegeNode(int id, int x, int y, String name, int status, Card card, Ship bossShip){
         super( id,  x,  y);
         this.name = name;
         this.CollegeStatus = status;
         this.card = card;
+        this.bossShip = bossShip;
     }
 
     public Card buyCard(
@@ -307,19 +325,24 @@ class CollegeNode extends Node{
         return this.CollegeStatus;
     }
 
+    public Ship getBossShip(){
+        return this.bossShip;
+    }
 }
 
 class DepartmentNode extends Node{
 
     private String name;
-    private int upgradeCost;
+    private int upgradeCost; //cost of the colleges upgrade
     private  int departmentStatus;
+    private Ship bossShip;
 
-    public DepartmentNode(int id, int x, int y, String name, int status, int upgradeCost){
+    public DepartmentNode(int id, int x, int y, String name, int status, int upgradeCost, Ship bossShip){
         super( id,  x,  y);
         this.name = name;
         this.departmentStatus = status;
         this.upgradeCost = upgradeCost;
+        this.bossShip = bossShip;
     }
 
     public int[] buyUpgrade(){
@@ -371,5 +394,9 @@ class DepartmentNode extends Node{
 
     public int getUpgradeCost(){
         return upgradeCost;
+    }
+
+    public Ship getBossShip(){
+        return bossShip;
     }
 }

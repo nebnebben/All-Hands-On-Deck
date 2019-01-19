@@ -110,7 +110,7 @@ public class GameLogic {
                 } else if (details[1].equals("D")) {
                     nodeCollege = (CollegeNode) nodeList[2];
                 } else {
-                    nodeCollege = new CollegeNode(999,999,999,"unknown",999,new Card());
+                    nodeCollege = new CollegeNode(999,999,999,"unknown",999,new Card(),new Ship());
                 }
                 if (nodeCollege.getCollegeStatus() == 1){
                     return Boolean.TRUE;
@@ -127,7 +127,7 @@ public class GameLogic {
                     deptNode = (DepartmentNode) nodeList[2];
                 //dummy department which is never true - for identifying if something has gone wrong
                 } else {
-                    deptNode = new DepartmentNode(999,999,999,"failure",999,999);
+                    deptNode = new DepartmentNode(999,999,999,"failure",999,999, new Ship());
                 }
                 if (deptNode.getDepartmentStatus() == 1){
                     return Boolean.TRUE;
