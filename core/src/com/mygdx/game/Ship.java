@@ -98,7 +98,11 @@ public class Ship {
     }
 
     public Boolean getIsDead(){
-        return isDead;
+        if(isDead || currentHealth <= 0){
+            return true;
+        } else{
+            return false;
+        }
     }
 
     public void setIsDead(){this.isDead = true;}
