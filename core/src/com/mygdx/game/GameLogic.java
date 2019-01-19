@@ -119,8 +119,8 @@ public class GameLogic {
                 }
             case 'E':
                 DepartmentNode deptNode; //used to cast the relevant nodes to their node list
-                //alcuin
-                if (details[1].equals("A")) {
+                //compsci
+                if (details[1].equals("E")) {
                     deptNode = (DepartmentNode) nodeList[0];
                     //derwent
                 } else if (details[1].equals("D")) {

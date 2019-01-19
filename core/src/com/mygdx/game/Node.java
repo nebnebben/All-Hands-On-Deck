@@ -178,11 +178,9 @@ public class Node {
             });
             //Adds to the nearest 3 nodes to connectnodes
             Map[i].connectnodes = new ArrayList<Integer>();
-            for (int k = 0; k < 3; k++){
-                //Connects them if they aren't both colleges
-                if (Map[i].nodeType != "College" || Map[k].nodeType != "College"){
-                    Map[i].connectnodes.add(Distance[k][1].intValue());
-                }
+            for (int k = 0; k < 3; k++){ s
+                Map[i].connectnodes.add(Distance[k][1].intValue());
+
             }
 
 
