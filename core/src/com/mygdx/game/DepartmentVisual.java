@@ -164,7 +164,8 @@ public class DepartmentVisual extends ScreenAdapter {
         Ship playerShip = gameLogic.getPlayer().getPlayerShip();
         switch (in[0]){
             case 1:
-                //upgrading the max health
+                //upgrading the max health also increases current health
+                playerShip.setHealth(playerShip.getHealth()+ in[1]);
                 playerShip.setTotalHealth(playerShip.getTotalHealth()+in[1]);
             case 2:
                 //upgrading max mana
