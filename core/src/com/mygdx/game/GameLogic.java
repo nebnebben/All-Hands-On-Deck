@@ -169,6 +169,14 @@ public class GameLogic {
             out[4] = "C-D";
             out[5] = "E-C";
             return out;
+        } else if (pCollege.equals("TestCollege")) {
+            out[0] = "S-100";
+            out[1] = "S-100";
+            out[2] = "S-100";
+            out[3] = "S-100";
+            out[4] = "S-100";
+            out[5] = "S-100";
+            return out;
         } else {
             return out;
         }

@@ -566,6 +566,17 @@ public class BattleMode {
         return scoreToGain;
     }
 
+
+    //Added for ease of testing
+    public int getMana(String targetShip){
+        if(targetShip == "player"){
+            return (playerMana);
+        } else if(targetShip == "enemy"){
+            return (enemyMana);
+        }
+        return 0;
+    }
+
     /**
      * This function may be replaced in the future by one called getCardID that does the same function
      * but uses the cardID rather than the name. Would probably be more of an agile solution when there's
