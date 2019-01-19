@@ -581,4 +581,9 @@ public class BattleMode {
         }
     }
 
+    /**
+     * @return Return the player's current HP
+     */
+    public Integer getPlayerShipHealth(){return playerShipHealth;}
+
 }
