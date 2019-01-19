@@ -30,7 +30,7 @@ public class Node {
         //initializing all encounters
         //all encounters currently have 2 options. This can be expanded by changing effects into an ArrayList<String>
         //ship - max health-mana-regen-points worth-gold worth-cards(name-description-shop cost-gold cost-mana cost-effect/...)
-        encounters[0] = new Encounter(new String[]{"S-L-2","B-50-10-100-50-50-pot,pot,0,0,1,A2"},
+        encounters[0] = new Encounter(new String[]{"S-L-2","B-50-10-120-50-50-pot,pot,0,0,1,A2"},
                 "You encounter an enemy ship, do you run away or choose to fight",
                 10);
         encounters[1] = new Encounter(new String[]{"H-L-5","S-L-3"},
@@ -91,7 +91,7 @@ public class Node {
 
                         break;
                     case 1:
-                        Card jamesCard = new Card("something", "something", 10, 0, 2, "A2");
+                        Card jamesCard = new Card("fast attack", "attacks fast", 10, 0, 2, "A4");
                         ArrayList<Card> jamesDeck = new ArrayList<Card>();
                         jamesDeck.add(new Card("pellets","fast light damage",0,0,1,"A1"));
                         Ship jamesShip = new Ship(70,70,5,60,100,50,jamesDeck,Boolean.TRUE);
@@ -101,7 +101,7 @@ public class Node {
                         //B-70-5-60-100-60-pellets,fast light damage,0,0,1,A1
                         break;
                     case 2:
-                        Card derwentCard = new Card("something", "something", 10, 0, 2, "A2");
+                        Card derwentCard = new Card("something", "something", 10, 0, 2, "A5D2");
                         ArrayList<Card> derwentDeck = new ArrayList<Card>();
                         derwentDeck.add(new Card("cannonball", "steady moderate damage", 0,0,3,"A5"));
                         Ship derwentShip = new Ship(50,50,10,120,150,76,derwentDeck,Boolean.TRUE);
@@ -381,7 +381,7 @@ class DepartmentNode extends Node{
         String[] out = new String[2];
         switch(deptUpgrade[0]){
             case 1:
-                out[0] = "mana regen rate";
+                out[0] = "health";
                 out[1] = Integer.toString(deptUpgrade[1]);
                 return out;
             case 2:

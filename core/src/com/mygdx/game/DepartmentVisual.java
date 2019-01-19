@@ -164,14 +164,9 @@ public class DepartmentVisual extends ScreenAdapter {
         Ship playerShip = gameLogic.getPlayer().getPlayerShip();
         switch (in[0]){
             case 1:
-                //there is a functional max regen rate, so it will not update. If this is the case the player is refunded
-                int newRegen = playerShip.getManaRegenRate() + in[1];
-                if (newRegen <= 160){
-                    playerShip.setManaRegenRate(newRegen);
-                } else {
-                    gameLogic.currentGold += upgradeCost;
-                }
-
+                //upgrading the max health also increases the health of the ship.
+                playerShip.setTotalHealth(playerShip.getTotalHealth()+in[1]);
+                playerShip.setHealth(playerShip.getHealth()+in[1]);
             case 2:
                 int newTotal = playerShip.getTotalMana() + in[1];
                 playerShip.setTotalMana(newTotal);
