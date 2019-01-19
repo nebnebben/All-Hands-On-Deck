@@ -158,20 +158,20 @@ public class EncounterVisual extends ScreenAdapter {
                     int health = gameLogic.getPlayer().getPlayerShip().getCurrentHealth();
                     if (details[1].equals("L")) {
                         health -= Integer.parseInt(details[2]);
-                        gameLogic.getPlayer().getPlayerShip().setHealth(health);
+                        gameLogic.getPlayer().getPlayerShip().setCurrentHealth(health);
                         //gains health
                     } else if (details[1].equals("G")) {
                         health += Integer.parseInt(details[2]);
                         //if health exceeds maximum health, set health to max health. Otherwise, sethealth to health
                         if (health > gameLogic.getPlayer().getPlayerShip().getTotalHealth()) {
-                            gameLogic.getPlayer().getPlayerShip().setHealth(gameLogic.getPlayer().getPlayerShip().getTotalHealth());
+                            gameLogic.getPlayer().getPlayerShip().setCurrentHealth(gameLogic.getPlayer().getPlayerShip().getTotalHealth());
                         } else {
-                            gameLogic.getPlayer().getPlayerShip().setHealth(health);
+                            gameLogic.getPlayer().getPlayerShip().setCurrentHealth(health);
                         }
                         //maxes health
                     } else if (details[1].equals("M")) {
                         health = gameLogic.getPlayer().getPlayerShip().getTotalHealth();
-                        gameLogic.getPlayer().getPlayerShip().setHealth(health);
+                        gameLogic.getPlayer().getPlayerShip().setCurrentHealth(health);
                     }
                     break;
                     //gold

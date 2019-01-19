@@ -372,6 +372,7 @@ public class BattleModeGraphics extends ScreenAdapter {
                 ///when the screen is exited gold and score rewards are added to global gameLogic controller
                 gameLogic.currentGold += battleMode.getGoldToGain();
                 gameLogic.addScore(battleMode.getScoreToGain());
+                gameLogic.getPlayer().getPlayerShip().setCurrentHealth(battleMode.getPlayerShipHealth());
                 //then dispose
                 dispose();
                 game.setScreen(parent);

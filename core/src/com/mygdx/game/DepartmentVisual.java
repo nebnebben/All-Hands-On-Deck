@@ -133,9 +133,10 @@ public class DepartmentVisual extends ScreenAdapter {
                 //every encounter has a score which is added on, then the actual choice is interpreted
                 //cant attack an already allied department
                 if (departmentNode.getDepartmentStatus() != 1) {
-                    Ship enemyShip = new Ship();
+                    Ship enemyShip = departmentNode.getBossShip();
                     dispose();
                     game.setScreen(new BattleModeGraphics(game, clickThis, gameLogic, enemyShip));
+                    departmentNode.setDepartmentStatus(1);
                 }
             }
         });
@@ -164,15 +165,11 @@ public class DepartmentVisual extends ScreenAdapter {
         Ship playerShip = gameLogic.getPlayer().getPlayerShip();
         switch (in[0]){
             case 1:
-                //there is a functional max regen rate, so it will not update. If this is the case the player is refunded
-                int newRegen = playerShip.getManaRegenRate() + in[1];
-                if (newRegen <= 160){
-                    playerShip.setManaRegenRate(newRegen);
-                } else {
-                    gameLogic.currentGold += upgradeCost;
-                }
-
+                //upgrading the max health also increases current health
+                playerShip.setCurrentHealth(playerShip.getCurrentHealth()+ in[1]);
+                playerShip.setTotalHealth(playerShip.getTotalHealth()+in[1]);
             case 2:
+                //upgrading max mana
                 int newTotal = playerShip.getTotalMana() + in[1];
                 playerShip.setTotalMana(newTotal);
         }

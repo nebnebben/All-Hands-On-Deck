@@ -19,14 +19,14 @@ public class Ship {
         this.isDead = false;
         //adds base deck
         deck = new ArrayList<Card>();
-        deck.add(new Card("fast attack", "attacks fast", 10, 0, 2, "A9"));
-        deck.add(new Card("Slow attack", "attacks not so fast", 5, 0, 4, "A9D6"));
+        deck.add(new Card("fast attack", "attacks fast", 10, 0, 2, "A4"));
+        deck.add(new Card("Slow attack", "attacks not so fast", 5, 0, 4, "A4D6"));
         // constructor.
         name = "The Pigeons Droppings";
         totalHealth = 50;
         currentHealth = 50;
         totalMana = 20;
-        manaRegenRate = 200;
+        manaRegenRate = 150;
         pointsWorth = 30;
         goldAmount = 50;
         //basic constructor.
@@ -112,11 +112,7 @@ public class Ship {
         deck.add(card);
     }
 
-    public int getHealth(){
-        return totalHealth;
-    }
-
-    public void setHealth(int in){
+    public void setCurrentHealth(int in){
         currentHealth = in;
     }
 
