@@ -112,11 +112,7 @@ public class Ship {
         deck.add(card);
     }
 
-    public int getHealth(){
-        return totalHealth;
-    }
-
-    public void setHealth(int in){
+    public void setCurrentHealth(int in){
         currentHealth = in;
     }
 
