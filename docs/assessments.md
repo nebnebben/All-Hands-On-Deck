@@ -57,7 +57,8 @@ Assessment stuff
 
 <p> + <a href="https://github.com/7SeasOfSomething/All-Hands-On-Deck/blob/master/docs/assessment2/Updates2.pdf">Test plan and results</a></p>
 
-<p> + <a href="https://github.com/7SeasOfSomething/All-Hands-On-Deck/blob/master/docs/assessment2/Updates2.pdf">User Manual</a></p>
+<p> + <a href="https://github.com/7SeasOfSomething/All-Hands-On-Deck/blob/master/docs/assessments2/User%20Manual.pdf">User Manual(.pdf)</a></p>
+<p> + <a href="https://github.com/7SeasOfSomething/All-Hands-On-Deck/blob/master/docs/assessments2/User%20Manual.docx">User Manual(.docx)</a></p>
 
 ## Assessment Three
 **Coming Eventually!**
