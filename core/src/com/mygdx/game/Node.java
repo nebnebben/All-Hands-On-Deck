@@ -1,3 +1,5 @@
+package com.mygdx.game;
+
 import java.util.*;
 //import java.util.Random;
 //import java.util.function.IntToDoubleFunction;
@@ -11,16 +13,36 @@ public class Node {
     private String nodeType;        //Type of the node
     private String weather;         //What weather the node has
     private boolean visibility;     //What the visibility is?
-    private String[] encounters;    //The possible encounters
+    private Encounter[] encounters;    //The possible encounters
     private int encounterchance;    //Chance of an encounter
     private int x;                  //x location of node
     private int y;                  //y location of node
+    private Ship bossShip;
 
     //Instatiates the Node
     public Node(int id, int x, int y){
         this.id = id;
         this.x = x;
         this.y = y;
+        //base set of encounters triggered on non-college/department nodes - encounter number is the total number of encounters
+        int encounterNumber = 4;
+        encounters = new Encounter[encounterNumber];
+        //initializing all encounters
+        //all encounters currently have 2 options. This can be expanded by changing effects into an ArrayList<String>
+        //ship - max health-mana-regen-points worth-gold worth-cards(name-description-shop cost-gold cost-mana cost-effect/...)
+        encounters[0] = new Encounter(new String[]{"S-L-2","B-50-10-120-50-50-pot,pot,0,0,1,A2"},
+                "You encounter an enemy ship, do you run away or choose to fight",
+                10);
+        encounters[1] = new Encounter(new String[]{"H-L-5","S-L-3"},
+                "The winds have taken you into some rocks, do you sail slowly through or is speed of the essence?",
+                5);
+        encounters [2] = new Encounter(new String[]{"D-L-30","H-L-5%D-G-100"},
+                "There is a poetry competition on the ship. As captain, do you rig the votes in your favor\n and risk a mutiny?",
+                10);
+        encounters[3] = new Encounter(new String[]{"D-L-100%I-G-50%H-M","H-L-15"},
+                "You run into the god of the seas, Poseidon. He offers to bless your ship for a cost,\n do you take his offer or risk his wrath?",
+                15);
+
     }
 
 
@@ -32,17 +54,11 @@ public class Node {
         return xy;
     }
 
-    //Randomly decides on which encounter to selectz
-    public void giveEncounter() {
+    //Randomly decides on which encounter to select - future implementation includes encounter chance for different encounters
+    public Encounter giveEncounter() {
         Random chance = new Random();
-        int n = chance.nextInt(100)+1;
-        if (n > encounterchance) {
-            chance = new Random();
-            n = chance.nextInt(encounters.length);
-            //encounter[n]
-        } else {
-            //no encounter
-        }
+        return encounters[chance.nextInt(encounters.length)];
+
     }
 
     //Generate list of nodes
@@ -59,7 +75,66 @@ public class Node {
         Boolean inbounds = true;
         for (int i = 0; i < Map.length; i++){
             //Gives each node an id, and a default location
-            Map[i] = new Node(i,0,0);
+            if(i < 5){
+                switch (i){
+                    //First 3 nodes are colleges, 4+5 are departments
+                    case 0:
+                        //first initializes colleges unique card, then changes a node to a collegeNode
+                        Card alcuinCard = new Card("Slow attack", "attacks not so fast", 5, 0, 4, "A4D6");
+                        ArrayList<Card> alcuinDeck = new ArrayList<Card>();
+                        alcuinDeck.add(new Card("barrage","fast heavy damage",0,0,2,"A8"));
+                        Ship alcuinShip = new Ship(35,35,20,90,120,65, alcuinDeck,Boolean.TRUE);
+                        Map[i] = new CollegeNode(i, 0,0,"Alcuin", 1, alcuinCard, alcuinShip);
+                        Map[i].setNodeType("College");
+                        //ship - max health-mana-regen-points worth-gold worth-cards(name-description-shop cost-gold cost-mana cost-effect/...)
+                        //B-35-20-90-120-65-barrage,fast heavy damage,0,0,2,A8
+
+                        break;
+                    case 1:
+                        Card jamesCard = new Card("fast attack", "attacks fast", 10, 0, 2, "A4");
+                        ArrayList<Card> jamesDeck = new ArrayList<Card>();
+                        jamesDeck.add(new Card("pellets","fast light damage",0,0,1,"A1"));
+                        Ship jamesShip = new Ship(70,70,5,60,100,50,jamesDeck,Boolean.TRUE);
+                        Map[i] = new CollegeNode(i, 0,0,"James", 0, jamesCard,jamesShip);
+                        Map[i].setNodeType("College");
+                        //ship - max health-mana-regen-points worth-gold worth-cards(name-description-shop cost-gold cost-mana cost-effect/...)
+                        //B-70-5-60-100-60-pellets,fast light damage,0,0,1,A1
+                        break;
+                    case 2:
+                        Card derwentCard = new Card("something", "something", 10, 0, 2, "A5D2");
+                        ArrayList<Card> derwentDeck = new ArrayList<Card>();
+                        derwentDeck.add(new Card("cannonball", "steady moderate damage", 0,0,3,"A5"));
+                        Ship derwentShip = new Ship(50,50,10,120,150,76,derwentDeck,Boolean.TRUE);
+                        Map[i] = new CollegeNode(i, 0,0,"Derwent", 0, derwentCard,derwentShip);
+                        Map[i].setNodeType("College");
+                        //ship - max health-mana-regen-points worth-gold worth-cards(name-description-shop cost-gold cost-mana cost-effect/...)
+                        //B-50-10-120-150-75-cannonball,steady moderate damage,0,0,3,A5
+                        break;
+                    case 3:
+                        ArrayList<Card> csDeck= new ArrayList<Card>();
+                        csDeck.add(new Card("defenseive blast","moderate attack with defence added",0,0,4,"A3D2"));
+                        Ship csShip = new Ship(30,30,8,129,90,65,csDeck,Boolean.TRUE);
+                        Map[i] = new DepartmentNode(i, 0,0,"Computer Science", 0, 20, csShip);
+                        Map[i].setNodeType("Department");
+                        //ship - max health-mana-regen-points worth-gold worth-cards(name-description-shop cost-gold cost-mana cost-effect/...)
+                        //B-30-8-120-90-65-defensive blast,moderate attack with defence added,0,0,4,A3D2
+                        break;
+                    case 4:
+                        ArrayList<Card> philoDeck = new ArrayList<Card>();
+                        philoDeck.add(new Card("shield bash", "light attack with defence added", 0,0,5,"A1D4"));
+                        Ship philoShip = new Ship(30,30,5,140,120,85,philoDeck,Boolean.TRUE);
+                        Map[i] = new DepartmentNode(i, 0,0,"Philosophy", 0, 20, philoShip);
+                        Map[i].setNodeType("Department");
+                        //ship - max health-mana-regen-points worth-gold worth-cards(name-description-shop cost-gold cost-mana cost-effect/...)
+                        //B-30-5-140-120-85-shield bash,light attack with defence added,0,0,5,A1D4
+                        break;
+                }
+
+            } else {
+                //Otherwise just normal nodes
+                Map[i] = new Node(i,0,0);
+                Map[i].setNodeType("Normal");
+            }
             inbounds = true;
             //Loop to check no node is within x distance of each other
             while(inbounds == true){
@@ -70,8 +145,15 @@ public class Node {
 
                 //Check to see whether the co-ordinates are within x of another node, if yes loop
                 for (int j = 0; j < i; j++){
-                    if (Math.sqrt((Math.pow((Map[i].x - Map[j].x),2) + Math.pow((Map[i].y - Map[j].y),2))) < 30){
-                        inbounds = true;
+                    //Ensures colleges (first 3) are further away from each other than normal nodes
+                    if (i < 3){
+                        if (Math.sqrt((Math.pow((Map[i].x - Map[j].x),2) + Math.pow((Map[i].y - Map[j].y),2))) < 120){
+                            inbounds = true;
+                        }
+                    } else {
+                        if (Math.sqrt((Math.pow((Map[i].x - Map[j].x),2) + Math.pow((Map[i].y - Map[j].y),2))) < 30){
+                            inbounds = true;
+                        }
                     }
                 }
 
@@ -113,7 +195,10 @@ public class Node {
             //Adds to the nearest 3 nodes to connectnodes
             Map[i].connectnodes = new ArrayList<Integer>();
             for (int k = 0; k < 3; k++){
-                Map[i].connectnodes.add(Distance[k][1].intValue());
+                //Connects them if they aren't both colleges
+                if (Map[i].nodeType != "College" || Map[k].nodeType != "College"){
+                    Map[i].connectnodes.add(Distance[k][1].intValue());
+                }
             }
 
 
@@ -196,39 +281,127 @@ public class Node {
         return this.connectnodes;
     }
 
-//ArrayList<Integer> list=new ArrayList<Integer>();
 }
 
 class CollegeNode extends Node{
 
     private String name;
-    private int CollegeStatus;
+    private Card card;
+    private int CollegeStatus; //1 = Friendly, 0 = Hostile
+    private Ship bossShip; //the ship that player battles when college is attacked.
 
-    public CollegeNode(int id, int x, int y){
+    public CollegeNode(int id, int x, int y, String name, int status, Card card, Ship bossShip){
         super( id,  x,  y);
+        this.name = name;
+        this.CollegeStatus = status;
+        this.card = card;
+        this.bossShip = bossShip;
     }
 
-    public void buyCard(int CardID){}
+    public Card buyCard(
+    ){
+        //return card ID
+        return card;
+    }
 
-    public void giveQuest(){}
+    public void giveQuest(
+    ){
+        //return Quest
+    }
 
-    public void attackCollege(){}
+    public void attackCollege(){
+        // BattleMode battleMode = new BattleMode();
+    }
 
+    public String getCollegeName(){
+        return this.name;
+    }
 
+    public void setCollegeName(String name){
+        this.name = name;
+    }
+
+    public int getCollegeStatus(){
+        return this.CollegeStatus;
+    }
+
+    public void setCollegeStatus(int status){this.CollegeStatus = status;}
+
+    public Ship getBossShip(){
+        return this.bossShip;
+    }
 }
 
 class DepartmentNode extends Node{
 
     private String name;
+    private int upgradeCost; //cost of the colleges upgrade
     private  int departmentStatus;
+    private Ship bossShip;
 
-    public DepartmentNode(int id, int x, int y){
+    public DepartmentNode(int id, int x, int y, String name, int status, int upgradeCost, Ship bossShip){
         super( id,  x,  y);
+        this.name = name;
+        this.departmentStatus = status;
+        this.upgradeCost = upgradeCost;
+        this.bossShip = bossShip;
     }
 
-    public void buyUpgrade(int choice){}
+    public int[] buyUpgrade(){
+        int[] upgrade = new int[2];
+        if (this.name == "Computer Science"){
+            upgrade[0] = 1;
+            upgrade[1] = 20;
+            return upgrade;
+        } else {
+            upgrade[0] = 2;
+            upgrade[1] = 20;
+            return upgrade;
+        }
+    }
 
-    public void attackCollege(){}
+    public void attackCollege(){
+        // BattleMode battleMode = new BattleMode();
+    }
 
-    public void playMinigame(){}
+
+    public String getDepartmentName(){
+        return this.name;
+    }
+
+    public void setDepartmentName(String name){
+        this.name = name;
+    }
+
+    public int getDepartmentStatus(){
+        return this.departmentStatus;
+    }
+    public void setDepartmentStatus(int status){
+        this.departmentStatus = status;
+    }
+
+    //interprets the college upgrades as a string
+    public String[] upgrade2Str(){
+        int[] deptUpgrade = buyUpgrade();
+        String[] out = new String[2];
+        switch(deptUpgrade[0]){
+            case 1:
+                out[0] = "health";
+                out[1] = Integer.toString(deptUpgrade[1]);
+                return out;
+            case 2:
+                out[0] = "total mana";
+                out[1] = Integer.toString(deptUpgrade[1]);
+                return out;
+            default: return out;
+        }
+    }
+
+    public int getUpgradeCost(){
+        return upgradeCost;
+    }
+
+    public Ship getBossShip(){
+        return bossShip;
+    }
 }

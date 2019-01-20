@@ -11,41 +11,110 @@ For that type of encounter: options, score and descriptions are read from a data
 
 */
 public class Encounter {
-    private ArrayList<String> options;
-    private ArrayList<String> effects;
+    private String[] options;
+    private String[] effects;
     private int score;
     private String description;
 
-    public Encounter(){
-        Encounter encounter = new Encounter();
-        encounter.effects = new ArrayList<String>();
-        /*
-        TO DO:
-        Type of encounter is randomly chosen and options, effects and description are all read from some kind of database
 
-         */
-
-    }
-
-    public Encounter(ArrayList<String> effects){
-        Encounter encounter = new Encounter();
-        encounter.effects = effects;
-        /*
-        TO DO:
-        Type of encounter is randomly chosen and options, effects and description are all read from some kind of database
-
-         */
+    public Encounter(String[] effects, String description, int score){
+        this.effects = effects;
+        this.description = description;
+        this.score = score;
+        options = new String[effects.length];
+        //Options initialized utilizing effects
+        for (int i=0; i<effects.length;i++){
+            //effect number
+            String num = Integer.toString(i+1);
+            //plus the effect parsed as a readable string
+            options[i] = num + ". " + effectString2Text(effects[i]);
+        }
 
     }
 
-    public void chooseOption(int choice){
+    private String effectString2Text(String effect){
+        //for multiple effect effects
+        String[] sumEffects = effect.split("%");
+        //and counter for phrasing
+        int andCounter = sumEffects.length-1;
+        //out string
+        String out = "";
+        for (String e: sumEffects) {
+            String[] details = e.split("-");
+            switch (details[0].charAt(0)) {
+                //battle, details[1] contains details for the enemy ship
+                case 'B':
+                    out += "Battle ship";
+                    break;
+                //change supplies - details [1] indicates whether to add or subtract, details [2] by how much
+                case 'S':
+                    if (details[1].equals("L")) {
+                        out += "Lose " + details[2] + " supplies";
+                    } else if (details[1].equals("G")) {
+                        out += "Gain " + details[2] + " supplies";
+                    }
+                    break;
+                case 'H':
+                    if (details[1].equals("L")){
+                        out += "Lose " +details[2] + " health";
+                    } else if (details[1].equals("G")){
+                        out += "Gain " +details[2] + "health";
+                    } else if (details[1].equals("M")){
+                        out += "Gain full health";
+                    }
+                    break;
+                case 'D':
+                    if (details[1].equals("L")){
+                        out += "Lose " + details[2] + " gold";
+                    } else if (details[1].equals("G")){
+                        out += "Gain " + details[2] + " gold";
+                    }
+                    break;
+                //max health
+                case 'I':
+                    if (details[1].equals("L")){
+                        out += "Lose "+details[2] + " max health";
+                    } else if (details[1].equals("G")) {
+                        out += "Gain " +details[2] + " max health";
+                    }
+                    break;
+                default:
+                    out= "EFFECT NOT RECOGNIZED";
+                    break;
+            }
+            //if there is more than 1 effect left, add comma. If there is one, add and. Otherwise nothing
+            if (andCounter > 1){
+                out = out + ", ";
+            } else if (andCounter == 1){
+                out = out + " and ";
+            }
+            //dec counter
+            andCounter -= 1;
+
+        }
+        return out;
+
+
 
     }
 
-    /*
-    NOTE: Battle doesn't exist so this code throws up an error
-    public Battle startBattle(Ship playerShip, Ship enemyShip){
-        return
+    public String chooseOption(int choice){
+        return effects[choice];
     }
-    */
+
+    public String[] getOptions(){
+        return options;
+    }
+
+    public String getDescription(){
+        return description;
+    }
+
+    public String[] getEffects(){
+        return effects;
+    }
+
+    public int getScore(){
+        return score;
+    }
 }

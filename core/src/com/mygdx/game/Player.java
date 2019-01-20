@@ -2,14 +2,16 @@ package com.mygdx.game;
 
 public class Player {
 
-    public Player(){
-        Ship PlayerShip = new Ship();
-    }
-
     private String name;
     private String college;
+    private Ship playerShip;
 
-    //do i need these or do i get from Ship?
+    public Player(String pName, String pCollege ){
+        name = pName;
+        college = pCollege;
+        playerShip = new Ship();
+    }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -24,5 +26,9 @@ public class Player {
 
     public String getCollege() {
         return college;
+    }
+
+    public Ship getPlayerShip() {
+        return playerShip;
     }
 }
