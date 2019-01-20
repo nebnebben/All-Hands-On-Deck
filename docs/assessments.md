@@ -38,7 +38,7 @@ Assessment stuff
 
 <p> + <a href="https://github.com/7SeasOfSomething/All-Hands-On-Deck/blob/master/docs/assessments2/Impl2.pdf">Implementation</a></p>
 
-<p> + <a href="https://github.com/7SeasOfSomething/All-Hands-On-Deck/blob/master/docs/assessment2/Test2.pdf">Testing Report</a></p>
+<p> + <a href="https://github.com/7SeasOfSomething/All-Hands-On-Deck/blob/master/docs/assessments2/Test2.pdf">Testing Report</a></p>
 
 <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - <a href="https://github.com/7SeasOfSomething/All-Hands-On-Deck/blob/master/docs/assessments2/Non-Functional%20Requirements%20Test.pdf">Questionnaire</a></p>
 <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - <a href="https://github.com/7SeasOfSomething/All-Hands-On-Deck/blob/master/docs/assessments2/Testing.java">Testing.java</a></p>
@@ -49,13 +49,12 @@ Assessment stuff
 <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - <a href="https://github.com/7SeasOfSomething/All-Hands-On-Deck/blob/master/docs/assessments2/Updated%20Requirements%20Elicitation.pdf">Updated Requirement Elicitation</a></p>
 <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - <a href="https://github.com/7SeasOfSomething/All-Hands-On-Deck/blob/master/docs/assessments2/Updated%20Plan.pdf">Updated Plan</a></p>
 <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - <a href="https://github.com/7SeasOfSomething/All-Hands-On-Deck/blob/master/docs/assessments2/Updated%20Risk%20Assessment.pdf">Updated Risk Assessment</a></p>
-<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - <a href="https://github.com/7SeasOfSomething/All-Hands-On-Deck/blob/master/docs/assessments2/Gantt%20Chart2.pdf">Updated Gantt Chart</a></p>
+
 
 
  
 <p> + <a href="https://github.com/7SeasOfSomething/All-Hands-On-Deck/blob/master/docs/assessment2/Updates2.pdf">Game executable</a></p>
 
-<p> + <a href="https://github.com/7SeasOfSomething/All-Hands-On-Deck/blob/master/docs/assessment2/Updates2.pdf">Test plan and results</a></p>
 
 <p> + <a href="https://github.com/7SeasOfSomething/All-Hands-On-Deck/blob/master/docs/assessments2/User%20Manual.pdf">User Manual(.pdf)</a></p>
 <p> + <a href="https://github.com/7SeasOfSomething/All-Hands-On-Deck/blob/master/docs/assessments2/User%20Manual.docx">User Manual(.docx)</a></p>
