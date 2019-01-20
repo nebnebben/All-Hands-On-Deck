@@ -66,7 +66,8 @@ public class BattleModeGraphics extends ScreenAdapter {
 
 
     public class PlayerShip extends Actor {
-        Texture texture = new Texture(Gdx.files.internal("Ship2_Undamaged.png"));
+        String filename = "Ship2_Undamaged.png";
+        Texture texture = new Texture(Gdx.files.internal(filename));
         public boolean started = false;
 
 
@@ -82,26 +83,34 @@ public class BattleModeGraphics extends ScreenAdapter {
         @Override
         public void act(float delta){ //Changes sprite depending on how much damage the ship has taken
             float hpPercentage = battleMode.getShipHealthPercentage("player");
-            if(hpPercentage <= 0){
-                texture = new Texture(Gdx.files.internal("Ship2_destroyed.png"));
-            } else if(hpPercentage <= 80 && hpPercentage > 60){
-                texture = new Texture(Gdx.files.internal("Ship2_damage1.png"));
-            } else if(hpPercentage <= 60 && hpPercentage > 40){
-                texture = new Texture(Gdx.files.internal("Ship2_damage2.png"));
-            } else if(hpPercentage <= 40 && hpPercentage > 20){
-                texture = new Texture(Gdx.files.internal("Ship2_damage3.png"));
-            } else if(hpPercentage <= 20 && hpPercentage > 0){
-                texture = new Texture(Gdx.files.internal("Ship2_damage4.png"));
-            } else{
+            if(hpPercentage <= 0 && !(filename == "Ship2_destroyed.jpg")){
+                filename = "Ship2_destroyed.png";
+                texture = new Texture(Gdx.files.internal(filename));
+            } else if(hpPercentage <= 80 && hpPercentage > 60 && !(filename == "Ship2_damage1.png")){
+                filename = "Ship2_damage1.png";
+                texture = new Texture(Gdx.files.internal(filename));
+            } else if(hpPercentage <= 60 && hpPercentage > 40 && !(filename == "Ship2_damage2.png")){
+                filename = "Ship2_damage2.png";
+                texture = new Texture(Gdx.files.internal(filename));
+            } else if(hpPercentage <= 40 && hpPercentage > 20 && !(filename == "Ship2_damage3.png")){
+                filename = "Ship2_damage3.png";
+                texture = new Texture(Gdx.files.internal(filename));
+            } else if(hpPercentage <= 20 && hpPercentage > 0 && !(filename == "Ship2_damage4.png")){
+                filename = "Ship2_damage4.png";
+                texture = new Texture(Gdx.files.internal(filename));
+            } else if (hpPercentage <= 0){
                 //Another check is necessary here to give it the correct sprite, to-do.
-                texture = new Texture(Gdx.files.internal("Ship2_Undamaged.png"));
+                if(!(filename == "Ship2_Undamaged.png" )){
+                    filename = "Ship2_Undamaged.png";
+                    texture = new Texture(Gdx.files.internal(filename));
+                }
             }
         }
-
     }
 
     public class EnemyShip extends Actor {
-        Texture texture = new Texture(Gdx.files.internal("Ship1_Undamaged.png"));
+        String filename = "Ship1_Undamaged.png";
+        Texture texture = new Texture(Gdx.files.internal(filename));
         public boolean started = false;
 
 
@@ -115,22 +124,29 @@ public class BattleModeGraphics extends ScreenAdapter {
         @Override
         public void act(float delta){ //Changes sprite depending on how much damage the ship has taken
             float hpPercentage = battleMode.getShipHealthPercentage("enemy");
-            if(hpPercentage <= 0){
-                texture = new Texture(Gdx.files.internal("Ship1_destroyed.png"));
-            } else if(hpPercentage <= 80 && hpPercentage> 60){
-                texture = new Texture(Gdx.files.internal("Ship1_damage1.png"));
-            } else if(hpPercentage <= 60 && hpPercentage > 40){
-                texture = new Texture(Gdx.files.internal("Ship1_damage2.png"));
-            } else if(hpPercentage <= 40 && hpPercentage > 20){
-                texture = new Texture(Gdx.files.internal("Ship1_damage3.png"));
-            } else if(hpPercentage <= 20 && hpPercentage > 0){
-                texture = new Texture(Gdx.files.internal("Ship1_damage4.png"));
-            } else{
+            if(hpPercentage <= 0 && !(filename == "Ship1_destroyed.jpg")){
+                filename = "Ship1_destroyed.png";
+                texture = new Texture(Gdx.files.internal(filename));
+            } else if(hpPercentage <= 80 && hpPercentage > 60 && !(filename == "Ship1_damage1.png")){
+                filename = "Ship1_damage1.png";
+                texture = new Texture(Gdx.files.internal(filename));
+            } else if(hpPercentage <= 60 && hpPercentage > 40 && !(filename == "Ship1_damage2.png")){
+                filename = "Ship1_damage2.png";
+                texture = new Texture(Gdx.files.internal(filename));
+            } else if(hpPercentage <= 40 && hpPercentage > 20 && !(filename == "Ship1_damage3.png")){
+                filename = "Ship1_damage3.png";
+                texture = new Texture(Gdx.files.internal(filename));
+            } else if(hpPercentage <= 20 && hpPercentage > 0 && !(filename == "Ship1_damage4.png")){
+                filename = "Ship1_damage4.png";
+                texture = new Texture(Gdx.files.internal(filename));
+            } else if (hpPercentage <= 0){
                 //Another check is necessary here to give it the correct sprite, to-do.
-                texture = new Texture(Gdx.files.internal("Ship1_Undamaged.png"));
+                if(!(filename == "Ship1_Undamaged.png" )){
+                    filename = "Ship1_Undamaged.png";
+                    texture = new Texture(Gdx.files.internal(filename));
+                }
             }
         }
-
     }
 
     public class Card1 extends Actor {
@@ -167,11 +183,15 @@ public class BattleModeGraphics extends ScreenAdapter {
                 started = false;
             }
             if(battleMode.isCardEmpty(0)){
-                texture = new Texture(Gdx.files.internal("CardEmpty_small.png"));
+                if (!(fileName == "CardEmpty_small.png")){
+                    texture = new Texture(Gdx.files.internal("CardEmpty_small.png"));
+                }
             } else{
-                //The fileName will be the card's name. Make sure each card is named.
-                fileName = battleMode.getCardName(0) + ".png";
-                texture = new Texture(Gdx.files.internal(fileName));
+                if (!(fileName == (battleMode.getCardName(0) + ".png"))){
+                    //The fileName will be the card's name. Make sure each card is named.
+                    fileName = battleMode.getCardName(0) + ".png";
+                    texture = new Texture(Gdx.files.internal(fileName));
+                }
             }
         }
     }
@@ -205,11 +225,15 @@ public class BattleModeGraphics extends ScreenAdapter {
                 started = false;
             }
             if(battleMode.isCardEmpty(1)){
-                texture = new Texture(Gdx.files.internal("CardEmpty_small.png"));
+                if (!(fileName == "CardEmpty_small.png")){
+                    texture = new Texture(Gdx.files.internal("CardEmpty_small.png"));
+                }
             } else{
-                //The fileName will be the card's name. Make sure each card is named.
-                fileName = battleMode.getCardName(1) + ".png";
-                texture = new Texture(Gdx.files.internal(fileName));
+                if (!(fileName == (battleMode.getCardName(0) + ".png"))){
+                    //The fileName will be the card's name. Make sure each card is named.
+                    fileName = battleMode.getCardName(1) + ".png";
+                    texture = new Texture(Gdx.files.internal(fileName));
+                }
             }
         }
     }
@@ -242,11 +266,15 @@ public class BattleModeGraphics extends ScreenAdapter {
                 started = false;
             }
             if(battleMode.isCardEmpty(2)){
-                texture = new Texture(Gdx.files.internal("CardEmpty_small.png"));
+                if (!(fileName == "CardEmpty_small.png")){
+                    texture = new Texture(Gdx.files.internal("CardEmpty_small.png"));
+                }
             } else{
-                //The fileName will be the card's name. Make sure each card is named.
-                fileName = battleMode.getCardName(2) + ".png";
-                texture = new Texture(Gdx.files.internal(fileName));
+                if (!(fileName == (battleMode.getCardName(2) + ".png"))){
+                    //The fileName will be the card's name. Make sure each card is named.
+                    fileName = battleMode.getCardName(2) + ".png";
+                    texture = new Texture(Gdx.files.internal(fileName));
+                }
             }
         }
     }
@@ -279,11 +307,15 @@ public class BattleModeGraphics extends ScreenAdapter {
                 started = false;
             }
             if(battleMode.isCardEmpty(3)){
-                texture = new Texture(Gdx.files.internal("CardEmpty_small.png"));
+                if (!(fileName == "CardEmpty_small.png")){
+                    texture = new Texture(Gdx.files.internal("CardEmpty_small.png"));
+                }
             } else{
-                //The fileName will be the card's name. Make sure each card is named.
-                fileName = battleMode.getCardName(3) + ".png";
-                texture = new Texture(Gdx.files.internal(fileName));
+                if (!(fileName == (battleMode.getCardName(3) + ".png"))){
+                    //The fileName will be the card's name. Make sure each card is named.
+                    fileName = battleMode.getCardName(3) + ".png";
+                    texture = new Texture(Gdx.files.internal(fileName));
+                }
             }
         }
     }

@@ -115,7 +115,7 @@ public class CollegeVisual extends ScreenAdapter {
     //attacks the college, which triggers a unique battle
     private void createAttackButton(){
         attackButton = new TextButton("attack",optionStyle);
-        attackButton.setText("3. Attack department");
+        attackButton.setText("3. Attack college");
         attackButton.setSize(100, 12);
         attackButton.setPosition(20, Gdx.graphics.getHeight() - 70);
         //the label for the button needs to be aligned to the left, defaults to the center
