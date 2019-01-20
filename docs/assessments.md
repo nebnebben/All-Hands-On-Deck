@@ -55,7 +55,7 @@ Assessment stuff
 
 
  
-<p> + <a href="https://github.com/7SeasOfSomething/All-Hands-On-Deck/blob/master/docs/assessment2/Updates2.pdf">Game executable</a></p>
+<p> + <a href="https://drive.google.com/open?id=19j1ks9zoGIs43eoPInT4LZhDt-GEdtgEf">Game executable</a></p>
 
 
 <p> + <a href="https://github.com/7SeasOfSomething/All-Hands-On-Deck/blob/master/docs/assessments2/User%20Manual.pdf">User Manual(.pdf)</a></p>
