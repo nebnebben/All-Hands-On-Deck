@@ -67,8 +67,7 @@ Assessment stuff
 
 <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - <a href="https://raw.githubusercontent.com/7SeasOfSomething/All-Hands-On-Deck/master/docs/assessment1/architecture/ArchitectureMain.jpg">Testing Results</a></p>
 
-<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - <a href="https://raw.githubusercontent.com/7SeasOfSomething/All-Hands-On-Deck/master/docs/assessment1/architecture/ArchitectureMain.jpg">Game Executable</a></p>
-
+<p> + <a href="https://github.com/7SeasOfSomething/All-Hands-On-Deck/blob/master/docs/assessment1/arch1.pdf">Game Executable</a></p>
 
 <p> + <a href="https://github.com/7SeasOfSomething/All-Hands-On-Deck/blob/master/docs/assessment1/User Manual">User Manual(.pdf)</a></p>
 
