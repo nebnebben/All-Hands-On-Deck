@@ -51,18 +51,29 @@ Assessment stuff
 <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - <a href="https://github.com/7SeasOfSomething/All-Hands-On-Deck/blob/master/docs/assessments2/Updated%20Requirements%20Elicitation.pdf">Updated Requirement Elicitation</a></p>
 <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - <a href="https://github.com/7SeasOfSomething/All-Hands-On-Deck/blob/master/docs/assessments2/Updated%20Plan.pdf">Updated Plan</a></p>
 <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - <a href="https://github.com/7SeasOfSomething/All-Hands-On-Deck/blob/master/docs/assessments2/Updated%20Risk%20Assessment.pdf">Updated Risk Assessment</a></p>
-
-
-
  
 <p> + <a href="https://drive.google.com/open?id=19j1ks9zoGIs43eoPInT4LZhDt-GEdtgE">Game executable</a></p>
-
-
 <p> + <a href="https://github.com/7SeasOfSomething/All-Hands-On-Deck/blob/master/docs/assessments2/User%20Manual.pdf">User Manual(.pdf)</a></p>
 <p> + <a href="https://github.com/7SeasOfSomething/All-Hands-On-Deck/blob/master/docs/assessments2/User%20Manual.docx">User Manual(.docx)</a></p>
 
 ## Assessment Three
-**Coming Eventually!**
+
+<p> + <a href="https://github.com/7SeasOfSomething/All-Hands-On-Deck/blob/master/docs/assessment1/arch1.pdf">Assessment 3 Deliverables</a></p>
+
+<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - <a href="https://raw.githubusercontent.com/7SeasOfSomething/All-Hands-On-Deck/master/docs/assessment1/architecture/ArchitectureMain.jpg">Change Report</a></p>
+<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - <a href="https://raw.githubusercontent.com/7SeasOfSomething/All-Hands-On-Deck/master/docs/assessment1/architecture/ArchitectureMain.jpg">Implementation</a></p>
+
+<p> + <a href="https://github.com/7SeasOfSomething/All-Hands-On-Deck/blob/master/docs/assessment1/arch1.pdf">Test Plan</a></p>
+
+<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - <a href="https://raw.githubusercontent.com/7SeasOfSomething/All-Hands-On-Deck/master/docs/assessment1/architecture/ArchitectureMain.jpg">Testing Results</a></p>
+
+<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - <a href="https://raw.githubusercontent.com/7SeasOfSomething/All-Hands-On-Deck/master/docs/assessment1/architecture/ArchitectureMain.jpg">Game Executable</a></p>
+
+
+<p> + <a href="https://github.com/7SeasOfSomething/All-Hands-On-Deck/blob/master/docs/assessment1/User Manual">User Manual(.pdf)</a></p>
+
+
+<p> + <a href="https://github.com/7SeasOfSomething/All-Hands-On-Deck/blob/master/docs/assessment1/arch1.pdf">User Manual(.docx)</a></p>
 ## Assessment Four
 **Coming Eventually!**
 
