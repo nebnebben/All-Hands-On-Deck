@@ -58,14 +58,13 @@ Assessment stuff
 
 ## Assessment Three
 
-<p> + <a href="https://github.com/7SeasOfSomething/All-Hands-On-Deck/blob/master/docs/assessment1/arch1.pdf">Assessment 3 Deliverables</a></p>
+<p> + <a href="ttps://github.com/7SeasOfSomething/All-Hands-On-Deck/blob/master/docs/assessments3/Change3.pdf">Change Report</a></p>
 
-<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - <a href="https://github.com/7SeasOfSomething/All-Hands-On-Deck/blob/master/docs/assessments3/Change3.pdf">Change Report</a></p>
-<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - <a href="https://github.com/7SeasOfSomething/All-Hands-On-Deck/blob/master/docs/assessments3/Impl3.pdf">Implementation</a></p>
+<p> + <a href=https://github.com/7SeasOfSomething/All-Hands-On-Deck/blob/master/docs/assessments3/Impl3.pdf">Implementation</a></p>
 
-<p> + <a href="https://github.com/7SeasOfSomething/All-Hands-On-Deck/blob/master/docs/assessment1/arch1.pdf">Test Plan</a></p>
+<p> + <a href="https://github.com/7SeasOfSomething/All-Hands-On-Deck/blob/master/docs/assessments3/Testing%20Table.docx">Testing Table</a></p>
 
-<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - <a href="https://raw.githubusercontent.com/7SeasOfSomething/All-Hands-On-Deck/master/docs/assessment1/architecture/ArchitectureMain.jpg">Testing Results</a></p>
+<p> + <a href="https://github.com/7SeasOfSomething/All-Hands-On-Deck/blob/master/docs/assessment1/arch1.pdf">Test Executable</a></p>
 
 <p> + <a href="https://github.com/7SeasOfSomething/All-Hands-On-Deck/blob/master/docs/assessments3/desktop-1.0.jar">Game Executable</a></p>
 
