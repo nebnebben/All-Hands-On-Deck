@@ -69,10 +69,10 @@ Assessment stuff
 
 <p> + <a href="https://github.com/7SeasOfSomething/All-Hands-On-Deck/blob/master/docs/assessment1/arch1.pdf">Game Executable</a></p>
 
-<p> + <a href="https://github.com/7SeasOfSomething/All-Hands-On-Deck/blob/master/docs/assessment1/User Manual">User Manual(.pdf)</a></p>
+<p> + <a href="https://github.com/7SeasOfSomething/All-Hands-On-Deck/blob/master/docs/assessments3/User%20Manual.pdf">User Manual(.pdf)</a></p>
 
 
-<p> + <a href="https://github.com/7SeasOfSomething/All-Hands-On-Deck/blob/master/docs/assessment1/arch1.pdf">User Manual(.docx)</a></p>
+<p> + <a href="https://github.com/7SeasOfSomething/All-Hands-On-Deck/blob/master/docs/assessments3/User%20Manual.docx">User Manual(.docx)</a></p>
 ## Assessment Four
 **Coming Eventually!**
 
