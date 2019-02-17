@@ -60,11 +60,13 @@ Assessment stuff
 
 <p> + <a href="ttps://github.com/7SeasOfSomething/All-Hands-On-Deck/blob/master/docs/assessments3/Change3.pdf">Change Report</a></p>
 
-<p> + <a href=https://github.com/7SeasOfSomething/All-Hands-On-Deck/blob/master/docs/assessments3/Impl3.pdf">Implementation</a></p>
+<p> + <a href="https://github.com/7SeasOfSomething/All-Hands-On-Deck/blob/master/docs/assessments3/Impl3.pdf">Implementation</a></p>
 
 <p> + <a href="https://github.com/7SeasOfSomething/All-Hands-On-Deck/blob/master/docs/assessments3/Testing%20Table.docx">Testing Table</a></p>
 
-<p> + <a href="https://github.com/7SeasOfSomething/All-Hands-On-Deck/blob/master/docs/assessment1/arch1.pdf">Test Executable</a></p>
+<p> + <a href="https://github.com/7SeasOfSomething/All-Hands-On-Deck/blob/master/docs/assessment1/arch1.pdf">Testing Executable</a></p>
+
+<p> + <a href="https://github.com/7SeasOfSomething/All-Hands-On-Deck/blob/master/docs/assessments3/minigametest.java">Minigame Testing Executable</a></p>
 
 <p> + <a href="https://github.com/7SeasOfSomething/All-Hands-On-Deck/blob/master/docs/assessments3/desktop-1.0.jar">Game Executable</a></p>
 
