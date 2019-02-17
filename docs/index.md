@@ -4,7 +4,7 @@
 Welcome to the Seven Seas Of Something website! This is all still under construction, so please bear with us in the meantime.
 
 
-Currently, both Assessment One and Assessment Two are available to download on the Assessments Tab.
+Currently, Assessment One, Two, and Three are available to download on the Assessments Tab.
 
 
 
