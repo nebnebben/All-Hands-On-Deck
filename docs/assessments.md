@@ -60,8 +60,8 @@ Assessment stuff
 
 <p> + <a href="https://github.com/7SeasOfSomething/All-Hands-On-Deck/blob/master/docs/assessment1/arch1.pdf">Assessment 3 Deliverables</a></p>
 
-<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - <a href="https://raw.githubusercontent.com/7SeasOfSomething/All-Hands-On-Deck/master/docs/assessment1/architecture/ArchitectureMain.jpg">Change Report</a></p>
-<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - <a href="https://raw.githubusercontent.com/7SeasOfSomething/All-Hands-On-Deck/master/docs/assessment1/architecture/ArchitectureMain.jpg">Implementation</a></p>
+<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - <a href="https://github.com/7SeasOfSomething/All-Hands-On-Deck/blob/master/docs/assessments3/Change3.pdf">Change Report</a></p>
+<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - <a href="https://github.com/7SeasOfSomething/All-Hands-On-Deck/blob/master/docs/assessments3/Impl3.pdf">Implementation</a></p>
 
 <p> + <a href="https://github.com/7SeasOfSomething/All-Hands-On-Deck/blob/master/docs/assessment1/arch1.pdf">Test Plan</a></p>
 
